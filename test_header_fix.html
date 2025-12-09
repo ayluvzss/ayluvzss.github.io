@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试标题栏修复</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .pass { background-color: #d4edda; color: #155724; }
+        .fail { background-color: #f8d7da; color: #721c24; }
+        .info { background-color: #d1ecf1; color: #0c5460; }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>标题栏修复测试</h1>
+        
+        <div class="test-result info">
+            <h3>修复内容</h3>
+            <p>已完全移除顶部标题栏右侧的空容器，解决了设置按钮移动后标题栏右侧出现空位的问题。</p>
+        </div>
+        
+        <div class="test-result pass">
+            <h3>修复步骤</h3>
+            <ol>
+                <li>移除了HTML中顶部标题栏的空<div class="header-right">容器</li>
+                <li>保留了左侧的返回按钮和中间的标题</li>
+                <li>标题栏现在应该完全居中，没有右侧空位</li>
+            </ol>
+        </div>
+        
+        <div class="test-result info">
+            <h3>测试方法</h3>
+            <ol>
+                <li>点击下方按钮打开聊天应用</li>
+                <li>检查顶部标题栏是否只有左侧返回按钮和中间标题</li>
+                <li>确认标题栏右侧没有空位</li>
+                <li>点击输入区域右侧的⊹按钮，检查设置按钮是否在弹窗中</li>
+            </ol>
+        </div>
+        
+        <div>
+            <button onclick="openChatApp()">打开聊天应用</button>
+        </div>
+    </div>
+    
+    <script>
+        function openChatApp() {
+            window.open('index.html', '_blank');
+        }
+    </script>
+</body>
+</html>

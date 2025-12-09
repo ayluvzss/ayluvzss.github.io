@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简单日期系统测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .daily-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: #f0f0f0;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 8px 16px;
+            margin: 0 5px;
+        }
+        .result {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f0f0f0;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>简单日期系统测试</h1>
+    
+    <!-- 每日记录面板 -->
+    <div id="dailyNotesPanel" class="popup-panel">
+        <div class="daily-header"> 
+    <button id="dailyPrev">▲</button> 
+    <span id="dailyDateTitle"></span> 
+    <button id="dailyNext">▼</button> 
+    <button id="dailyCloseBtn" class="close-btn">✕</button> 
+</div>
+
+        <div class="daily-cards-row">
+            <div class="daily-card" id="foodCard">
+                <h3>FOOD</h3>
+                <textarea id="foodInput" placeholder="记录今天吃了什么…"></textarea>
+            </div>
+        </div>
+    </div>
+    
+    <div class="result" id="result"></div>
+    
+    <script>
+        // 模拟应用状态
+        let appState = {
+            currentDailyDate: null
+        };
+        
+        // 模拟localStorage
+        let localStorage = {
+            data: {},
+            getItem: function(key) {
+                return this.data[key];
+            },
+            setItem: function(key, value) {
+                this.data[key] = value;
+            }
+        };
+        
+        // 工具函数
+        function log(message) {
+            const result = document.getElementById('result');
+            result.textContent += `${message}\n`;
+        }
+        
+        // 日期处理函数
+        function parseDate(str) {
+            const [y, m, d] = str.split("-");
+            return { year: Number(y), month: Number(m), day: Number(d) };
+        }
+        
+        function formatDate(d) {
+            return d.toISOString().split("T")[0];
+        }
+        
+        // 设置每日日期
+        function setDailyDate(dateStr) {
+            appState.currentDailyDate = dateStr;
+            log(`setDailyDate: ${dateStr}`);
+            updateDailyDateTitle();
+            loadDailyNotes();
+        }
+        
+        // 更新每日日期标题
+        function updateDailyDateTitle() {
+            const header = document.querySelector(".daily-header"); 
+            if (header) {
+                header.childNodes.forEach(n => {
+                    if (n.nodeType === 3 && n.textContent.trim() !== "") {
+                        log(`移除文本节点: ${n.textContent}`);
+                        header.removeChild(n);
+                    }
+                });
+            }
+            if (!appState.currentDailyDate) return;
+            const d = parseDate(appState.currentDailyDate);
+            const dailyDateTitle = document.getElementById("dailyDateTitle");
+            if (dailyDateTitle) {
+                dailyDateTitle.textContent = `${d.year}年${d.month}月${d.day}日`;
+                log(`updateDailyDateTitle: ${dailyDateTitle.textContent}`);
+            }
+        }
+        
+        // 加载每日记录
+        function loadDailyNotes() {
+            const dateStr = appState.currentDailyDate;
+            log(`loadDailyNotes: 使用日期 ${dateStr}`);
+        }
+        
+        // 模拟保存到存储
+        function saveToStorage() {
+            log(`saveToStorage: appState.currentDailyDate = ${appState.currentDailyDate}`);
+        }
+        
+        // 初始化测试
+        function initTest() {
+            log("=== 初始化测试 ===");
+            const today = new Date();
+            const todayStr = formatDate(today);
+            setDailyDate(todayStr);
+            
+            // 验证appState
+            log(`appState.currentDailyDate: ${appState.currentDailyDate}`);
+            
+            // 验证日期标题
+            const dailyDateTitle = document.getElementById("dailyDateTitle");
+            log(`dailyDateTitle.textContent: ${dailyDateTitle.textContent}`);
+            
+            // 模拟日期切换
+            log("\n=== 模拟日期切换 ===");
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            const yesterdayStr = formatDate(yesterday);
+            setDailyDate(yesterdayStr);
+            
+            // 再次验证
+            log(`appState.currentDailyDate: ${appState.currentDailyDate}`);
+            log(`dailyDateTitle.textContent: ${dailyDateTitle.textContent}`);
+        }
+        
+        // 页面加载完成后执行测试
+        window.addEventListener('load', initTest);
+    </script>
+</body>
+</html>

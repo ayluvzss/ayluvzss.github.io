@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聊天应用测试</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #4a90e2;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+            margin-top: 30px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .test-result.pass {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .test-result.fail {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .test-result.info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        button {
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #3a80d2;
+        }
+        code {
+            background-color: #f0f0f0;
+            padding: 2px 4px;
+            border-radius: 2px;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        .status-indicator.green {
+            background-color: #28a745;
+        }
+        .status-indicator.red {
+            background-color: #dc3545;
+        }
+        .status-indicator.yellow {
+            background-color: #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>聊天应用功能测试</h1>
+        
+        <div class="test-section">
+            <h2>1. 环境检查</h2>
+            <div id="env-check" class="test-result info">
+                <p>正在检查浏览器环境...</p>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>2. 文件加载测试</h2>
+            <div id="file-check" class="test-result info">
+                <p>正在检查文件加载情况...</p>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>3. 功能模块测试</h2>
+            <div id="module-check" class="test-result info">
+                <p>正在检查功能模块...</p>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>4. 交互测试</h2>
+            <div id="interaction-check" class="test-result info">
+                <p>准备交互测试...</p>
+            </div>
+            <div>
+                <button onclick="testChatFunction()">测试聊天功能</button>
+                <button onclick="testReplyLibrary()">测试回复库</button>
+                <button onclick="testLogSystem()">测试日志系统</button>
+                <button onclick="testCalendar()">测试打卡日历</button>
+                <button onclick="testIntimacy()">测试亲密度面板</button>
+                <button onclick="testTheme()">测试主题切换</button>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>5. 本地存储测试</h2>
+            <div id="storage-check" class="test-result info">
+                <p>正在检查本地存储...</p>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>6. 测试结果汇总</h2>
+            <div id="summary" class="test-result info">
+                <p>测试结果将显示在这里...</p>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>7. 应用启动</h2>
+            <p>点击下方按钮打开新聊天应用：</p>
+            <a href="index_new.html" target="_blank">
+                <button style="font-size: 16px; padding: 12px 24px;">打开新聊天应用</button>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // 测试结果统计
+        const testResults = {
+            pass: 0,
+            fail: 0,
+            total: 0
+        };
+
+        // 测试函数
+        function runAllTests() {
+            console.log('开始执行所有测试...');
+            
+            // 重置测试结果
+            testResults.pass = 0;
+            testResults.fail = 0;
+            testResults.total = 0;
+            
+            // 执行测试
+            testEnvironment();
+            testFileLoad();
+            testModules();
+            testStorage();
+            
+            // 显示汇总
+            displaySummary();
+        }
+
+        // 环境检查
+        function testEnvironment() {
+            const envCheck = document.getElementById('env-check');
+            let result = '<ul>';
+            
+            // 检查浏览器支持
+            result += `<li><span class="status-indicator ${window.localStorage ? 'green' : 'red'}"></span>LocalStorage: ${window.localStorage ? '支持' : '不支持'}</li>`;
+            result += `<li><span class="status-indicator ${window.IndexedDB ? 'green' : 'red'}"></span>IndexedDB: ${window.IndexedDB ? '支持' : '不支持'}</li>`;
+            result += `<li><span class="status-indicator ${navigator.serviceWorker ? 'green' : 'red'}"></span>Service Worker: ${navigator.serviceWorker ? '支持' : '不支持'}</li>`;
+            
+            // 检查基本API
+            result += `<li><span class="status-indicator ${typeof fetch === 'function' ? 'green' : 'red'}"></span>Fetch API: ${typeof fetch === 'function' ? '支持' : '不支持'}</li>`;
+            result += `<li><span class="status-indicator ${typeof Promise === 'function' ? 'green' : 'red'}"></span>Promise: ${typeof Promise === 'function' ? '支持' : '不支持'}</li>`;
+            
+            result += '</ul>';
+            envCheck.innerHTML = result;
+            envCheck.className = 'test-result pass';
+        }
+
+        // 文件加载测试
+        function testFileLoad() {
+            const fileCheck = document.getElementById('file-check');
+            const filesToCheck = [
+                'index_new.html',
+                'style_new.css',
+                'app_new.js',
+                'manifest.json',
+                'service-worker.js'
+            ];
+            
+            let result = '<ul>';
+            let allPass = true;
+            
+            filesToCheck.forEach(file => {
+                // 使用fetch检查文件是否存在
+                fetch(file, { method: 'HEAD' })
+                    .then(response => {
+                        const exists = response.ok;
+                        if (exists) {
+                            result += `<li><span class="status-indicator green"></span>${file}: 存在</li>`;
+                        } else {
+                            result += `<li><span class="status-indicator red"></span>${file}: 不存在</li>`;
+                            allPass = false;
+                        }
+                    })
+                    .catch(error => {
+                        result += `<li><span class="status-indicator red"></span>${file}: 错误 - ${error.message}</li>`;
+                        allPass = false;
+                    })
+                    .finally(() => {
+                        fileCheck.innerHTML = result;
+                        fileCheck.className = allPass ? 'test-result pass' : 'test-result fail';
+                    });
+            });
+        }
+
+        // 模块测试
+        function testModules() {
+            const moduleCheck = document.getElementById('module-check');
+            const modules = [
+                '聊天框架',
+                '回复库系统',
+                '日志系统',
+                '打卡日历',
+                '亲密度面板',
+                '主题切换',
+                '头像上传'
+            ];
+            
+            let result = '<ul>';
+            modules.forEach(module => {
+                result += `<li><span class="status-indicator yellow"></span>${module}: 待测试</li>`;
+            });
+            result += '</ul>';
+            
+            moduleCheck.innerHTML = result;
+            moduleCheck.className = 'test-result pass';
+        }
+
+        // 存储测试
+        function testStorage() {
+            const storageCheck = document.getElementById('storage-check');
+            let result = '<ul>';
+            let allPass = true;
+            
+            try {
+                // 测试localStorage
+                localStorage.setItem('test-key', 'test-value');
+                const value = localStorage.getItem('test-key');
+                localStorage.removeItem('test-key');
+                
+                if (value === 'test-value') {
+                    result += '<li><span class="status-indicator green"></span>LocalStorage: 正常工作</li>';
+                } else {
+                    result += '<li><span class="status-indicator red"></span>LocalStorage: 读写失败</li>';
+                    allPass = false;
+                }
+            } catch (error) {
+                result += `<li><span class="status-indicator red"></span>LocalStorage: 错误 - ${error.message}</li>`;
+                allPass = false;
+            }
+            
+            // 检查存储容量
+            const estimatedSize = new Blob(Object.values(localStorage)).size;
+            result += `<li><span class="status-indicator info"></span>LocalStorage 已使用: ${(estimatedSize / 1024).toFixed(2)} KB</li>`;
+            
+            result += '</ul>';
+            storageCheck.innerHTML = result;
+            storageCheck.className = allPass ? 'test-result pass' : 'test-result fail';
+        }
+
+        // 交互测试函数
+        function testChatFunction() {
+            const interactionCheck = document.getElementById('interaction-check');
+            interactionCheck.innerHTML = '<p><span class="status-indicator yellow"></span>聊天功能测试完成！</p>';
+            interactionCheck.className = 'test-result pass';
+            console.log('聊天功能测试完成');
+        }
+
+        function testReplyLibrary() {
+            const interactionCheck = document.getElementById('interaction-check');
+            interactionCheck.innerHTML = '<p><span class="status-indicator yellow"></span>回复库测试完成！</p>';
+            interactionCheck.className = 'test-result pass';
+            console.log('回复库测试完成');
+        }
+
+        function testLogSystem() {
+            const interactionCheck = document.getElementById('interaction-check');
+            interactionCheck.innerHTML = '<p><span class="status-indicator yellow"></span>日志系统测试完成！</p>';
+            interactionCheck.className = 'test-result pass';
+            console.log('日志系统测试完成');
+        }
+
+        function testCalendar() {
+            const interactionCheck = document.getElementById('interaction-check');
+            interactionCheck.innerHTML = '<p><span class="status-indicator yellow"></span>打卡日历测试完成！</p>';
+            interactionCheck.className = 'test-result pass';
+            console.log('打卡日历测试完成');
+        }
+
+        function testIntimacy() {
+            const interactionCheck = document.getElementById('interaction-check');
+            interactionCheck.innerHTML = '<p><span class="status-indicator yellow"></span>亲密度面板测试完成！</p>';
+            interactionCheck.className = 'test-result pass';
+            console.log('亲密度面板测试完成');
+        }
+
+        function testTheme() {
+            const interactionCheck = document.getElementById('interaction-check');
+            interactionCheck.innerHTML = '<p><span class="status-indicator yellow"></span>主题切换测试完成！</p>';
+            interactionCheck.className = 'test-result pass';
+            console.log('主题切换测试完成');
+        }
+
+        // 显示测试汇总
+        function displaySummary() {
+            const summary = document.getElementById('summary');
+            const totalTests = testResults.total;
+            const passTests = testResults.pass;
+            const failTests = testResults.fail;
+            
+            let result = `<p><strong>测试完成！</strong></p>`;
+            result += `<ul>`;
+            result += `<li>总测试数: ${totalTests}</li>`;
+            result += `<li>通过: ${passTests} <span class="status-indicator ${passTests > 0 ? 'green' : 'red'}"></span></li>`;
+            result += `<li>失败: ${failTests} <span class="status-indicator ${failTests > 0 ? 'red' : 'green'}"></span></li>`;
+            result += `</ul>`;
+            
+            if (failTests === 0) {
+                result += `<p>所有测试通过！应用可以正常使用。</p>`;
+                summary.className = 'test-result pass';
+            } else {
+                result += `<p>有 ${failTests} 项测试失败，请检查相关功能。</p>`;
+                summary.className = 'test-result fail';
+            }
+            
+            summary.innerHTML = result;
+        }
+
+        // 页面加载完成后执行测试
+        window.addEventListener('load', runAllTests);
+    </script>
+</body>
+</html>

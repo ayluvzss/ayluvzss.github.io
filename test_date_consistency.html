@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日期系统一致性测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        h2 {
+            color: #666;
+            margin-top: 0;
+        }
+        button {
+            padding: 8px 16px;
+            margin: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .success {
+            color: green;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>日期系统一致性测试</h1>
+        
+        <div class="test-section">
+            <h2>测试结果</h2>
+            <div id="testResults" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>测试操作</h2>
+            <button onclick="testInitialSetup()">测试初始设置</button>
+            <button onclick="testDateChange()">测试日期切换</button>
+            <button onclick="testAnotherDateChange()">测试另一次日期切换</button>
+            <button onclick="testSaveLoad()">测试保存和加载</button>
+            <button onclick="testLocalStorageKeys()">查看localStorage键</button>
+            <button onclick="clearResults()">清空结果</button>
+        </div>
+        
+        <div class="test-section">
+            <h2>模拟应用状态</h2>
+            <div id="appStateDisplay" class="result">appState.currentDailyDate: <span id="currentDailyDate"></span></div>
+            <div id="dateTitleDisplay" class="result">dailyDateTitle.textContent: <span id="dailyDateTitle"></span></div>
+            <div id="loadDateDisplay" class="result">loadDailyNotes使用日期: <span id="loadDate"></span></div>
+        </div>
+    </div>
+    
+    <script>
+        // 模拟应用状态
+        let appState = {
+            currentDailyDate: null
+        };
+        
+        // 模拟CONFIG对象
+        const CONFIG = {
+            STORAGE_KEYS: {
+                CURRENT_DAILY_DATE: "currentDailyDate",
+                DAILY_NOTES_PREFIX: "dailyNotes_"
+            }
+        };
+        
+        // 模拟DOM元素
+        let DOM = {
+            dailyDateTitle: {
+                textContent: ''
+            }
+        };
+        
+        // 模拟dailyNotes数据
+        let dailyNotes = {};
+        
+        // 获取显示元素
+        const currentDailyDateEl = document.getElementById('currentDailyDate');
+        const dailyDateTitleEl = document.getElementById('dailyDateTitle');
+        const loadDateEl = document.getElementById('loadDate');
+        const testResultsEl = document.getElementById('testResults');
+        
+        // 工具函数
+        function logResult(message, isSuccess = true) {
+            const result = document.createElement('div');
+            result.className = isSuccess ? 'success' : 'error';
+            result.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            testResultsEl.appendChild(result);
+        }
+        
+        function updateDisplay() {
+            currentDailyDateEl.textContent = appState.currentDailyDate || 'null';
+            dailyDateTitleEl.textContent = DOM.dailyDateTitle.textContent || '空';
+        }
+        
+        function clearResults() {
+            testResultsEl.innerHTML = '';
+        }
+        
+        // 日期处理函数
+        function parseDate(str) {
+            const [y, m, d] = str.split("-");
+            return { year: Number(y), month: Number(m), day: Number(d) };
+        }
+        
+        function formatDate(d) {
+            const year = d.getFullYear();
+            const month = d.getMonth() + 1;
+            const day = d.getDate();
+            return `${year}-${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
+        }
+        
+        function formatDateForDisplay(d) {
+            const date = typeof d === 'string' ? new Date(d) : d;
+            const year = date.getFullYear();
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            return `${year}年${month}月${day}日`;
+        }
+        
+        // 设置每日日期
+        function setDailyDate(dateStr) {
+            appState.currentDailyDate = dateStr;
+            logResult(`setDailyDate: ${dateStr}`);
+            saveCurrentDailyDate(); // 保存到localStorage
+            updateDailyDateTitle();
+            loadDailyNotes();
+        }
+        
+        // 更新每日日期标题
+        function updateDailyDateTitle() {
+            if (!appState.currentDailyDate) return;
+            const d = parseDate(appState.currentDailyDate);
+            DOM.dailyDateTitle.textContent = `${d.year}年${d.month}月${d.day}日`;
+            logResult(`updateDailyDateTitle: ${DOM.dailyDateTitle.textContent}`);
+            updateDisplay();
+        }
+        
+        // 加载每日记录
+        function loadDailyNotes() {
+            const dateStr = appState.currentDailyDate;
+            logResult(`loadDailyNotes: 使用日期 ${dateStr}`);
+            loadDateEl.textContent = dateStr;
+            
+            // 从localStorage加载数据
+            const storageKey = CONFIG.STORAGE_KEYS.DAILY_NOTES_PREFIX + dateStr;
+            let data;
+            try {
+                const storedData = localStorage.getItem(storageKey);
+                data = storedData ? JSON.parse(storedData) : {
+                    food: "",
+                    workout: "",
+                    letter: "",
+                    footerMessage: ""
+                };
+            } catch (e) {
+                logResult(`loadDailyNotes: 加载失败 ${e.message}`, false);
+                data = {
+                    food: "",
+                    workout: "",
+                    letter: "",
+                    footerMessage: ""
+                };
+            }
+            
+            logResult(`loadDailyNotes: 从localStorage[${storageKey}]加载数据 ${JSON.stringify(data)}`);
+            return data;
+        }
+        
+        // 保存当前每日日期
+        function saveCurrentDailyDate() {
+            if (!appState.currentDailyDate) {
+                logResult("saveCurrentDailyDate: 当前日期为null，不保存");
+                return;
+            }
+            
+            try {
+                localStorage.setItem(CONFIG.STORAGE_KEYS.CURRENT_DAILY_DATE, appState.currentDailyDate);
+                logResult(`saveCurrentDailyDate: 保存到localStorage[${CONFIG.STORAGE_KEYS.CURRENT_DAILY_DATE}] = ${appState.currentDailyDate}`);
+            } catch (e) {
+                logResult(`saveCurrentDailyDate: 保存失败 ${e.message}`, false);
+            }
+        }
+        
+        // 加载当前每日日期
+        function loadCurrentDailyDate() {
+            try {
+                const savedDate = localStorage.getItem(CONFIG.STORAGE_KEYS.CURRENT_DAILY_DATE);
+                if (savedDate) {
+                    appState.currentDailyDate = savedDate;
+                    logResult(`loadCurrentDailyDate: 从localStorage加载 ${CONFIG.STORAGE_KEYS.CURRENT_DAILY_DATE} = ${savedDate}`);
+                    return true;
+                } else {
+                    logResult(`loadCurrentDailyDate: localStorage中没有保存的日期`);
+                    return false;
+                }
+            } catch (e) {
+                logResult(`loadCurrentDailyDate: 加载失败 ${e.message}`, false);
+                return false;
+            }
+        }
+        
+        // 测试用例1：初始设置
+        function testInitialSetup() {
+            logResult("=== 测试用例1：初始设置 ===");
+            
+            // 清除localStorage
+            localStorage.removeItem(CONFIG.STORAGE_KEYS.CURRENT_DAILY_DATE);
+            logResult("清除localStorage中的CURRENT_DAILY_DATE");
+            
+            // 测试日期格式化
+            const today = new Date();
+            const todayStr = formatDate(today);
+            logResult(`formatDate(new Date()): ${todayStr}`);
+            
+            // 设置日期
+            setDailyDate(todayStr);
+            
+            // 验证appState
+            if (appState.currentDailyDate === todayStr) {
+                logResult("✓ appState.currentDailyDate 设置正确");
+            } else {
+                logResult("✗ appState.currentDailyDate 设置错误", false);
+            }
+            
+            // 验证localStorage保存
+            const savedDate = localStorage.getItem(CONFIG.STORAGE_KEYS.CURRENT_DAILY_DATE);
+            if (savedDate === todayStr) {
+                logResult("✓ 日期成功保存到localStorage");
+            } else {
+                logResult("✗ 日期未成功保存到localStorage", false);
+            }
+        }
+        
+        // 测试用例4：保存和加载功能
+        function testSaveLoad() {
+            logResult("\n=== 测试用例4：保存和加载功能 ===");
+            
+            // 设置一个特定日期
+            const testDate = "2023-12-25";
+            setDailyDate(testDate);
+            
+            // 模拟应用重启
+            appState.currentDailyDate = null;
+            updateDisplay();
+            logResult(`模拟应用重启：appState.currentDailyDate = ${appState.currentDailyDate}`);
+            
+            // 加载保存的日期
+            const loadSuccess = loadCurrentDailyDate();
+            if (loadSuccess && appState.currentDailyDate === testDate) {
+                logResult("✓ 成功从localStorage加载保存的日期");
+                updateDailyDateTitle();
+                loadDailyNotes();
+            } else {
+                logResult("✗ 无法从localStorage加载保存的日期", false);
+            }
+        }
+        
+        // 测试用例2：切换日期
+        function testDateChange() {
+            logResult("\n=== 测试用例2：切换日期 ===");
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            const yesterdayStr = formatDate(yesterday);
+            setDailyDate(yesterdayStr);
+            
+            // 验证一致性
+            if (appState.currentDailyDate === yesterdayStr && 
+                DOM.dailyDateTitle.textContent.includes(yesterday.getFullYear() + "年")) {
+                logResult("✓ 日期切换一致");
+            } else {
+                logResult("✗ 日期切换不一致", false);
+            }
+        }
+        
+        // 测试用例3：再切换一次日期
+        function testAnotherDateChange() {
+            logResult("\n=== 测试用例3：再切换一次日期 ===");
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const tomorrowStr = formatDate(tomorrow);
+            setDailyDate(tomorrowStr);
+            
+            // 验证一致性
+            if (appState.currentDailyDate === tomorrowStr && 
+                DOM.dailyDateTitle.textContent.includes(tomorrow.getFullYear() + "年")) {
+                logResult("✓ 日期切换一致");
+            } else {
+                logResult("✗ 日期切换不一致", false);
+            }
+        }
+        
+        // 查看localStorage中的键
+        function testLocalStorageKeys() {
+            logResult("\n=== 查看localStorage键 ===");
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                const value = localStorage.getItem(key);
+                logResult(`localStorage[${key}] = ${value}`);
+            }
+        }
+        
+        // 初始化
+        logResult("日期系统测试初始化完成");
+        
+        // 加载之前保存的日期（如果有）
+        loadCurrentDailyDate();
+        updateDisplay();
+    </script>
+</body>
+</html>

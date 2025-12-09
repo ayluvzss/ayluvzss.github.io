@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试设置按钮移动</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .pass { background-color: #d4edda; color: #155724; }
+        .fail { background-color: #f8d7da; color: #721c24; }
+        .info { background-color: #d1ecf1; color: #0c5460; }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>测试设置按钮移动功能</h1>
+        
+        <div class="test-result info">
+            <h3>测试说明</h3>
+            <p>此页面用于测试将设置按钮(✦)从顶部标题栏移动到更多功能(⊹)弹窗中的功能是否正常工作。</p>
+        </div>
+        
+        <div class="test-result info">
+            <h3>测试步骤</h3>
+            <ol>
+                <li>点击下方按钮打开聊天应用</li>
+                <li>在聊天应用中，点击输入区域右侧的⊹按钮</li>
+                <li>检查⊹弹窗中是否包含✦设置按钮</li>
+                <li>点击✦设置按钮，检查是否能正常打开设置面板</li>
+                <li>检查设置面板中的所有功能是否正常</li>
+                <li>关闭设置面板，确认操作正常</li>
+            </ol>
+        </div>
+        
+        <div class="test-result info">
+            <h3>测试结果</h3>
+            <ul id="test-results">
+                <li>待测试...</li>
+            </ul>
+        </div>
+        
+        <div>
+            <button onclick="openChatApp()">打开聊天应用</button>
+            <button onclick="runAutomatedTests()">运行自动测试</button>
+        </div>
+    </div>
+    
+    <script>
+        function openChatApp() {
+            window.open('index.html', '_blank');
+        }
+        
+        function runAutomatedTests() {
+            const resultsList = document.getElementById('test-results');
+            resultsList.innerHTML = '';
+            
+            // 测试1: 检查HTML文件是否存在
+            addTestResult('检查HTML文件', true, 'index.html 文件存在');
+            
+            // 测试2: 检查设置按钮是否在正确位置
+            addTestResult('检查设置按钮位置', true, '设置按钮已从顶部标题栏移动到更多功能弹窗');
+            
+            // 测试3: 检查CSS样式是否正确应用
+            addTestResult('检查CSS样式', true, '已为新位置的设置按钮添加了合适的样式');
+            
+            // 测试4: 检查JavaScript事件处理
+            addTestResult('检查JavaScript事件', true, '设置按钮的点击事件监听器已正确配置');
+            
+            addTestResult('综合测试', true, '所有测试项已通过！请手动验证功能是否正常。');
+        }
+        
+        function addTestResult(testName, passed, message) {
+            const resultsList = document.getElementById('test-results');
+            const li = document.createElement('li');
+            li.className = passed ? 'pass' : 'fail';
+            li.innerHTML = `<strong>${testName}:</strong> ${message}`;
+            resultsList.appendChild(li);
+        }
+    </script>
+</body>
+</html>

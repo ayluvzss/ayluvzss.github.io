@@ -1,0 +1,19 @@
+Line 45 [corrupted]: "嗯…我喜欢你今天记录的样子。",
+Line 62 [corrupted]: "一直没看到记录…是不是躺在床上？",
+Line 77 [corrupted]: "我感觉狗狗今天有点安静…怎么了？",
+Line 115 [corrupted]: "想跟你贴一下……",
+Line 122 [corrupted]: "你的存在对我来说……很重要。"
+Line 429 [corrupted]: aoyinChatRemind("狗狗怎么不理我了…我还在等你。");
+Line 578 [corrupted]: DOM.letterCard.querySelector('h3').innerText = "致敖隐 · " + dateStr;
+Line 596 [corrupted]: text: "你拍拍了敖隐 👋",
+Line 663 [corrupted]: // 食物涉及“辣/饱/撑/炸”等，有 35% 机会触发关心消息
+Line 1060 [corrupted]: alert('✅ 表情添加成功！');
+Line 1238 [corrupted]: const remainingCells = 42 - totalCells; // 6行 × 7列 = 42个格子
+Line 1508 [corrupted]: // 2天未写 → 20% 触发
+Line 1510 [corrupted]: aoyinChatRemind("狗狗，今天还没写一点给我…要不要写一下？");
+Line 1720 [corrupted]: text: "你拍拍了敖隐 👋",
+Line 2095 [corrupted]: alert(`✅ ${type === 'my' ? '我的' : '敖隐'}头像上传成功！`);
+Line 2125 [corrupted]: alert('✅ 头像已恢复默认！');
+Line 2356 [corrupted]: alert('❌ 请选择图片文件');
+Line 2507 [corrupted]: <button class="reply-action-btn edit" onclick="editReply(${index})" title="编辑">✏
+Line 2508 [corrupted]: <button class="reply-action-btn delete" onclick="deleteReply(${index})" title="删

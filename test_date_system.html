@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日期系统测试</title>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .result {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 3px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <h1>日期系统测试</h1>
+    
+    <div class="test-section">
+        <h2>测试环境</h2>
+        <button onclick="initTest()">初始化测试</button>
+        <button onclick="testDateConsistency()">测试日期一致性</button>
+        <button onclick="testDateChange()">测试日期变更</button>
+        <button onclick="testLoadDailyNotes()">测试加载每日记录</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>测试结果</h2>
+        <div id="testResults"></div>
+    </div>
+    
+    <!-- 模拟应用中的日期选择器和标题 -->
+    <div class="daily-header">
+        <button id="dailyPrev">▲</button>
+        <span id="dailyDateTitle"></span>
+        <button id="dailyNext">▼</button>
+        <button id="dailyCloseBtn" class="close-btn">✕</button>
+    </div>
+    
+    <input type="text" id="logDatePicker" class="log-date-picker" />
+    
+    <!-- 模拟应用中的每日记录输入框 -->
+    <div class="daily-notes-panel">
+        <input type="text" id="foodInput" placeholder="饮食" />
+        <input type="text" id="workoutInput" placeholder="运动" />
+        <textarea id="letterInput" placeholder="信件"></textarea>
+    </div>
+    
+    <script>
+        // 模拟应用的状态和DOM结构
+        let appState = {
+            currentDailyDate: null
+        };
+        
+        let DOM = {
+            logDatePicker: document.getElementById('logDatePicker'),
+            dailyDateTitle: document.getElementById('dailyDateTitle'),
+            foodInput: document.getElementById('foodInput'),
+            workoutInput: document.getElementById('workoutInput'),
+            letterInput: document.getElementById('letterInput')
+        };
+        
+        let dailyNotes = {};
+        
+        // 工具函数 - 解析日期字符串
+        function parseDate(str) {
+            const [y, m, d] = str.split("-");
+            return { year: Number(y), month: Number(m), day: Number(d) };
+        }
+        
+        // 设置每日日期
+        function setDailyDate(dateStr) {
+            appState.currentDailyDate = dateStr;
+            updateDailyDateTitle();
+            loadDailyNotes();
+        }
+        
+        // 更新每日日期标题
+        function updateDailyDateTitle() {
+            const header = document.querySelector(".daily-header");
+            if (header) {
+                header.childNodes.forEach(n => {
+                    if (n.nodeType === 3 && n.textContent.trim() !== "") {
+                        header.removeChild(n);
+                    }
+                });
+            }
+            if (!appState.currentDailyDate) return;
+            const d = parseDate(appState.currentDailyDate);
+            if (DOM.dailyDateTitle) {
+                DOM.dailyDateTitle.textContent = `${d.year}年${d.month}月${d.day}日`;
+            }
+        }
+        
+        // 初始化日期选择器
+        function initDatePicker() {
+            if (window.flatpickr && DOM.logDatePicker) {
+                flatpickr(DOM.logDatePicker, {
+                    dateFormat: "Y-m-d",
+                    defaultDate: appState.currentDailyDate || new Date(),
+                    onChange: function(selectedDates, dateStr, instance) {
+                        setDailyDate(dateStr);
+                    }
+                });
+            }
+        }
+        
+        // 加载每日记录
+        function loadDailyNotes() {
+            const dateStr = appState.currentDailyDate;
+            if (!dateStr) return;
+            
+            // 从dailyNotes对象获取当前日期的数据
+            const notes = dailyNotes[dateStr] || {
+                food: '',
+                workout: '',
+                letter: ''
+            };
+            
+            // 设置到对应的输入框
+            DOM.foodInput.value = notes.food || '';
+            DOM.workoutInput.value = notes.workout || '';
+            DOM.letterInput.value = notes.letter || '';
+            
+            logTestResult('loadDailyNotes', `加载了日期 ${dateStr} 的记录`, 'success');
+            return dateStr;
+        }
+        
+        // 保存每日记录
+        function saveDailyNotes() {
+            const dateStr = appState.currentDailyDate;
+            if (!dateStr) return;
+            
+            dailyNotes[dateStr] = {
+                food: DOM.foodInput.value,
+                workout: DOM.workoutInput.value,
+                letter: DOM.letterInput.value
+            };
+            
+            localStorage.setItem("dailyNotes", JSON.stringify(dailyNotes));
+        }
+        
+        // 初始化测试
+        function initTest() {
+            // 清除之前的测试结果
+            document.getElementById('testResults').innerHTML = '';
+            
+            // 如果没有当前日期，初始化为今天
+            if (!appState.currentDailyDate) {
+                const today = new Date();
+                appState.currentDailyDate = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+            }
+            
+            // 初始化日期选择器
+            initDatePicker();
+            
+            // 更新日期标题
+            updateDailyDateTitle();
+            
+            // 加载每日记录
+            loadDailyNotes();
+            
+            logTestResult('initTest', '测试环境初始化完成', 'success');
+            testDateConsistency();
+        }
+        
+        // 测试日期一致性
+        function testDateConsistency() {
+            // 获取Flatpickr实例
+            const flatpickrInstance = flatpickr.getInstance(DOM.logDatePicker);
+            const flatpickrDate = flatpickrInstance ? flatpickrInstance.formatDate(flatpickrInstance.selectedDates[0], 'Y-m-d') : null;
+            
+            // 获取dailyDateTitle显示的日期
+            const titleDateStr = DOM.dailyDateTitle.textContent;
+            const titleDate = titleDateStr ? titleDateStr.replace(/年|月/g, '-').replace(/日/g, '') : null;
+            
+            // 检查loadDailyNotes使用的日期
+            const loadDate = loadDailyNotes();
+            
+            // 验证四者是否一致
+            const appStateDate = appState.currentDailyDate;
+            
+            logTestResult('appStateDate', `appState.currentDailyDate: ${appStateDate}`, 'info');
+            logTestResult('flatpickrDate', `Flatpickr显示的日期: ${flatpickrDate}`, 'info');
+            logTestResult('titleDate', `#dailyDateTitle显示的日期: ${titleDateStr}`, 'info');
+            logTestResult('loadDate', `loadDailyNotes()使用的日期: ${loadDate}`, 'info');
+            
+            if (appStateDate === flatpickrDate && appStateDate === titleDate && appStateDate === loadDate) {
+                logTestResult('consistency', '✓ 四者日期完全一致！', 'success');
+            } else {
+                logTestResult('consistency', '✗ 四者日期不一致！', 'error');
+            }
+        }
+        
+        // 测试日期变更
+        function testDateChange() {
+            // 选择一个新的日期
+            const testDate = '2023-12-25';
+            setDailyDate(testDate);
+            
+            // 验证日期是否已更新
+            testDateConsistency();
+        }
+        
+        // 测试加载每日记录
+        function testLoadDailyNotes() {
+            // 保存一些测试数据
+            const testDate = appState.currentDailyDate;
+            dailyNotes[testDate] = {
+                food: '苹果、香蕉',
+                workout: '跑步30分钟',
+                letter: '今天是个好日子！'
+            };
+            
+            // 重新加载记录
+            loadDailyNotes();
+            
+            // 验证数据是否正确加载
+            const loadedFood = DOM.foodInput.value;
+            const loadedWorkout = DOM.workoutInput.value;
+            const loadedLetter = DOM.letterInput.value;
+            
+            logTestResult('loadTest', '测试记录加载', 'info');
+            logTestResult('loadedFood', `饮食: ${loadedFood}`, 'info');
+            logTestResult('loadedWorkout', `运动: ${loadedWorkout}`, 'info');
+            logTestResult('loadedLetter', `信件: ${loadedLetter}`, 'info');
+            
+            if (loadedFood === '苹果、香蕉' && loadedWorkout === '跑步30分钟' && loadedLetter === '今天是个好日子！') {
+                logTestResult('loadSuccess', '✓ 每日记录加载成功！', 'success');
+            } else {
+                logTestResult('loadFailed', '✗ 每日记录加载失败！', 'error');
+            }
+        }
+        
+        // 记录测试结果
+        function logTestResult(testName, message, status) {
+            const resultsDiv = document.getElementById('testResults');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `result ${status}`;
+            resultDiv.innerHTML = `<strong>${testName}:</strong> ${message}`;
+            resultsDiv.appendChild(resultDiv);
+        }
+        
+        // 页面加载完成后初始化测试
+        document.addEventListener('DOMContentLoaded', function() {
+            initTest();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>月份选择器测试</title>
+    <style>
+        .dp-months {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin: 20px;
+        }
+        .dp-months button {
+            padding: 10px;
+            border: none;
+            background: #f0f0f0;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .dp-months button.active {
+            background: #ff6b6b;
+            color: white;
+        }
+        .dp-calendar {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>月份选择器测试</h1>
+    
+    <div class="dp-months"></div>
+    <div class="dp-calendar"></div>
+    
+    <script>
+        // 测试月份选择器功能
+        console.log('Testing month picker functionality...');
+        
+        let currentPickerYear = 2025;
+        let currentPickerMonth = 12; // 默认选中12月
+        
+        // 渲染日历（简化版）
+        function renderCalendar() {
+            const calendar = document.querySelector('.dp-calendar');
+            calendar.innerHTML = `<h2>${currentPickerYear}年${currentPickerMonth}月</h2><p>日历内容</p>`;
+            console.log(`Calendar rendered for ${currentPickerYear}年${currentPickerMonth}月`);
+        }
+        
+        // 修复后的renderMonths函数
+        function renderMonths() {
+            const box = document.querySelector(".dp-months");
+            box.innerHTML = "";
+            
+            // 月份列表
+            const months = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
+            
+            // 创建月份按钮
+            for(let m=0; m<months.length; m++) {
+                const btn = document.createElement("button");
+                btn.textContent = months[m];
+                btn.setAttribute("data-month", m+1);
+                
+                // 设置激活状态
+                if((m+1) === currentPickerMonth) {
+                    btn.classList.add("active");
+                }
+                
+                // 添加按钮到容器
+                box.appendChild(btn);
+            }
+            
+            // 批量绑定点击事件
+            const allBtns = box.querySelectorAll("button");
+            allBtns.forEach(function(btn) {
+                btn.onclick = function() {
+                    // 获取点击的月份
+                    const month = parseInt(this.getAttribute("data-month"));
+                    
+                    // 更新currentPickerMonth
+                    currentPickerMonth = month;
+                    
+                    // 移除所有按钮的激活状态
+                    allBtns.forEach(function(b) {
+                        b.classList.remove("active");
+                    });
+                    
+                    // 设置当前按钮为激活状态
+                    this.classList.add("active");
+                    
+                    // 重新渲染日历
+                    renderCalendar();
+                };
+            });
+        }
+        
+        // 初始化
+        renderMonths();
+        renderCalendar();
+        
+        console.log('✅ Month picker initialized successfully!');
+    </script>
+</body>
+</html>

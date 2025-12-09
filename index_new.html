@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#ffffff">
+    <title>全新聊天应用</title>
+    <link rel="stylesheet" href="style_new.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="assets/icon.png">
+</head>
+<body>
+    <div id="app">
+        <!-- 主界面容器 -->
+        <div class="app-container">
+            <!-- 顶部导航栏 -->
+            <header class="app-header">
+                <div class="header-left">
+                    <button id="avatarBtn" class="avatar-btn">
+                        <img id="userAvatar" src="assets/avatar_default.png" alt="用户头像">
+                    </button>
+                </div>
+                <div class="header-center">
+                    <h1 id="appTitle">全新聊天应用</h1>
+                </div>
+                <div class="header-right">
+                    <button id="menuBtn" class="menu-btn">菜单</button>
+                </div>
+            </header>
+
+            <!-- 主要内容区域 -->
+            <main class="main-content">
+                <!-- 聊天区域 -->
+                <section id="chatSection" class="chat-section active">
+                    <!-- 聊天消息列表 -->
+                    <div id="messageList" class="message-list"></div>
+                    
+                    <!-- 输入区域 -->
+                    <div class="input-section">
+                        <div class="input-container">
+                            <textarea id="messageInput" class="message-input" placeholder="输入消息..."></textarea>
+                            <div class="input-actions">
+                                <button id="replyLibraryBtn" class="action-btn">回复库</button>
+                                <button id="sendBtn" class="send-btn">发送</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 回复库区域 -->
+                <section id="replySection" class="reply-section">
+                    <div class="section-header">
+                        <h2>回复库</h2>
+                        <button id="backToChatBtn" class="back-btn">返回</button>
+                    </div>
+                    <div class="reply-search">
+                        <input type="text" id="replySearch" placeholder="搜索回复...">
+                    </div>
+                    <div id="replyList" class="reply-list"></div>
+                    <div class="reply-actions">
+                        <button id="importRepliesBtn" class="import-btn">导入</button>
+                        <button id="exportRepliesBtn" class="export-btn">导出</button>
+                        <input type="file" id="importFile" accept=".json" style="display: none;">
+                    </div>
+                </section>
+
+                <!-- 日志系统区域 -->
+                <section id="logSection" class="log-section">
+                    <div class="section-header">
+                        <h2>日志系统</h2>
+                        <button id="backToChatFromLogBtn" class="back-btn">返回</button>
+                    </div>
+                    <div class="log-date-selector">
+                        <input type="date" id="logDateInput">
+                        <button id="loadLogBtn">加载</button>
+                    </div>
+                    <div id="logContent" class="log-content">
+                        <textarea id="logTextarea" placeholder="选择日期加载日志..."></textarea>
+                    </div>
+                    <div class="log-actions">
+                        <button id="saveLogBtn">保存</button>
+                    </div>
+                </section>
+
+                <!-- 打卡日历区域 -->
+                <section id="calendarSection" class="calendar-section">
+                    <div class="section-header">
+                        <h2>打卡日历</h2>
+                        <button id="backToChatFromCalendarBtn" class="back-btn">返回</button>
+                    </div>
+                    <div id="calendar" class="calendar-container"></div>
+                    <div class="calendar-actions">
+                        <button id="checkInBtn">今日打卡</button>
+                    </div>
+                </section>
+
+                <!-- 亲密度面板区域 -->
+                <section id="intimacySection" class="intimacy-section">
+                    <div class="section-header">
+                        <h2>亲密度</h2>
+                        <button id="backToChatFromIntimacyBtn" class="back-btn">返回</button>
+                    </div>
+                    <div class="intimacy-info">
+                        <div class="intimacy-level">
+                            <h3>等级: <span id="intimacyLevel">1</span></h3>
+                        </div>
+                        <div class="intimacy-progress">
+                            <div class="progress-bar">
+                                <div id="progressFill" class="progress-fill" style="width: 30%;"></div>
+                            </div>
+                            <span id="progressText">30/100</span>
+                        </div>
+                    </div>
+                    <div class="intimacy-actions">
+                        <button id="addIntimacyBtn">增加亲密度</button>
+                    </div>
+                </section>
+            </main>
+
+            <!-- 底部导航栏 -->
+            <nav class="bottom-nav">
+                <button id="chatNavBtn" class="nav-btn active" data-section="chatSection">聊天</button>
+                <button id="logNavBtn" class="nav-btn" data-section="logSection">日志</button>
+                <button id="calendarNavBtn" class="nav-btn" data-section="calendarSection">日历</button>
+                <button id="intimacyNavBtn" class="nav-btn" data-section="intimacySection">亲密度</button>
+            </nav>
+
+            <!-- 侧边菜单 -->
+            <div id="sideMenu" class="side-menu">
+                <div class="menu-header">
+                    <h2>功能菜单</h2>
+                    <button id="closeMenuBtn" class="close-btn">关闭</button>
+                </div>
+                <div class="menu-content">
+                    <button id="themeToggleBtn" class="menu-item">切换主题</button>
+                    <button id="uploadAvatarBtn" class="menu-item">上传头像</button>
+                    <input type="file" id="avatarFile" accept="image/*" style="display: none;">
+                    <button id="exportDataBtn" class="menu-item">导出数据</button>
+                    <button id="importDataBtn" class="menu-item">导入数据</button>
+                    <input type="file" id="dataFile" accept=".json" style="display: none;">
+                </div>
+            </div>
+
+            <!-- 遮罩层 -->
+            <div id="overlay" class="overlay"></div>
+        </div>
+    </div>
+
+    <!-- 主应用脚本 -->
+    <script src="app_new.js"></script>
+    <!-- Service Worker 注册 -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker 注册成功:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('Service Worker 注册失败:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

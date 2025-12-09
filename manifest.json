@@ -1,0 +1,26 @@
+{
+  "name": "离线聊天",
+  "short_name": "离线聊天",
+  "description": "一个完全离线可用的聊天应用，可以添加到主屏幕作为 PWA 使用。",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f8f0f9",
+  "theme_color": "#ffb6c1",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192' fill='%23ffb6c1'%3E%3Ccircle cx='96' cy='96' r='96'/%3E%3Cpath d='M140 80c0-22.091-17.909-40-40-40S60 57.909 60 80c0 14.846 9.231 27.538 22 34.846V140h16v-25.154c12.769-7.308 22-19.999 22-34.846z' fill='white'/%3E%3Cpath d='M84 108h24v8h-24z' fill='%23333'/%3E%3Cpath d='M84 92h16v8h-16z' fill='%23333'/%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' fill='%23ffb6c1'%3E%3Ccircle cx='256' cy='256' r='256'/%3E%3Cpath d='M373.333 213.333c0-58.91-47.765-106.666-106.666-106.666s-106.667 47.756-106.667 106.666c0 39.59 24.616 73.43 58.667 92.92v117.333h42.667v-117.333c34.051-19.49 58.666-53.33 58.666-92.92z' fill='white'/%3E%3Cpath d='M224 288h64v21.333h-64z' fill='%23333'/%3E%3Cpath d='M224 245.333h42.667v21.333h-42.667z' fill='%23333'/%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "orientation": "portrait",
+  "categories": ["social", "communication"],
+  "lang": "zh-CN"
+}

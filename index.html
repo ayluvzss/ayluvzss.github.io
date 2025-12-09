@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>敖隐 - 离线聊天 PWA</title>
+    <link rel="stylesheet" href="style.css?v=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="assets/icon-192.png" type="image/png">
+</head>
+
+<body>
+    <!-- 主容器 -->
+    <div class="app-wrapper">
+        <!-- 聊天应用容器 -->
+        <div class="chat-app">
+            <!-- 顶部标题栏 -->
+            <header class="chat-header">
+                <div class="header-left">
+                    <button id="backBtn" class="back-btn">
+                        <span class="back-icon">&lt;</span>
+                    </button>
+                </div>
+                <div class="header-center">
+                    <h1 class="chat-title">敖隐</h1>
+                </div>
+
+            </header>
+
+            <!-- 设置面板 -->
+            <div id="settingsPanel" class="settings-panel">
+                <div class="settings-header">
+                    <h2>设置</h2>
+                    <button id="closeSettingsBtn" class="close-btn">×</button>
+                </div>
+                <div class="settings-content">
+
+
+                    <!-- 主题模式 -->
+                    <div class="setting-group">
+                        <h3>主题模式</h3>
+                        <div class="setting-options">
+                            <button class="setting-option active" data-theme="pink">粉色</button>
+                            <button class="setting-option" data-theme="cream">奶白色</button>
+                            <button class="setting-option" data-theme="purple">淡紫色</button>
+                            <button class="setting-option" data-theme="blue">淡蓝色</button>
+                            <button class="setting-option" data-theme="green">淡绿色</button>
+                            <button class="setting-option" data-theme="dark">深色模式</button>
+                            <button class="setting-option" data-theme="white">白色模式</button>
+                            <button class="setting-option" data-theme="black-white">黑白模式</button>
+                        </div>
+                    </div>
+
+                    <!-- 背景设置 -->
+                    <div class="setting-group">
+                        <h3>背景设置</h3>
+                        <div class="setting-options">
+                            <label class="setting-option file-label">
+                                <input type="file" id="bgFileInput" accept="image/*" style="display: none;">
+                                <span>上传背景图</span>
+                            </label>
+                            <button class="setting-option" id="resetBgBtn">恢复默认背景</button>
+                        </div>
+                    </div>
+
+                    <!-- 导入导出 -->
+                    <div class="setting-group">
+                        <h3>聊天记录</h3>
+                        <div class="setting-options">
+                            <label class="setting-option file-label">
+                                <input type="file" id="importChatInput" accept=".json" style="display: none;">
+                                <span>导入聊天记录</span>
+                            </label>
+                            <button class="setting-option" id="exportChatBtn">导出聊天记录</button>
+                        </div>
+                    </div>
+
+                    <!-- 头像设置 -->
+                    <div class="setting-group">
+                        <h3>头像设置</h3>
+                        <div class="setting-options">
+                            <div class="avatar-setting">
+                                <label class="setting-option file-label">
+                                    <input type="file" id="myAvatarInput"
+                                        accept="image/png,image/jpeg,image/gif,image/webp,image/*"
+                                        style="display: none;">
+                                    <span>我的头像</span>
+                                </label>
+                            </div>
+                            <div class="avatar-setting">
+                                <label class="setting-option file-label">
+                                    <input type="file" id="botAvatarInput"
+                                        accept="image/png,image/jpeg,image/gif,image/webp,image/*"
+                                        style="display: none;">
+                                    <span>敖隐头像</span>
+                                </label>
+                            </div>
+                            <button class="setting-option" id="resetAvatarBtn">恢复默认头像</button>
+                        </div>
+                    </div>
+
+                    <!-- 回复库管理 -->
+                    <div class="setting-group">
+                        <h3>回复库管理</h3>
+                        <div class="setting-options">
+                            <button class="setting-option" id="manageRepliesBtn">回复库详情</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 消息引用预览 -->
+            <div id="quotePreview" class="quote-preview" style="display: none;">
+                <div class="quote-content"></div>
+                <button id="cancelQuoteBtn" class="cancel-quote-btn">×</button>
+            </div>
+
+            <!-- 聊天内容区域 -->
+            <div class="chat-content">
+                <!-- 日期分隔符 -->
+                <div class="date-divider">今天</div>
+
+                <!-- 消息列表 -->
+                <div id="messages" class="message-list"></div>
+            </div>
+
+            <!-- 长按菜单 -->
+            <div id="contextMenu" class="context-menu" style="display: none;">
+                <button id="quoteMsgBtn" class="context-menu-btn">引用</button>
+            </div>
+
+            <!-- 输入区域 -->
+            <div class="input-area">
+                <div class="input-bar">
+                    <div class="input-tools">
+                        <button id="more-btn" class="tool-btn">⊹</button>
+                        <button class="tool-btn emoji-btn">☻</button>
+                        <button id="extraReplyIcon" class="tool-btn">♥</button>
+                    </div>
+                    
+                    <!-- 更多功能弹窗 -->
+                    <div id="moreMenu" class="more-menu" style="display: none;">
+                        <button id="dragon-btn" class="tool-btn">🐉</button>
+                        <button id="openDailyNotesBtn" class="tool-btn">📝</button>
+                        <button id="settingsBtn" class="tool-btn">✦</button>
+                    </div>
+                    <div class="input-main">
+                        <textarea id="messageInput" placeholder="输入消息..." class="message-input"></textarea>
+                    </div>
+                    <button id="sendBtn" class="send-btn">➼</button>
+                </div>
+
+                <!-- 表情面板 -->
+                <div class="sticker-panel" style="display: none;">
+                    <div class="sticker-list"></div>
+                    <div class="sticker-footer">
+                        <button class="add-sticker-btn">添加表情</button>
+                        <input type="file" id="stickerFileInput" accept="image/*" style="display: none;">
+                    </div>
+                </div>
+
+                <!-- 打卡日历模态框 -->
+                <div class="dragon-calendar-modal" style="display: none;">
+                    <div class="calendar-card">
+                        <div class="card-header">
+                            <div class="checkin-title">打卡</div>
+                            <button class="close-calendar">×</button>
+                        </div>
+
+                        <div class="month-selector">
+                                <button class="month-arrow prev">&lt;</button>
+                                <span class="current-month">2025年 12月</span>
+                                <button class="month-arrow next">&gt;</button>
+                            </div>
+
+                        <div class="calendar-grid">
+                            <!-- 一周标题 -->
+                            <div class="day-title">一</div>
+                            <div class="day-title">二</div>
+                            <div class="day-title">三</div>
+                            <div class="day-title">四</div>
+                            <div class="day-title">五</div>
+                            <div class="day-title">六</div>
+                            <div class="day-title">日</div>
+                            <!-- 日期格子将通过JavaScript动态生成 -->
+                        </div>
+
+                        <div class="diary-section">
+                            <div class="diary-list" id="diary-list"></div>
+                            <div class="diary-input-area">
+                                <input type="text" class="diary-input" id="diary-input" placeholder="输入事项...">
+                                <button class="diary-submit-btn" id="diary-submit-btn">打卡</button>
+                            </div>
+                        </div>
+
+                        <div class="calendar-footer">
+                            本月累计：<span id="checkin-count">0</span> 天
+                            <br>
+                            连续打卡：<span id="streak-count">0</span> 天
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 每日记录面板 -->
+                <div id="dailyNotesPanel" class="popup-panel" style="display:none;">
+                    <div class="daily-header"> 
+    <button id="dailyPrev">▲</button> 
+    <span id="dailyDateTitle"></span> 
+    <button id="dailyNext">▼</button> 
+    <button id="dailyCloseBtn" class="close-btn">✕</button> 
+</div>
+<input id="logDatePicker" class="daily-date-input" style="display:none">
+
+                    <div class="daily-cards-row">
+                        <div class="daily-card" id="foodCard">
+                            <h3>FOOD</h3>
+                            <textarea id="foodInput" placeholder="记录今天吃了什么…"></textarea>
+                        </div>
+
+                        <div class="daily-card" id="workoutCard">
+                            <h3>WORKOUT</h3>
+                            <textarea id="workoutInput" placeholder="记录运动情况…"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="daily-card" id="letterCard">
+                        <h3>To 敖隐</h3>
+                        <textarea id="letterInput" placeholder="写给敖隐的信…"></textarea>
+                    </div>
+
+                    <div class="daily-card" id="footerNoteCard">
+                        <h3>敖隐附言</h3>
+                        <div id="dailyFooterNote" class="daily-footer-note"></div>
+                    </div>
+
+                    <div class="daily-footer">
+                        <button id="dailySaveBtn">保存</button>
+                        <button id="dailyExportBtn">导出当天</button>
+                    </div>
+                </div>
+                <!-- 亲密度详情弹窗 (新版) -->
+                <div id="intimacyModal" class="intimacy-modal-overlay" style="display: none;">
+                    <div class="intimacy-modal-card">
+                        <!-- 顶部图片区域 (16:9 横幅) -->
+                        <div class="intimacy-header-banner" id="intimacyBanner">
+                            <span class="default-symbol">₊⁺ ꒰১ ♡ ໒꒱ ⁺₊</span>
+                        </div>
+                        <input type="file" id="bannerUpload_New" accept="image/*" style="display: none;">
+
+                        <!-- 恋爱天数 -->
+                        <div class="love-days-container">
+                            <div class="love-text">
+                                <div class="love-line">
+                                    <span class="love-full">
+                                        已成为恋人 ₊⁺ ꒰১ ♡ ໒꒱ ⁺₊
+                                        <span id="loveDays" class="highlight-anim">584</span> 天
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 等级区块 -->
+                        <div class="level-row">
+                            <div class="level-line">
+                                <span class="level-full">
+                                    春中雪 💗 LV <span id="modalLevel" class="highlight-anim">9</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- 数值信息 (Grid布局) -->
+                        <div class="stats-grid">
+                            <div class="stat-label">当前亲密度：</div>
+                            <div class="stat-value"><span id="modalCurrentPoints" class="highlight-anim">0</span> 🩷
+                            </div>
+
+                            <div class="stat-label">距离下一等级：</div>
+                            <div class="stat-value"><span id="modalNextLevelDiff" class="highlight-anim">0</span> 点
+                            </div>
+
+                            <div class="stat-label">今日聊天：</div>
+                            <div class="stat-value"><span id="modalTodayCount" class="highlight-anim">0</span> 条</div>
+
+                            <div class="stat-label">总聊天量：</div>
+                            <div class="stat-value"><span id="modalTotalCount" class="highlight-anim">0</span> 条</div>
+                        </div>
+
+                        <!-- 关闭按钮 -->
+                        <button id="closeIntimacyModalBtn" class="modal-close-btn-new">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回复库管理弹窗 -->
+    <div id="replyLibraryModal" class="intimacy-modal-overlay" style="display: none;">
+        <div class="intimacy-modal-card">
+
+            <div class="modal-header">
+                <span class="modal-title">回复库管理</span>
+                <button id="closeReplyModalBtn" class="close-btn">×</button>
+            </div>
+
+            <div class="search-row">
+                <input id="replySearchInput" type="text" placeholder="搜索关键词…" />
+                <label class="icon-btn">
+                    <input type="file" id="importRepliesInModal" accept=".json" hidden>
+                    📥
+                </label>
+                <button id="exportRepliesBtn" class="icon-btn">📤</button>
+            </div>
+
+            <div id="replyList" class="reply-list"></div>
+
+            <button id="addReplyBtn" class="add-reply-btn">＋ 新增回复</button>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="app.js?v=1.0"></script>
+    <script>
+        // 临时禁用 Service Worker
+        /*
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('ServiceWorker registration failed: ', error);
+                    });
+            });
+        }
+        */
+    </script>
+    <!-- 日期选择器模态框 -->
+    <div id="datePickerModal" class="date-picker-modal hidden"> 
+        <div class="date-picker-panel"> 
+            <div class="dp-header"> 
+                <button class="dp-arrow" id="dpPrevYear">«</button> 
+                <span id="dpYearText"></span> 
+                <button class="dp-arrow" id="dpNextYear">»</button> 
+            </div> 
+            <div class="dp-months"></div> 
+            <div class="dp-calendar"></div> 
+            <button id="dpCloseBtn" class="dp-close">关闭</button> 
+        </div> 
+    </div>
+</body>
+
+</html>

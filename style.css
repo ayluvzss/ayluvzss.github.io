@@ -1,0 +1,2682 @@
+/* 汉仪润圆体引入 */
+@font-face {
+    font-family: "HYRunYuan";
+    /* 自定义字体名称 */
+    src: url("./assets/fonts/汉仪润圆.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* CSS 变量 - 主题和字体大小 */
+:root {
+    /* 默认主题 - 粉色少女风格 */
+    --bg-color: #f8f8f8;
+    --appbar-color: #ffffff;
+    --appbar-text-color: #333333;
+    --bubble-user-bg: #f7b3c6;
+    --bubble-user-text: white;
+    --bubble-bot-bg: #ffffff;
+    --bubble-bot-text: #333333;
+    --send-button-bg: #f7b3c6;
+    --send-button-text: white;
+
+    --primary-color: #f7b3c6;
+    --secondary-color: #ff8fab;
+    --background-color: var(--bg-color);
+    --header-background: var(--appbar-color);
+    --header-text: var(--appbar-text-color);
+    --text-color: var(--bubble-bot-text);
+    --bubble-user: var(--bubble-user-bg);
+    --bubble-bot: var(--bubble-bot-bg);
+    --input-background: #ffffff;
+    --input-border: #e5e5e5;
+    --input-placeholder: #999999;
+    --scrollbar-thumb: #c1c1c1;
+    --scrollbar-track: #f0f0f0;
+    --settings-panel: #ffffff;
+    --settings-divider: #e5e5e5;
+    --date-divider: #999999;
+    --message-time: #999999;
+    --read-status: #999999;
+    --font-size-read: inherit;
+
+    /* 卡片样式 */
+    --card-bg: #ffffff;
+    --card-border: #ffe6f0;
+    /* 淡粉边框 */
+    --card-shadow: rgba(0, 0, 0, 0.08);
+
+    /* 背景图 */
+    --background-image: none;
+
+    /* 弹窗渐变变量 (默认/粉色) */
+    --card-bg-light: #fff5f9;
+    --card-bg-dark: #ffe6f0;
+    --glow: rgba(247, 179, 198, 0.5);
+}
+
+/* 粉色主题 */
+[data-theme="pink"] {
+    --bg-color: #f8f8f8;
+    --appbar-color: #ffffff;
+    --appbar-text-color: #333333;
+    --bubble-user-bg: #f7b3c6;
+    --bubble-user-text: white;
+    --bubble-bot-bg: #ffffff;
+    --bubble-bot-text: #333333;
+    --send-button-bg: #f7b3c6;
+    --send-button-text: white;
+
+    --primary-color: #f7b3c6;
+    --secondary-color: #ff8fab;
+    --input-background: #ffffff;
+    --input-border: #e5e5e5;
+    --settings-panel: #ffffff;
+    --settings-divider: #e5e5e5;
+
+    /* 卡片样式 */
+    --card-bg: #ffeff5;
+    --card-border: #ffcee0;
+    --card-shadow: rgba(255, 182, 193, 0.2);
+
+    /* 弹窗渐变 */
+    --card-bg-light: #fff5f9;
+    --card-bg-dark: #ffe6f0;
+    --glow: rgba(247, 179, 198, 0.5);
+}
+
+/* 奶白色主题 */
+[data-theme="cream"] {
+    --bg-color: #fffaf5;
+    --appbar-color: #ffffff;
+    --appbar-text-color: #333333;
+    --bubble-user-bg: #f5e6d3;
+    --bubble-user-text: #5d4037;
+    --bubble-bot-bg: #ffffff;
+    --bubble-bot-text: #333333;
+    --send-button-bg: #f5e6d3;
+    --send-button-text: #5d4037;
+
+    --primary-color: #f5e6d3;
+    --secondary-color: #e0c8a8;
+    --input-background: #ffffff;
+    --input-border: #e0c8a8;
+    --settings-panel: #ffffff;
+    --settings-divider: #e0c8a8;
+
+    /* 卡片样式 */
+    --card-bg: #fff8f0;
+    --card-border: #f5e6d3;
+    --card-shadow: rgba(245, 230, 211, 0.2);
+
+    /* 弹窗渐变 */
+    --card-bg-light: #fffcf8;
+    --card-bg-dark: #f5e6d3;
+    --glow: rgba(245, 230, 211, 0.6);
+}
+
+/* 淡紫色主题 */
+[data-theme="purple"] {
+    --bg-color: #faf5ff;
+    --appbar-color: #ffffff;
+    --appbar-text-color: #333333;
+    --bubble-user-bg: #e6e6fa;
+    --bubble-user-text: #4b0082;
+    --bubble-bot-bg: #ffffff;
+    --bubble-bot-text: #333333;
+    --send-button-bg: #e6e6fa;
+    --send-button-text: #4b0082;
+
+    --primary-color: #e6e6fa;
+    --secondary-color: #d8bfd8;
+    --input-background: #ffffff;
+    --input-border: #d8bfd8;
+    --settings-panel: #ffffff;
+    --settings-divider: #d8bfd8;
+
+    /* 卡片样式 */
+    --card-bg: #f4efff;
+    --card-border: #e0d6ff;
+    --card-shadow: rgba(208, 191, 255, 0.2);
+
+    /* 弹窗渐变 */
+    --card-bg-light: #faf5ff;
+    --card-bg-dark: #e0d6ff;
+    --glow: rgba(208, 191, 255, 0.5);
+}
+
+/* 淡蓝色主题 */
+[data-theme="blue"] {
+    --bg-color: #f0f8ff;
+    --appbar-color: #ffffff;
+    --appbar-text-color: #333333;
+    --bubble-user-bg: #b3d9ff;
+    --bubble-user-text: #0066cc;
+    --bubble-bot-bg: #ffffff;
+    --bubble-bot-text: #333333;
+    --send-button-bg: #b3d9ff;
+    --send-button-text: #0066cc;
+
+    --primary-color: #b3d9ff;
+    --secondary-color: #80bfff;
+    --input-background: #ffffff;
+    --input-border: #b3d9ff;
+    --settings-panel: #ffffff;
+    --settings-divider: #b3d9ff;
+
+    /* 卡片样式 */
+    --card-bg: #eef6ff;
+    --card-border: #cbe3ff;
+    --card-shadow: rgba(153, 204, 255, 0.2);
+
+    /* 弹窗渐变 */
+    --card-bg-light: #f5fbff;
+    --card-bg-dark: #cbe3ff;
+    --glow: rgba(153, 204, 255, 0.5);
+}
+
+/* 淡绿色主题 */
+[data-theme="green"] {
+    --bg-color: #f0fff4;
+    --appbar-color: #ffffff;
+    --appbar-text-color: #333333;
+    --bubble-user-bg: #b3ffb3;
+    --bubble-user-text: #009933;
+    --bubble-bot-bg: #ffffff;
+    --bubble-bot-text: #333333;
+    --send-button-bg: #b3ffb3;
+    --send-button-text: #009933;
+
+    --primary-color: #b3ffb3;
+    --secondary-color: #80ff80;
+    --input-background: #ffffff;
+    --input-border: #b3ffb3;
+    --settings-panel: #ffffff;
+    --settings-divider: #b3ffb3;
+
+    /* 卡片样式 */
+    --card-bg: #eefff0;
+    --card-border: #ccf3d4;
+    --card-shadow: rgba(153, 230, 179, 0.2);
+
+    /* 弹窗渐变 */
+    --card-bg-light: #f5fff7;
+    --card-bg-dark: #ccf3d4;
+    --glow: rgba(153, 230, 179, 0.5);
+}
+
+/* 深色主题 */
+[data-theme="dark"] {
+    --bg-color: #121212;
+    --appbar-color: #1e1e1e;
+    --appbar-text-color: #ffffff;
+    --bubble-user-bg: #2c5282;
+    --bubble-user-text: #ffffff;
+    --bubble-bot-bg: #2d3748;
+    --bubble-bot-text: #e0e0e0;
+    --send-button-bg: #2c5282;
+    --send-button-text: #ffffff;
+
+    --primary-color: #2c5282;
+    --secondary-color: #4299e1;
+    --text-color: #e0e0e0;
+    --input-background: #2d3748;
+    --input-border: #4a5568;
+    --input-placeholder: #9ca3af;
+    --scrollbar-thumb: #4a5568;
+    --scrollbar-track: #1f2937;
+    --settings-panel: #2d3748;
+    --settings-divider: #4a5568;
+    --date-divider: #9ca3af;
+    --message-time: #9ca3af;
+    --read-status: #9ca3af;
+
+    /* 卡片样式 */
+    --card-bg: #2a2a2a;
+    --card-border: #333444;
+    --card-shadow: rgba(255, 255, 255, 0.1);
+
+    /* 弹窗渐变 */
+    --card-bg-light: rgba(60, 60, 60, 0.7);
+    --card-bg-dark: rgba(30, 30, 30, 0.8);
+    --glow: rgba(255, 255, 255, 0.15);
+}
+
+/* 白色极简主题 */
+[data-theme="white"] {
+    --bg-color: #ffffff;
+    --appbar-color: #ffffff;
+    --appbar-text-color: #333333;
+    --bubble-user-bg: #f0f0f0;
+    --bubble-user-text: #333333;
+    --bubble-bot-bg: #f0f0f0;
+    --bubble-bot-text: #333333;
+    --send-button-bg: #f0f0f0;
+    --send-button-text: #333333;
+
+    --primary-color: #f0f0f0;
+    --secondary-color: #e0e0e0;
+    --input-background: #ffffff;
+    --input-border: #f0f0f0;
+    --settings-panel: #ffffff;
+    --settings-divider: #f0f0f0;
+
+    /* 弹窗渐变 */
+    --card-bg-light: #ffffff;
+    --card-bg-dark: #f5f5f5;
+    --glow: rgba(0, 0, 0, 0.05);
+}
+
+/* 黑白极简主题 */
+[data-theme="black-white"] {
+    --bg-color: #ffffff;
+    --appbar-color: #000000;
+    --appbar-text-color: #ffffff;
+    --bubble-user-bg: #000000;
+    --bubble-user-text: #ffffff;
+    --bubble-bot-bg: #ffffff;
+    --bubble-bot-text: #000000;
+    --send-button-bg: #000000;
+    --send-button-text: #ffffff;
+
+    --primary-color: #000000;
+    --secondary-color: #333333;
+    --input-background: #ffffff;
+    --input-border: #000000;
+    --settings-panel: #ffffff;
+    --settings-divider: #000000;
+    --date-divider: #666666;
+    --message-time: #666666;
+    --read-status: #666666;
+
+    /* 弹窗渐变 */
+    --card-bg-light: #ffffff;
+    --card-bg-dark: #e0e0e0;
+    --glow: rgba(0, 0, 0, 0.1);
+}
+
+/* 基础样式重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    font-family: "HYRunYuan", "PingFang SC", "Hiragino Sans GB", sans-serif;
+    background-color: #f0f2f5;
+    color: var(--text-color);
+    line-height: 1.5;
+    overflow: hidden;
+}
+
+/* 确保所有文本自动继承字体和字号 */
+*,
+.bubble-text,
+.settings-panel,
+.calendar-wrapper,
+.input-area {
+    font-size: inherit !important;
+    font-family: inherit;
+}
+
+
+
+/* 主容器 */
+.app-wrapper {
+    width: 100%;
+    height: 100vh;
+    background-color: #e5e5e5;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+/* 聊天应用容器 */
+.chat-app {
+    width: 100%;
+    height: 100vh;
+    background-color: var(--background-color);
+    background-image: none;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+/* 顶部标题栏 */
+.chat-header {
+    height: 60px;
+    background-color: var(--header-background);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    border-bottom: 1px solid #f5f5f5;
+    z-index: 100;
+    position: relative;
+}
+
+
+
+.chat-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #f5f5f5;
+}
+
+.header-left,
+.header-right {
+    width: 40px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.back-icon {
+    font-size: 1.5rem;
+    color: var(--header-text);
+}
+
+.header-center {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat-title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--header-text);
+    margin: 0;
+    white-space: nowrap;
+    flex: 1;
+}
+
+
+
+
+.settings-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 1.25rem;
+    color: var(--header-text);
+}
+
+.settings-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* 聊天内容区域 */
+.chat-content {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 20px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-image: var(--background-image);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* 日期分隔符 */
+.date-divider {
+    display: inline-block;
+    align-self: center;
+    padding: 4px 16px;
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--date-divider);
+    font-size: 0.75rem;
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+/* 消息列表 */
+.message-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* 滚动条样式 */
+.chat-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-content::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 3px;
+}
+
+.chat-content::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 3px;
+}
+
+.chat-content::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
+}
+
+/* 消息样式 */
+.message {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    animation: fadeIn 0.3s ease;
+    width: 100%;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 用户消息：右侧对齐 */
+.message.user {
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-direction: row;
+}
+
+/* 敖隐消息：左侧对齐 */
+.message.bot {
+    justify-content: flex-start;
+    align-items: flex-end;
+    flex-direction: row;
+}
+
+/* 头像样式 */
+.avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    background: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: white;
+    flex-shrink: 0;
+    object-fit: cover;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+/* 系统消息样式 */
+.system-message {
+    text-align: center;
+    color: #888;
+    font-size: 12px;
+    margin: 8px 0;
+    clear: both;
+}
+
+/* 我的头像 */
+.message.user .avatar {
+    background: var(--secondary-color);
+    margin-left: 8px;
+}
+
+/* 敖隐头像 */
+.message.bot .avatar {
+    background: var(--primary-color);
+    margin-right: 8px;
+}
+
+/* 消息内容 */
+.message-content {
+    max-width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* 聊天气泡 */
+.message-bubble {
+    padding: 12px 16px;
+    border-radius: 20px;
+    word-wrap: break-word;
+    position: relative;
+    line-height: 1.5;
+    font-size: inherit;
+    font-family: inherit;
+}
+
+/* 用户消息气泡 */
+.message.user .message-bubble {
+    background-color: var(--bubble-user);
+    color: var(--bubble-user-text);
+    border-bottom-right-radius: 4px;
+}
+
+/* 敖隐消息气泡 */
+.message.bot .message-bubble {
+    background-color: var(--bubble-bot);
+    color: var(--bubble-bot-text);
+    border-bottom-left-radius: 4px;
+}
+
+/* 消息时间和已读状态 */
+.message-footer {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: var(--font-size-time);
+    color: var(--message-time);
+    opacity: 0.7;
+}
+
+.message.user .message-footer {
+    justify-content: flex-end;
+}
+
+.message.bot .message-footer {
+    justify-content: flex-start;
+}
+
+.read-status {
+    font-size: inherit;
+    color: var(--read-status);
+}
+
+/* 引用消息 */
+.quote {
+    font-size: var(--current-font-size);
+    color: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.05);
+    padding: 4px 8px;
+    border-radius: 8px;
+    margin-bottom: 4px;
+    border-left: 3px solid var(--primary-color);
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: inherit;
+}
+
+/* 输入区域 */
+.input-area {
+    background-color: #ffffff;
+    padding: 5px 16px;
+    border-top: 1px solid #f5f5f5;
+    z-index: 100;
+    position: relative;
+}
+
+/* 表情面板 */
+.sticker-panel {
+    position: absolute;
+    bottom: 60px;
+    left: 16px;
+    right: 16px;
+    background: #fff;
+    padding: 10px;
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    z-index: 999;
+    max-height: 240px;
+    overflow-y: auto;
+    display: none;
+    flex-direction: column;
+}
+
+/* 表情列表 */
+.sticker-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 0;
+}
+
+.sticker-list img {
+    width: 56px;
+    height: 56px;
+    border-radius: 8px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.sticker-list img:hover {
+    transform: scale(1.1);
+}
+
+/* 表情面板底部 */
+.sticker-footer {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0 0;
+    border-top: 1px solid #f5f5f5;
+    margin-top: auto;
+}
+
+/* 添加表情按钮 */
+.add-sticker-btn {
+    padding: 8px 16px;
+    border: 2px dashed #e0e0e0;
+    background: transparent;
+    color: var(--primary-color);
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+}
+
+.add-sticker-btn:hover {
+    border-color: var(--primary-color);
+    background: rgba(255, 182, 193, 0.1);
+}
+
+/* 图片消息 */
+.msg-image {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 16px;
+    object-fit: cover;
+}
+
+/* 显示表情面板 */
+.sticker-panel.show {
+    display: flex;
+}
+
+.input-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: #ffffff;
+    border-radius: 25px;
+    padding: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.input-tools {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.tool-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 1.125rem;
+    color: #999999;
+}
+
+/* 龙按钮样式 */
+.emoji-btn {
+    background-color: var(--send-button-bg);
+    color: var(--send-button-text);
+    border-radius: 20px;
+    padding: 8px 12px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.emoji-btn:hover {
+    opacity: 0.9;
+    transform: scale(0.95);
+    background-color: var(--send-button-bg);
+    color: var(--send-button-text);
+}
+
+/* 特殊回复图标按钮样式 */
+#extraReplyIcon {
+    background-color: var(--send-button-bg);
+    color: var(--send-button-text);
+    border-radius: 20px;
+    padding: 8px 10px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#extraReplyIcon:hover {
+    opacity: 0.9;
+    transform: scale(0.95);
+    background-color: var(--send-button-bg);
+    color: var(--send-button-text);
+}
+
+/* 更多功能按钮样式 */
+#more-btn {
+    background-color: var(--send-button-bg);
+    color: var(--send-button-text);
+    border-radius: 20px;
+    padding: 8px 10px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#more-btn:hover {
+    opacity: 0.9;
+    transform: scale(0.95);
+    background-color: var(--send-button-bg);
+    color: var(--send-button-text);
+}
+
+/* 更多功能弹窗样式 */
+.more-menu {
+    position: absolute;
+    bottom: 60px;
+    left: 10px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 200px;
+    min-height: 100px;
+    z-index: 1000;
+}
+
+.more-menu .tool-btn {
+    background-color: var(--send-button-bg);
+    color: var(--send-button-text);
+    border-radius: 20px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+/* 设置按钮在更多菜单中的样式 */
+.more-menu #settingsBtn {
+    font-size: 1.2rem;
+    background-color: var(--send-button-bg);
+    color: var(--send-button-text);
+}
+
+.input-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #999999;
+}
+
+.icon-emoji {
+    font-size: inherit;
+    line-height: 1;
+    font-family: inherit, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+.input-icon:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--primary-color);
+}
+
+.tool-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--primary-color);
+}
+
+.input-main {
+    flex: 1;
+    background-color: #f3f3f3;
+    border-radius: 20px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+}
+
+.message-input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-size: inherit;
+    color: var(--text-color);
+    outline: none;
+    resize: none;
+    min-height: 28px;
+    max-height: 120px;
+    padding: 4px 0;
+    font-family: inherit;
+}
+
+.message-input::placeholder {
+    color: var(--input-placeholder);
+}
+
+.send-btn {
+    padding: 8px 16px;
+    border: none;
+    background-color: var(--send-button-bg);
+    color: var(--send-button-text);
+    border-radius: 20px;
+    font-size: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.send-btn:hover {
+    opacity: 0.9;
+    transform: scale(0.95);
+}
+
+/* 设置面板 */
+.settings-panel {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    max-width: 320px;
+    height: 100vh;
+    background: var(--settings-panel);
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: right 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.settings-panel.open {
+    right: 0;
+}
+
+.settings-header {
+    background: var(--header-background);
+    color: var(--text-color);
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--settings-divider);
+}
+
+.settings-header h2 {
+    font-size: inherit;
+    font-weight: 600;
+    margin: 0;
+}
+
+.close-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-size: inherit;
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.settings-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    color: var(--text-color);
+}
+
+.setting-group {
+    margin-bottom: 25px;
+}
+
+.setting-group h3 {
+    font-size: inherit;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: rgba(0, 0, 0, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.setting-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: inherit;
+}
+
+.setting-option {
+    background: rgba(0, 0, 0, 0.05);
+    border: 2px solid transparent;
+    color: var(--text-color);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: inherit;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.setting-option:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.setting-option.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.file-label {
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* 长按菜单 */
+.context-menu {
+    position: absolute;
+    background: var(--settings-panel);
+    border: 1px solid var(--settings-divider);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    min-width: 120px;
+    overflow: hidden;
+}
+
+.context-menu-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    padding: 10px 16px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-size: inherit;
+    transition: all 0.3s ease;
+}
+
+.context-menu-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+/* 消息引用预览 */
+.quote-preview {
+    background: rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid var(--input-border);
+    padding: 8px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: var(--current-font-size);
+    color: rgba(0, 0, 0, 0.6);
+    font-family: inherit;
+}
+
+.cancel-quote-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-size: inherit;
+    cursor: pointer;
+    padding: 2px;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.cancel-quote-btn:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* 加载状态 */
+.loading {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 12px 16px;
+}
+
+.loading-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    animation: loading 1.4s ease-in-out infinite both;
+}
+
+.loading-dot:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.loading-dot:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+@keyframes loading {
+
+    0%,
+    80%,
+    100% {
+        transform: scale(0);
+        opacity: 0.5;
+    }
+
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* 动作回复样式 */
+.action-reply {
+    text-align: center;
+    font-style: italic;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: inherit;
+    margin: 8px 0;
+    align-self: center;
+    font-family: inherit;
+}
+
+/* 打卡日历样式 - 主题色适配 */
+.dragon-calendar-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1001;
+}
+
+.calendar-card {
+    background-color: var(--bubble-bot-bg);
+    border-radius: 16px;
+    width: 80%;
+    max-width: 360px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    margin: 0 auto;
+}
+
+/* 打卡标题 */
+.checkin-title {
+    font-size: inherit;
+    font-weight: 600;
+    color: var(--text-color);
+    text-align: center;
+    padding-top: 10px;
+    margin-bottom: 20px;
+}
+
+/* 卡片顶部标题栏 */
+.card-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 0 16px 0;
+    font-size: 18px;
+    color: var(--text-color);
+}
+
+.header-left {
+    display: none;
+}
+
+.card-header .title {
+    font-size: inherit;
+    font-weight: 600;
+    display: none;
+}
+
+.close-calendar {
+    background: transparent;
+    border: none;
+    font-size: inherit;
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.close-calendar:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* 月份选择栏 */
+.month-selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 12px 0;
+    font-size: inherit;
+    color: var(--text-color);
+    margin: 0 0 14px 0;
+}
+
+.month-arrow {
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-size: inherit;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.month-arrow:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* 日历网格 */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    padding: 0 0 16px 0;
+}
+
+.day-title {
+    text-align: center;
+    font-size: inherit;
+    font-weight: 600;
+    color: var(--text-color);
+    padding: 8px 0;
+    opacity: 0.7;
+}
+
+.day-cell {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 3px;
+    border-radius: 10px;
+    color: var(--text-color);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.day-cell:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.day-cell.checked {
+    border: 2px solid var(--primary-color);
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.day-cell.other-month {
+    color: var(--text-color);
+    opacity: 0.3;
+}
+
+.day-cell.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+    filter: grayscale(0.6);
+}
+
+/* 已打卡的过去日期样式 */
+.day-cell.past-checked {
+    background: rgba(255, 182, 193, 0.25);
+    /* 淡粉色背景，根据主题色调整 */
+    color: var(--text-color);
+    border-radius: 10px;
+    border: none;
+}
+
+/* 今天日期样式 */
+.day-cell.today {
+    border: 2px solid var(--primary-color);
+    background: rgba(255, 182, 193, 0.1);
+    /* 淡粉色背景，根据主题色调整 */
+    color: var(--text-color);
+}
+
+/* 日记区域 */
+.diary-section {
+    padding: 16px;
+    background-color: rgba(0, 0, 0, 0.05);
+    margin: 0 0 16px 0;
+    border-radius: 10px;
+}
+
+.diary-list {
+    max-height: 120px;
+    overflow-y: auto;
+    color: var(--text-color);
+    font-size: inherit;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+}
+
+.diary-item {
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.diary-time {
+    color: var(--text-color);
+    font-size: inherit;
+    margin-right: 10px;
+    opacity: 0.7;
+}
+
+.diary-content {
+    color: var(--text-color);
+    font-size: inherit;
+}
+
+.diary-input-area {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.diary-input {
+    width: calc(100% - 90px);
+    padding: 10px;
+    border-radius: 10px;
+    background: var(--input-background);
+    color: var(--text-color);
+    border: none;
+    outline: none;
+    font-size: inherit;
+}
+
+.diary-submit-btn {
+    width: 70px;
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: inherit;
+    padding: 10px 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.diary-submit-btn:hover {
+    opacity: 0.9;
+}
+
+/* 月份标题 */
+.calendar-month {
+    font-size: 1rem;
+    color: var(--text-color);
+    font-weight: 600;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+/* 日历底部统计 */
+.calendar-footer {
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--text-color);
+    padding: 16px 0 0;
+    line-height: 1.5;
+    opacity: 0.8;
+}
+
+/* 适配要求 */
+@media (max-width: 480px) {
+    .app-wrapper {
+        padding: 0;
+    }
+
+    .chat-app {
+        max-width: 100%;
+        height: 100vh;
+        border-radius: 0;
+    }
+
+    .message-content {
+        max-width: 80%;
+    }
+
+    .settings-panel {
+        max-width: 100%;
+    }
+
+    .day-cell {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+/* 电脑端样式 - 两侧留白 */
+@media (min-width: 481px) {
+    .app-wrapper {
+        background-color: #e5e5e5;
+    }
+
+    .chat-app {
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+}
+
+/* 奖励语句样式 */
+
+
+.daily-footer-note {
+    margin-top: 10px;
+    padding: 12px 16px;
+    border-radius: 18px;
+    background: var(--card-bg);
+    border: 2px solid var(--card-border);
+    font-size: 14px;
+    line-height: 1.5;
+    height: 120px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    pointer-events: none;
+    /* 不可编辑 */
+    user-select: text;
+    white-space: pre-wrap;
+}
+
+/* 滚动条样式 */
+.daily-footer-note::-webkit-scrollbar {
+    width: 6px;
+}
+
+.daily-footer-note::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 3px;
+}
+
+.daily-footer-note::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+/* 每日记录面板样式 */
+.popup-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 450px;
+    max-height: 80vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    background: linear-gradient(135deg, var(--card-bg-light), var(--card-bg-dark));
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    z-index: 1000;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 关闭按钮样式 */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-color);
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.close-btn:hover {
+    background-color: var(--secondary-bg-color);
+}
+
+.daily-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0 15px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.daily-header h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--text-color);
+    margin: 0 15px;
+}
+
+#dailyPrev, #dailyNext {
+    background: transparent;
+    border: none;
+    font-size: 0.875rem;
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    z-index: 2;
+}
+
+#dailyPrev:hover, #dailyNext:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.daily-header .close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-color);
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.daily-cards-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.daily-card {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+}
+
+#foodCard, #workoutCard {
+    width: 50%;
+    min-height: 150px;
+}
+
+#letterCard {
+    margin-bottom: 15px;
+}
+
+#letterCard textarea {
+    min-height: 200px;
+}
+
+.daily-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px var(--card-shadow);
+}
+
+.daily-card h3 {
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.daily-card textarea {
+    width: 100%;
+    min-height: 90px;
+    background: transparent;
+    border: none;
+    resize: none;
+    outline: none;
+    font-family: inherit;
+    font-size: 16px;
+}
+
+.daily-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.daily-footer button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.daily-footer button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 为其他主题添加卡片背景色 */
+[data-theme="pink"] {
+    --card-bg: #ffe6ee;
+    --card-shadow: rgba(0, 0, 0, 0.1) 0 2px 6px;
+}
+
+[data-theme="blue"] {
+    --card-bg: #e8f3ff;
+    --card-shadow: rgba(0, 0, 0, 0.1) 0 2px 6px;
+}
+
+[data-theme="green"] {
+    --card-bg: #e8ffe8;
+    --card-shadow: rgba(0, 0, 0, 0.1) 0 2px 6px;
+}
+
+[data-theme="white"] {
+    --card-bg: #ffffff;
+    --card-shadow: rgba(0, 0, 0, 0.1) 0 2px 6px;
+}
+
+[data-theme="cream"] {
+    --card-bg: #fffaf5;
+    --card-shadow: rgba(0, 0, 0, 0.1) 0 2px 6px;
+}
+
+[data-theme="dark"] {
+    --card-bg: #2b2b2b;
+    --card-shadow: rgba(255, 255, 255, 0.1) 0 2px 6px;
+}
+
+[data-theme="black-white"] {
+    --card-bg: #ffffff;
+    --card-shadow: rgba(0, 0, 0, 0.1) 0 2px 6px;
+}
+
+/* 强制修复亲密度显示的样式 */
+.intimacy-display {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 4px !important;
+    white-space: nowrap !important;
+    font-size: 10px !important;
+    line-height: 1.1 !important;
+    margin-top: 2px !important;
+    font-weight: normal !important;
+    width: 100% !important;
+}
+
+
+/* -----------------------------------------------------------
+   亲密度详情弹窗 (新版重制)
+   ----------------------------------------------------------- */
+
+/* 弹窗遮罩 (浅色) */
+.intimacy-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.18);
+    backdrop-filter: blur(4px);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeInOverlay 0.2s ease;
+}
+
+@keyframes fadeInOverlay {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* 弹窗卡片主体 (亮色主题渐变 + 毛玻璃) */
+.intimacy-modal-card {
+    position: relative;
+    width: 80%;
+    max-width: 340px;
+
+    /* 60% 主题色 + 40% (90%透明度的白) -> 既亮又有明显颜色 */
+    background: linear-gradient(to bottom right,
+            color-mix(in srgb, var(--card-bg-light) 60%, rgba(255, 255, 255, 0.9)),
+            color-mix(in srgb, var(--card-bg-dark) 60%, rgba(255, 255, 255, 0.9)));
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    /* 22px 圆角 */
+    border-radius: 22px;
+
+    /* 极淡边框 */
+    border: 1px solid color-mix(in srgb, var(--card-bg-dark) 20%, transparent);
+
+    /* 较浅阴影 + 极淡发光 */
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.08),
+        0 0 25px color-mix(in srgb, var(--glow) 40%, transparent);
+
+    padding: 22px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    text-align: center;
+    /* 强制深色字体 (因为背景固定为亮色) */
+    color: #333333;
+
+    /* 进场动画 */
+    transform-origin: center;
+    animation: modalEntry 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalEntry {
+    from {
+        opacity: 0;
+        transform: scale(0.92);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* 1. 顶部图片区域 (16:9 横幅) */
+.intimacy-header-banner {
+    width: 88%;
+    aspect-ratio: 16 / 9;
+    margin: 0 auto 12px auto;
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* 背景色: 主题色混合白色，柔和底色 */
+    background: color-mix(in srgb, var(--secondary-color) 12%, white);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+    position: relative;
+    transition: 0.25s ease;
+    background-size: cover;
+    /* 适配图片上传 */
+    background-position: center;
+    cursor: pointer;
+    /* 提示可交互 */
+}
+
+/* 默认符号样式 */
+.intimacy-header-banner .default-symbol {
+    font-size: 32px;
+    opacity: 0.8;
+    color: var(--appbar-text-color);
+    user-select: none;
+    font-family: system-ui, -apple-system, sans-serif;
+    /* 确保特殊符号显示正常 */
+}
+
+.intimacy-header-banner:active {
+    transform: scale(0.98);
+}
+
+/* 2. 恋爱天数 */
+.love-days-container {
+    margin-top: 4px;
+}
+
+.love-text {
+    font-size: 18px;
+    color: #333333;
+    /* 强制深色 */
+    font-weight: 600;
+    font-family: "HYRunYuan", sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+/* 3. 等级区块 */
+.level-row {
+    font-size: 16px;
+    color: #333333;
+    /* 强制深色 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-weight: 500;
+}
+
+.modal-icon {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+/* 4. 数值信息 (半透白卡片) */
+.stats-grid {
+    background: rgba(255, 255, 255, 0.6);
+    /* 更透一点，让亮色背景透出来 */
+    border-radius: 12px;
+    padding: 15px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 12px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.stat-label {
+    grid-column: 1;
+    text-align: right;
+    font-size: 14px;
+    color: #555555;
+    /* 强制深灰色 */
+    opacity: 0.8;
+}
+
+.stat-value {
+    grid-column: 2;
+    text-align: left;
+    font-size: 14px;
+    color: #333333;
+    /* 强制深色 */
+    font-weight: 600;
+}
+
+/* 5. 关闭按钮 (极浅) */
+.modal-close-btn-new {
+    width: 60%;
+    margin: 8px auto 0;
+    padding: 10px 0;
+    border-radius: 20px;
+
+    /* 亮灰粉色 */
+    background: color-mix(in srgb, var(--secondary-color) 15%, #f0f0f0);
+    /* 文字 */
+    color: #666;
+    border: none;
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: bold;
+}
+
+.modal-close-btn-new:hover {
+    background: color-mix(in srgb, var(--secondary-color) 25%, #f0f0f0);
+}
+
+.modal-close-btn-new:active {
+    opacity: 0.9;
+}
+
+/* 动画：心跳 */
+.beat-anim {
+    animation: beat 1.2s infinite;
+}
+
+@keyframes beat {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.08);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* 动画：数值闪亮 (通过 JS 添加 class 触发) */
+.highlight-anim {
+    transition: filter 0.2s;
+}
+
+.highlight-trigger {
+    animation: textGlow 0.2s ease-out;
+}
+
+@keyframes textGlow {
+    0% {
+        filter: brightness(1.4);
+    }
+
+    100% {
+        filter: brightness(1);
+    }
+}
+
+/* 增强：点击区域 */
+.intimacy-display {
+    cursor: pointer;
+    /* 增加点击手势 */
+    transition: opacity 0.2s;
+}
+
+
+/* 修复标题栏图标大小 (恢复) */
+.intimacy-display img.spring-icon {
+    width: 12px !important;
+    height: 12px !important;
+    object-fit: contain !important;
+    margin: 0 !important;
+    vertical-align: middle !important;
+}
+
+/* 修复系统消息中图标的大小 */
+.system-message img.spring-icon {
+    width: 16px !important;
+    height: 16px !important;
+    object-fit: contain !important;
+    vertical-align: sub !important;
+    margin: 0 2px !important;
+}/* ========================================
+   回复库管理模态框样式
+   ======================================== */
+
+/* 模态框遮罩 */
+.reply-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    animation: fadeIn 0.2s ease;
+}
+
+/* 模态卡�?*/
+.reply-modal-card {
+    background: linear-gradient(to bottom right,
+            color-mix(in srgb, var(--card-bg-light) 90%, rgba(255, 255, 255, 0.9)),
+            color-mix(in srgb, var(--card-bg-dark) 90%, rgba(255, 255, 255, 0.9)));
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-radius: 20px;
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.12),
+        0 0 20px color-mix(in srgb, var(--glow) 30%, transparent);
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: slideUp 0.3s ease;
+}
+
+/* 标题�?*/
+.reply-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.reply-modal-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.reply-icon {
+    font-size: 24px;
+}
+
+.reply-close-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: color-mix(in srgb, var(--secondary-color) 15%, #f0f0f0);
+    color: #666;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reply-close-btn:hover {
+    background: color-mix(in srgb, var(--secondary-color) 25%, #e0e0e0);
+    transform: rotate(90deg);
+}
+
+/* 标签�?*/
+.reply-tabs {
+    display: flex;
+    gap: 12px;
+    padding: 16px 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.reply-tab {
+    flex: 1;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    background: rgba(0, 0, 0, 0.03);
+    color: #999;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.reply-tab.active {
+    background: var(--secondary-color);
+    color: white;
+    box-shadow: 0 2px 8px color-mix(in srgb, var(--secondary-color) 40%, transparent);
+}
+
+.reply-tab:hover:not(.active) {
+    background: rgba(0, 0, 0, 0.05);
+    color: #666;
+}
+
+/* 日期选择器样式 */
+.date-picker-modal {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.25);
+    backdrop-filter: blur(6px);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 9999;
+}
+
+.date-picker-panel {
+    width: 85%; max-width: 360px;
+    background: #fff; border-radius: 20px;
+    padding: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.dp-header { display: flex; justify-content: center; align-items: center; font-size: 18px; font-weight: 600; margin-bottom: 15px; }
+
+.dp-arrow { background: none; border: none; font-size: 18px; margin: 0 15px; color: #444; }
+
+.dp-months { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 15px; }
+
+.dp-months button { background: #f7f7f7; border-radius: 12px; border: none; padding: 6px 0; font-size: 14px; color: #444; }
+
+.dp-months button.active { background: #ffd9e6; color: #c2185b; font-weight: 600; }
+
+.dp-calendar { display: grid; grid-template-columns: repeat(7,1fr); text-align: center; gap: 6px; }
+
+.dp-calendar .day-title { font-size: 12px; opacity: 0.7; }
+
+.dp-calendar .day-cell { padding: 8px 0; border-radius: 10px; font-size: 14px; color: #333; }
+
+.day-cell.selectable { background: #fafafa; }
+
+.day-cell.selectable:hover { background: #ffe4ef; }
+
+.day-cell.selected { background: #ffbcd4; color: white; }
+
+.dp-close { width: 100%; padding: 10px 0; border-radius: 14px; background: #ddd; border: none; font-size: 16px; margin-top: 15px; }
+
+.hidden { display: none; }
+
+/* 工具�?*/
+.reply-toolbar {
+    display: flex;
+    gap: 12px;
+    padding: 16px 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.reply-search {
+    flex: 1;
+    padding: 10px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    color: #333;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.reply-search:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--secondary-color) 15%, transparent);
+}
+
+.reply-search::placeholder {
+    color: #999;
+}
+
+.reply-tools {
+    display: flex;
+    gap: 8px;
+}
+
+.reply-tool-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.8);
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reply-tool-btn:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 列表容器 */
+.reply-list-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 24px;
+}
+
+.reply-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* 列表�?*/
+.reply-item {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+}
+
+.reply-item:hover {
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.reply-text {
+    flex: 1;
+    color: #333;
+    font-size: 14px;
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+.reply-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.reply-action-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: none;
+    background: rgba(0, 0, 0, 0.05);
+    color: #666;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reply-action-btn:hover {
+    background: rgba(0, 0, 0, 0.1);
+    transform: scale(1.1);
+}
+
+.reply-action-btn.edit:hover {
+    background: color-mix(in srgb, #4CAF50 20%, transparent);
+    color: #4CAF50;
+}
+
+.reply-action-btn.delete:hover {
+    background: color-mix(in srgb, #f44336 20%, transparent);
+    color: #f44336;
+}
+
+/* 底部操作�?*/
+.reply-modal-footer {
+    display: flex;
+    gap: 12px;
+    padding: 16px 24px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.reply-add-btn {
+    flex: 1;
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: none;
+    background: var(--secondary-color);
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px color-mix(in srgb, var(--secondary-color) 40%, transparent);
+}
+
+.reply-add-btn:hover {
+    background: color-mix(in srgb, var(--secondary-color) 90%, #000);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--secondary-color) 50%, transparent);
+}
+
+.reply-cancel-btn {
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.8);
+    color: #666;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.reply-cancel-btn:hover {
+    background: rgba(255, 255, 255, 1);
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+/* 空状�?*/
+.reply-empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: #999;
+    font-size: 14px;
+}
+
+/* 动画 */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* 移动端适配 */
+@media (max-width: 600px) {
+    .reply-modal-card {
+        width: 95%;
+        max-height: 90vh;
+    }
+
+    .reply-modal-header,
+    .reply-tabs,
+    .reply-toolbar,
+    .reply-list-container,
+    .reply-modal-footer {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .reply-modal-title {
+        font-size: 16px;
+    }
+
+    .reply-tab {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+}
+
+
+/* 回复库管理弹窗样式 */
+#replyLibraryModal .intimacy-modal-card {
+    max-width: 450px;
+    width: 90%;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, var(--card-bg-light), var(--card-bg-dark));
+    position: relative;
+    z-index: 1001;
+}
+
+#replyLibraryModal .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0 15px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    margin-bottom: 15px;
+}
+
+#replyLibraryModal .modal-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+#replyLibraryModal .close-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: color-mix(in srgb, var(--secondary-color) 15%, #f0f0f0);
+    color: #666;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#replyLibraryModal .close-btn:hover {
+    background: color-mix(in srgb, var(--secondary-color) 25%, #e0e0e0);
+    transform: rotate(90deg);
+}
+
+#replyLibraryModal .search-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    align-items: center;
+}
+
+#replyLibraryModal .search-row input {
+    flex: 1;
+    padding: 12px 16px;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.95);
+    font-size: 14px;
+    color: #333;
+    outline: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+#replyLibraryModal .search-row input:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--secondary-color) 15%, transparent);
+    transform: translateY(-1px);
+}
+
+#replyLibraryModal .icon-btn {
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+#replyLibraryModal .icon-btn:hover {
+    background: color-mix(in srgb, var(--secondary-color) 15%, #f0f0f0);
+    border-color: var(--secondary-color);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+#replyLibraryModal .reply-list {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 60vh;
+    padding-right: 5px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+}
+
+#replyLibraryModal .reply-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+#replyLibraryModal .reply-list::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 3px;
+}
+
+#replyLibraryModal .reply-list::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 3px;
+}
+
+#replyLibraryModal .reply-list::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
+}
+
+#replyLibraryModal .reply-item {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 16px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 182, 193, 0.3);
+    position: relative;
+}
+
+#replyLibraryModal .reply-text {
+    width: 100%;
+    word-break: break-word;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.5;
+    padding-right: 70px;
+}
+
+#replyLibraryModal .reply-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 4px;
+}
+
+#replyLibraryModal .reply-action-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    background: color-mix(in srgb, var(--secondary-color) 10%, #f5f5f5);
+    color: #666;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+#replyLibraryModal .reply-action-btn.edit:hover {
+    background: color-mix(in srgb, var(--secondary-color) 20%, #e8f5e8);
+    color: #4caf50;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+#replyLibraryModal .reply-action-btn.delete:hover {
+    background: color-mix(in srgb, var(--secondary-color) 20%, #ffebee);
+    color: #f44336;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+#replyLibraryModal .add-reply-btn {
+    width: 100%;
+    padding: 14px 20px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 20px;
+    background: var(--secondary-color);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 16px color-mix(in srgb, var(--secondary-color) 40%, transparent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+#replyLibraryModal .add-reply-btn:hover {
+    background: var(--primary-color);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px color-mix(in srgb, var(--secondary-color) 50%, transparent);
+}
+
+#replyLibraryModal .reply-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+    font-size: 14px;
+    font-style: italic;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 16px;
+    border: 1px dashed rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+}
+.btn-primary { flex: 1; padding: 10px; border: none; border-radius: 8px; background: var(--secondary-color, #ff9999); color: white; cursor: pointer; }
+.btn-secondary { padding: 10px 20px; border: 1px solid #ddd; border-radius: 8px; background: white; cursor: pointer; }
+@media (max-width: 600px) {
+    .modal-content {
+        width: 95%;
+        max-height: 90vh;
+    }
+    
+    .intimacy-modal-card {
+        width: 95%;
+        max-width: none;
+        padding: 18px;
+    }
+    
+    .popup-panel {
+        width: 95%;
+        max-width: none;
+        max-height: 90vh;
+        padding: 16px;
+    }
+    
+    .love-text,
+    .level-row {
+        font-size: 16px;
+    }
+    
+    .love-text {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .level-row {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+/* === 修复打卡日历居中 === */
+
+.dragon-calendar-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;              /* ⭐ 让里面的内容自动水平 + 垂直居中 */
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0, 0, 0, 0.3); /* 背景变暗，和你截图一样 */
+    z-index: 9999;
+}
+
+.calendar-card {
+    background: #fff;
+    width: 90%;                /* ⭐ 自动适配 iPhone */
+    max-width: 420px;          /* ⭐ 避免电脑端过宽 */
+
+    border-radius: 20px;
+    padding: 20px;
+
+    box-shadow: 0px 4px 16px rgba(0,0,0,0.2);
+}
+/* 修复恋爱天数标题、等级一行显示 */
+.love-text,
+.level-row {
+    text-align: center;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.love-line,
+.level-line {
+    white-space: nowrap;        /* 强制不换行 */
+    display: block;             /* 作为块级元素 */
+    text-align: center;
+    font-size: clamp(14px, 3.5vw, 20px);  /* 更优化的手机字体缩放 */
+    margin: 0 auto;
+    max-width: 95%;             /* 限制最大宽度，防止溢出 */
+}
+
+.love-full,
+.level-full {
+    white-space: nowrap;        /* 强制不换行 */
+    display: inline;            /* 作为行内元素 */
+    text-align: center;
+    font-size: inherit;         /* 继承父元素字体大小 */
+}
