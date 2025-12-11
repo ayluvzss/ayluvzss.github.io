@@ -719,22 +719,9 @@ function loadFromStorage() {
         updateIntimacyDisplay();
 
         // 加载恋爱开始日期
-        const savedStartDate = localStorage.getItem(CONFIG.STORAGE_KEYS.START_DATE);
-        if (savedStartDate) {
-            appState.startDate = parseInt(savedStartDate);
-
-            // 修正逻辑：如果天数在 10 ~ 600 之间（特别是 585），或者 < 10，都强制修正为 583 天 (结果为 584)
-            // 确保只修这一次，得到 584
-            const currentDays = Math.ceil(Math.abs(Date.now() - appState.startDate) / (1000 * 60 * 60 * 24));
-            if (currentDays < 600 && currentDays !== 584) {
-                appState.startDate = Date.now() - (583 * 24 * 60 * 60 * 1000);
-                localStorage.setItem(CONFIG.STORAGE_KEYS.START_DATE, appState.startDate.toString());
-            }
-        } else {
-            // 如果不存在，初始化为 583 天前
-            appState.startDate = Date.now() - (583 * 24 * 60 * 60 * 1000);
-            localStorage.setItem(CONFIG.STORAGE_KEYS.START_DATE, appState.startDate.toString());
-        }
+        const anniversaryDate = new Date('2024-05-02').getTime();
+        appState.startDate = anniversaryDate;
+        localStorage.setItem(CONFIG.STORAGE_KEYS.START_DATE, anniversaryDate.toString());
 
     } catch (error) {
         console.error('加载本地存储失败:', error);
