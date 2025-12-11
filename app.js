@@ -497,7 +497,7 @@ function updateIntimacyDisplay() {
 
 // 计算亲密度等级
 function calculateIntimacyLevel(points) {
-    return Math.floor(points / 20);
+    return Math.floor(points / 50);
 }
 
 // 添加亲密度点数并检查升级
@@ -603,7 +603,10 @@ function initDOM() {
         moreMenu: document.getElementById('moreMenu'),
         // 亲密度详情弹窗元素
         intimacyModal: document.getElementById('intimacyModal'),
-        closeIntimacyModalBtn: document.getElementById('closeIntimacyModalBtn')
+        closeIntimacyModalBtn: document.getElementById('closeIntimacyModalBtn'),
+        // 恋爱系统数据导入导出元素
+        importIntimacyInput: document.getElementById('importIntimacyInput'),
+        exportIntimacyBtn: document.getElementById('exportIntimacyBtn')
     };
 }
 
@@ -1223,6 +1226,112 @@ if (dateTitle) {
             }
         });
     }
+
+    // 恋爱系统数据导出功能
+    if (DOM.exportIntimacyBtn) {
+        DOM.exportIntimacyBtn.addEventListener('click', exportIntimacyData);
+    }
+
+    // 恋爱系统数据导入功能
+    if (DOM.importIntimacyInput) {
+        DOM.importIntimacyInput.addEventListener('change', handleIntimacyImport);
+    }
+}
+
+// 导出恋爱系统数据（含日志和打卡数据）
+function exportIntimacyData() {
+    try {
+        // 获取完整的恋爱系统相关数据
+        const intimacyData = {
+            version: '1.0',
+            exportDate: new Date().toISOString(),
+            intimacy: {
+                totalPoints: localStorage.getItem(CONFIG.STORAGE_KEYS.INTIMACY_POINTS),
+                level: localStorage.getItem(CONFIG.STORAGE_KEYS.INTIMACY_LEVEL),
+                startDate: localStorage.getItem(CONFIG.STORAGE_KEYS.START_DATE)
+            },
+            dailyNotes: JSON.parse(localStorage.getItem("dailyNotes") || "{}"),
+            checkinData: JSON.parse(localStorage.getItem(CONFIG.STORAGE_KEYS.CHECKIN_DATA) || "{}")
+        };
+
+        // 创建JSON文件
+        const dataStr = JSON.stringify(intimacyData, null, 2);
+        const dataBlob = new Blob([dataStr], { type: 'application/json' });
+        const url = URL.createObjectURL(dataBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `love-system-data-${new Date().toISOString().slice(0, 10)}.json`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+
+        alert('✅ 恋爱系统数据导出成功！');
+    } catch (error) {
+        console.error('导出恋爱系统数据失败:', error);
+        alert('导出失败，请重试。');
+    }
+}
+
+// 导入恋爱系统数据
+function handleIntimacyImport(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+        try {
+            const importedData = JSON.parse(e.target.result);
+
+            // 验证数据结构（兼容旧格式）
+            let intimacyData;
+            if (importedData.intimacy) {
+                // 新格式：包含intimacy、dailyNotes、checkinData
+                intimacyData = importedData.intimacy;
+            } else {
+                // 旧格式：直接包含totalPoints、level、startDate
+                intimacyData = importedData;
+            }
+
+            if (!intimacyData.totalPoints || !intimacyData.level || !intimacyData.startDate) {
+                throw new Error('数据格式不正确');
+            }
+
+            // 保存恋爱系统基本数据
+            localStorage.setItem(CONFIG.STORAGE_KEYS.INTIMACY_POINTS, intimacyData.totalPoints);
+            localStorage.setItem(CONFIG.STORAGE_KEYS.INTIMACY_LEVEL, intimacyData.level);
+            localStorage.setItem(CONFIG.STORAGE_KEYS.START_DATE, intimacyData.startDate);
+
+            // 更新应用状态
+            appState.intimacy.totalPoints = parseInt(intimacyData.totalPoints);
+            appState.intimacy.level = parseInt(intimacyData.level);
+            appState.startDate = parseInt(intimacyData.startDate);
+
+            // 导入日志数据（如果存在）
+            if (importedData.dailyNotes) {
+                localStorage.setItem("dailyNotes", JSON.stringify(importedData.dailyNotes));
+                dailyNotes = importedData.dailyNotes;
+            }
+
+            // 导入打卡数据（如果存在）
+            if (importedData.checkinData) {
+                localStorage.setItem(CONFIG.STORAGE_KEYS.CHECKIN_DATA, JSON.stringify(importedData.checkinData));
+                checkinData = importedData.checkinData;
+            }
+
+            // 更新显示
+            updateIntimacyDisplay();
+
+            alert('✅ 恋爱系统数据导入成功！');
+        } catch (error) {
+            console.error('导入恋爱系统数据失败:', error);
+            alert('导入失败，请检查文件格式是否正确。');
+        }
+    };
+
+    reader.readAsText(file);
+    event.target.value = ''; // 重置文件输入
 }
 
 // 添加长按事件支持
@@ -2585,7 +2694,7 @@ function showIntimacyModal() {
     // 3. 亲密度数据
     const currentPoints = appState.intimacy.totalPoints;
     const currentLevel = appState.intimacy.level;
-    const nextLevelDiff = 20 - (currentPoints % 20);
+    const nextLevelDiff = 50 - (currentPoints % 50);
 
     // 4. 更新 DOM 并触发动画
     const elementsToUpdate = [
