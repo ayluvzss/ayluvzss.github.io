@@ -2842,14 +2842,19 @@ function initBannerInteractions() {
 // 打印版本号确认更新
 console.log('App Version: v8 (New ID + Accept *)');
 
-// 初始化应用
-initApp();
-// 补充初始化调用 (确保 DOM 加载后执行)
+// 初始化应用 (确保 DOM 加载后执行)
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initBannerInteractions);
+    document.addEventListener('DOMContentLoaded', function() {
+        initApp();
+        initBannerInteractions();
+    });
 } else {
+    // DOM 已经加载完成
+    initApp();
     initBannerInteractions();
-}// ========================================
+}
+
+// ========================================
 // 回复库管理功能
 // ========================================
 
