@@ -1360,12 +1360,12 @@ if (dateTitle) {
     // 月份切换按钮事件
     DOM.prevMonthBtn.addEventListener('click', () => {
         currentDate.setMonth(currentDate.getMonth() - 1);
-        renderCalendar();
+        renderCheckinCalendar();
     });
 
     DOM.nextMonthBtn.addEventListener('click', () => {
         currentDate.setMonth(currentDate.getMonth() + 1);
-        renderCalendar();
+        renderCheckinCalendar();
     });
 
     // 移除点击当前月份实现月份切换功能，避免意外切换
@@ -1779,7 +1779,7 @@ function openCalendar() {
     loadCheckinData();
 
     // 渲染日历
-    renderCalendar();
+    renderCheckinCalendar();
 
     // 设置默认选中今天
     selectedDate = new Date();
@@ -1816,8 +1816,8 @@ function saveCheckinData() {
     }
 }
 
-// 渲染日历
-function renderCalendar() {
+// 渲染打卡日历
+function renderCheckinCalendar() {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
 
