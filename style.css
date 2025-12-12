@@ -2545,16 +2545,16 @@ body {
 
 @media (min-width: 768px) {
     .calendar-day:hover {
-        background-color: rgba(0, 122, 255, 0.1);
+        background-color: rgb(from var(--primary-color) r g b / 0.1);
     }
 }
 
-/* 今天 - 蓝色描边圆 */
+/* 今天 - 跟随系统颜色描边圆 */
 .calendar-day.today {
     background-color: transparent !important;
-    color: #007AFF !important;
+    color: var(--primary-color) !important;
     font-weight: 600;
-    border: 1px solid #007AFF !important;
+    border: 1px solid var(--primary-color) !important;
 }
 
 /* 非当月日期 - 灰色弱化 */
@@ -2564,18 +2564,18 @@ body {
     opacity: 0.5;
 }
 
-/* 选中日期 - 实心蓝色圆 */
+/* 选中日期 - 跟随系统颜色 */
 .calendar-day.selected {
-    background-color: #007AFF !important;
+    background-color: var(--primary-color) !important;
     color: white !important;
     font-weight: 600;
     border: none !important;
     box-shadow: none;
 }
 
-/* 今天+选中 - 仅显示实心蓝，不要双圈 */
+/* 今天+选中 - 仅显示系统颜色，不要双圈 */
 .calendar-day.today.selected {
-    background-color: #007AFF !important;
+    background-color: var(--primary-color) !important;
     color: white !important;
     border: none !important;
 }
@@ -2604,7 +2604,7 @@ body {
     }
 
     .calendar-nav-btn:hover {
-        background-color: rgba(10, 132, 255, 0.2);
+        background-color: rgba(255, 255, 255, 0.1);
     }
 
     .current-date-display {
@@ -2617,14 +2617,14 @@ body {
 
     @media (min-width: 768px) {
         .calendar-day:hover {
-            background-color: rgba(10, 132, 255, 0.2);
+            background-color: rgba(255, 255, 255, 0.1);
         }
     }
 
-    /* 今天 - 深色模式蓝色描边 */
+    /* 今天 - 跟随系统颜色描边 */
     .calendar-day.today {
-        color: #0A84FF !important;
-        border-color: #0A84FF !important;
+        color: var(--primary-color) !important;
+        border-color: var(--primary-color) !important;
     }
 
     /* 非当月日期 - 深色模式灰色弱化 */
@@ -2633,10 +2633,10 @@ body {
         opacity: 0.5;
     }
 
-    /* 选中日期 - 深色模式实心蓝色 */
+    /* 选中日期 - 跟随系统颜色 */
     .calendar-day.selected,
     .calendar-day.today.selected {
-        background-color: #0A84FF !important;
+        background-color: var(--primary-color) !important;
     }
 }
 
