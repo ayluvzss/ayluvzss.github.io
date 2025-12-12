@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>敖隐 - 离线聊天 PWA</title>
     <link rel="stylesheet" href="style.css?v=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
     <link rel="manifest" href="manifest.json">
     <link rel="icon" href="assets/icon-192.png" type="image/png">
 </head>
@@ -338,7 +338,7 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     <script src="app.js?v=1.0"></script>
     <script>
         // 临时禁用 Service Worker
@@ -356,18 +356,26 @@
         }
         */
     </script>
-    <!-- 日期选择器模态框 -->
-    <div id="datePickerModal" class="date-picker-modal hidden"> 
-        <div class="date-picker-panel"> 
-            <div class="dp-header"> 
-                <button class="dp-arrow" id="dpPrevYear">«</button> 
-                <span id="dpYearText"></span> 
-                <button class="dp-arrow" id="dpNextYear">»</button> 
-            </div> 
-            <div class="dp-months"></div> 
-            <div class="dp-calendar"></div> 
-            <button id="dpCloseBtn" class="dp-close">关闭</button> 
-        </div> 
+    <!-- 统一日期选择器模态框 -->
+    <div id="calendarModal" class="calendar-modal">
+        <div class="calendar-modal-overlay"></div>
+        <div class="calendar-modal-card">
+            <div class="calendar-modal-header">
+                <h3 class="calendar-modal-title">选择日期</h3>
+                <button class="calendar-modal-close">&times;</button>
+            </div>
+            <div class="calendar-modal-body">
+                <div class="calendar-nav">
+                    <button class="calendar-nav-btn prev-month">&lt;</button>
+                    <h4 class="calendar-month-year"></h4>
+                    <button class="calendar-nav-btn next-month">&gt;</button>
+                </div>
+                <div class="calendar-grid">
+                    <div class="calendar-weekdays"></div>
+                    <div class="calendar-days"></div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
  
