@@ -694,14 +694,14 @@ function loadFromStorage() {
 
         // 加载头像
         const myAvatar = localStorage.getItem(CONFIG.STORAGE_KEYS.MY_AVATAR);
-        appState.avatars.my = myAvatar;
+        appState.avatars.my = myAvatar || null;
 
         const botAvatar = localStorage.getItem(CONFIG.STORAGE_KEYS.BOT_AVATAR);
-        appState.avatars.bot = botAvatar;
+        appState.avatars.bot = botAvatar || null;
 
         // 加载背景图
         const savedBg = localStorage.getItem(CONFIG.STORAGE_KEYS.BACKGROUND_IMAGE);
-        if (savedBg) {
+        if (savedBg && savedBg !== '') {
             document.documentElement.style.setProperty('--background-image', `url(${savedBg})`);
         }
 
@@ -718,13 +718,30 @@ function loadFromStorage() {
             appState.currentDailyDate = savedCurrentDailyDate;
         }
 
+        // 加载恋爱开始日期
+        const savedStartDate = localStorage.getItem(CONFIG.STORAGE_KEYS.START_DATE);
+        if (savedStartDate) {
+            appState.startDate = parseInt(savedStartDate);
+        } else {
+            const anniversaryDate = new Date('2024-05-02').getTime();
+            appState.startDate = anniversaryDate;
+            localStorage.setItem(CONFIG.STORAGE_KEYS.START_DATE, anniversaryDate.toString());
+        }
+
+        // 加载打卡数据
+        const savedCheckinData = localStorage.getItem(CONFIG.STORAGE_KEYS.CHECKIN_DATA);
+        if (savedCheckinData) {
+            checkinData = JSON.parse(savedCheckinData);
+        }
+
+        // 加载日志数据
+        const savedDailyNotes = localStorage.getItem("dailyNotes");
+        if (savedDailyNotes) {
+            dailyNotes = JSON.parse(savedDailyNotes);
+        }
+
         // 更新标题栏显示
         updateIntimacyDisplay();
-
-        // 加载恋爱开始日期
-        const anniversaryDate = new Date('2024-05-02').getTime();
-        appState.startDate = anniversaryDate;
-        localStorage.setItem(CONFIG.STORAGE_KEYS.START_DATE, anniversaryDate.toString());
 
     } catch (error) {
         console.error('加载本地存储失败:', error);
@@ -743,31 +760,43 @@ function loadFromStorage() {
             totalPoints: 0,
             level: 0
         };
+        checkinData = {};
+        dailyNotes = {};
     }
 }
 
 // 保存数据到本地存储
 function saveToStorage() {
     try {
+        // 保存消息记录
         localStorage.setItem(CONFIG.STORAGE_KEYS.MESSAGES, JSON.stringify(appState.messages));
+        
+        // 保存回复池
         localStorage.setItem(CONFIG.STORAGE_KEYS.REPLIES, JSON.stringify(appState.replies));
+        
+        // 保存自定义表情
         localStorage.setItem(CONFIG.STORAGE_KEYS.STICKERS, JSON.stringify(appState.stickers));
+        
+        // 保存设置
         localStorage.setItem(CONFIG.STORAGE_KEYS.SETTINGS, JSON.stringify(appState.settings));
 
-        // 保存头像
-        if (appState.avatars.my) {
-            localStorage.setItem(CONFIG.STORAGE_KEYS.MY_AVATAR, appState.avatars.my);
-        }
-        if (appState.avatars.bot) {
-            localStorage.setItem(CONFIG.STORAGE_KEYS.BOT_AVATAR, appState.avatars.bot);
-        }
+        // 保存头像（无论是否有值，都保存到localStorage）
+        localStorage.setItem(CONFIG.STORAGE_KEYS.MY_AVATAR, appState.avatars.my || '');
+        localStorage.setItem(CONFIG.STORAGE_KEYS.BOT_AVATAR, appState.avatars.bot || '');
 
         // 保存亲密度数据
         localStorage.setItem(CONFIG.STORAGE_KEYS.INTIMACY_POINTS, appState.intimacy.totalPoints.toString());
         localStorage.setItem(CONFIG.STORAGE_KEYS.INTIMACY_LEVEL, appState.intimacy.level.toString());
+        localStorage.setItem(CONFIG.STORAGE_KEYS.START_DATE, appState.startDate.toString());
         
         // 保存当前每日日期
         localStorage.setItem(CONFIG.STORAGE_KEYS.CURRENT_DAILY_DATE, appState.currentDailyDate);
+        
+        // 保存打卡数据
+        localStorage.setItem(CONFIG.STORAGE_KEYS.CHECKIN_DATA, JSON.stringify(checkinData));
+        
+        // 保存日志数据
+        localStorage.setItem("dailyNotes", JSON.stringify(dailyNotes));
     } catch (error) {
         console.error('保存到本地存储失败:', error);
     }
