@@ -2105,7 +2105,7 @@ body {
     color: #666;
 }
 
-/* 统一日期选择器样式 */
+/* 统一的 CalendarModal 日期弹窗组件样式 */
 .calendar-modal {
     position: fixed;
     top: 0;
@@ -2114,8 +2114,6 @@ body {
     bottom: 0;
     z-index: 9999;
     display: none;
-    align-items: center;
-    justify-content: center;
 }
 
 .calendar-modal-overlay {
@@ -2128,83 +2126,58 @@ body {
     backdrop-filter: blur(4px);
 }
 
-.calendar-modal-card {
-    position: relative;
-    background-color: #ffffff;
-    border-radius: 20px;
+.calendar-modal-content {
+    position: absolute;
+    background: #ffffff;
+    border-radius: 20px 20px 0 0;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    width: 85%;
-    max-width: 360px;
-    overflow: hidden;
-    animation: calendarSlideIn 0.3s ease;
+    width: 100%;
+    max-width: 400px;
+    padding: 16px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-/* PC 居中 */
-@media (min-width: 481px) {
-    .calendar-modal-card {
-        margin: 0 auto;
+/* PC 端样式 - 居中显示 */
+@media (min-width: 768px) {
+    .calendar-modal-content {
+        top: 50%;
+        bottom: auto;
+        transform: translate(-50%, -50%);
+        border-radius: 20px;
     }
 }
 
-/* Mobile 底部弹出 */
-@media (max-width: 480px) {
-    .calendar-modal {
-        align-items: flex-end;
-        justify-content: center;
-    }
-    
-    .calendar-modal-card {
-        width: 100%;
+/* 移动端样式 - 底部弹出 */
+@media (max-width: 767px) {
+    .calendar-modal-content {
         max-width: 100%;
-        border-radius: 20px 20px 0 0;
-        animation: calendarSlideUp 0.3s ease;
+        height: auto;
+        max-height: 80vh;
+        overflow-y: auto;
     }
 }
 
-/* 动画 */
-@keyframes calendarSlideIn {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@keyframes calendarSlideUp {
-    from {
-        opacity: 0;
-        transform: translateY(100%);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* 日历头部 */
 .calendar-modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px;
-    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 16px;
 }
 
 .calendar-modal-title {
-    margin: 0;
     font-size: 18px;
     font-weight: 600;
-    color: #333333;
+    color: #333;
+    margin: 0;
 }
 
 .calendar-modal-close {
-    background: transparent;
+    background: none;
     border: none;
     font-size: 24px;
-    color: #999999;
+    color: #999;
     cursor: pointer;
     padding: 0;
     width: 32px;
@@ -2218,57 +2191,42 @@ body {
 
 .calendar-modal-close:hover {
     background-color: rgba(0, 0, 0, 0.05);
-    color: #666666;
+    color: #333;
 }
 
-/* 日历主体 */
-.calendar-modal-body {
-    padding: 16px;
-}
-
-/* 日历导航 */
 .calendar-nav {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    gap: 16px;
     margin-bottom: 16px;
 }
 
 .calendar-nav-btn {
-    background: transparent;
+    background: none;
     border: none;
-    font-size: 18px;
-    color: #333333;
+    font-size: 20px;
+    color: #333;
     cursor: pointer;
-    padding: 8px;
-    border-radius: 50%;
+    padding: 8px 12px;
+    border-radius: 8px;
     transition: all 0.2s ease;
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .calendar-nav-btn:hover {
-    background-color: rgba(247, 179, 198, 0.1);
-    color: #f7b3c6;
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
-.calendar-month-year {
-    margin: 0;
+.calendar-current-month {
     font-size: 16px;
     font-weight: 600;
-    color: #333333;
+    color: #333;
 }
 
-/* 日历网格 */
 .calendar-grid {
-    display: flex;
-    flex-direction: column;
+    margin-bottom: 16px;
 }
 
-/* 星期标题 */
 .calendar-weekdays {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -2276,15 +2234,14 @@ body {
     margin-bottom: 8px;
 }
 
-.calendar-weekdays div {
+.weekday {
     text-align: center;
     font-size: 12px;
     font-weight: 600;
-    color: #999999;
+    color: #999;
     padding: 8px 0;
 }
 
-/* 日期网格 */
 .calendar-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -2292,44 +2249,81 @@ body {
 }
 
 .calendar-day {
-    width: 100%;
-    padding: 10px 0;
     text-align: center;
     font-size: 14px;
-    font-weight: 500;
-    color: #333333;
+    font-weight: 600;
+    color: #333;
+    padding: 10px 0;
+    border-radius: 8px;
     cursor: pointer;
-    border-radius: 10px;
     transition: all 0.2s ease;
-    background-color: transparent;
-    border: none;
+    background-color: rgba(0, 0, 0, 0.02);
 }
 
 .calendar-day:hover {
-    background-color: rgba(247, 179, 198, 0.15);
-    color: #f7b3c6;
+    background-color: #fff0f6;
 }
 
 .calendar-day.today {
-    background-color: rgba(247, 179, 198, 0.25);
-    color: #f7b3c6;
-    font-weight: 600;
+    background-color: #ffbcd4;
+    color: white;
 }
 
 .calendar-day.selected {
     background-color: #f7b3c6;
     color: white;
-    font-weight: 600;
 }
 
 .calendar-day.other-month {
-    color: #d0d0d0;
-    pointer-events: none;
+    color: #ddd;
 }
 
-.calendar-day.disabled {
-    opacity: 0.5;
-    pointer-events: none;
+.calendar-modal-footer {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    padding-top: 16px;
+    border-top: 1px solid #f5f5f5;
+}
+
+.calendar-modal-today,
+.calendar-modal-confirm {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.calendar-modal-today {
+    background-color: #f5f5f5;
+    color: #666;
+}
+
+.calendar-modal-today:hover {
+    background-color: #e5e5e5;
+}
+
+.calendar-modal-confirm {
+    background-color: #f7b3c6;
+    color: white;
+}
+
+.calendar-modal-confirm:hover {
+    background-color: #ff8fab;
+}
+
+/* 显示 CalendarModal */
+.calendar-modal.show {
+    display: block;
+}
+
+/* 移除旧的日期选择器样式 */
+.date-picker-modal,
+.hidden {
+    display: none !important;
 }
 
 /* 工具�?*/
