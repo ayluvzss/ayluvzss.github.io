@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>敖隐 - 离线聊天 PWA</title>
     <link rel="stylesheet" href="style.css?v=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
     <link rel="manifest" href="manifest.json">
     <link rel="icon" href="assets/icon-192.png" type="image/png">
 </head>
@@ -338,7 +338,6 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="app.js?v=1.0"></script>
     <script>
         // 临时禁用 Service Worker
@@ -357,20 +356,20 @@
         */
     </script>
     <!-- 统一的 CalendarModal 日期弹窗组件 -->
-    <div id="calendarModal" class="calendar-modal">
+    <div id="calendarModal" class="calendar-modal" style="display: none;">
         <div class="calendar-modal-overlay"></div>
         <div class="calendar-modal-content">
-            <div class="calendar-modal-header">
-                <h3 class="calendar-modal-title">选择日期</h3>
-                <button class="calendar-modal-close">&times;</button>
+            <div class="calendar-header">
+                <h3 class="calendar-title">选择日期</h3>
+                <button class="calendar-close-btn">×</button>
             </div>
-            <div class="calendar-modal-body">
+            <div class="calendar-body">
                 <div class="calendar-nav">
-                    <button class="calendar-nav-btn prev-month">&lt;</button>
-                    <span class="calendar-current-month"></span>
-                    <button class="calendar-nav-btn next-month">&gt;</button>
+                    <button class="calendar-nav-btn prev-month">‹</button>
+                    <span class="current-date-display"></span>
+                    <button class="calendar-nav-btn next-month">›</button>
                 </div>
-                <div class="calendar-grid">
+                <div class="calendar-grid-container">
                     <div class="calendar-weekdays">
                         <div class="weekday">日</div>
                         <div class="weekday">一</div>
@@ -382,10 +381,6 @@
                     </div>
                     <div class="calendar-days"></div>
                 </div>
-            </div>
-            <div class="calendar-modal-footer">
-                <button class="calendar-modal-today">今天</button>
-                <button class="calendar-modal-confirm">确定</button>
             </div>
         </div>
     </div>

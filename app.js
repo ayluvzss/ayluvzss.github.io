@@ -300,17 +300,8 @@ function setDailyDate(dateStr) {
     updateDailyDateTitle();   // 更新 UI 显示
     loadDailyNotes();         // 刷新内容
 }
-flatpickr("#logDatePicker", {
-    dateFormat: "Y-m-d",
-    defaultDate: appState.currentDailyDate || new Date(),
-    disableMobile: true,
-    onChange(selectedDates) {
-        const d = selectedDates[0];
-        if (d) {
-            setDailyDate(formatDate(d));
-        }
-    }
-});
+// 移除 flatpickr，使用统一的 CalendarModal
+// 日期选择由点击日期标题触发
 
 // 更新每日日期标题
 function updateDailyDateTitle() {
@@ -346,15 +337,16 @@ function formatDateForDisplay(d) {
 let currentPickerYear;
 let currentPickerMonth;
 
-// 打开日期选择器（已替换为统一的 CalendarModal）
-function openDatePicker() {
-    calendarModal.show((selectedDate) => {
-        // 处理日期选择
-        const formattedDate = formatDate(selectedDate);
-        appState.currentDailyDate = formattedDate;
-        updateDailyDateTitle();
-        loadDailyNotes();
-    });
+// 打开日期选择器
+function openDatePicker(){
+    document.getElementById("datePickerModal").classList.remove("hidden");
+    const now = parseDailyDate(appState.currentDailyDate || new Date());
+    currentPickerYear = now.year;
+    currentPickerMonth = now.month;
+    renderYear();
+    renderMonths();
+    renderCalendar();
+    bindMonthButtons();
 }
 
 // 解析日期
@@ -657,10 +649,13 @@ function initApp() {
     initDatePicker();
 }
 
-// 初始化日期选择器（已替换为统一的 CalendarModal）
+// 初始化日期选择器（使用统一的 CalendarModal）
 function initDatePicker() {
-    // 不再使用 flatpickr，使用统一的 CalendarModal
-    console.log('DatePicker initialized with CalendarModal');
+    // 移除 flatpickr，使用统一的 CalendarModal
+    if (DOM.logDatePicker) {
+        // 隐藏原生输入框，仅保留用于触发事件
+        DOM.logDatePicker.style.display = 'none';
+    }
 }
 
 // 从本地存储加载数据
@@ -938,7 +933,13 @@ function bindEventListeners() {
 const dateTitle = document.querySelector("#dailyDateTitle");
 if (dateTitle) {
     dateTitle.addEventListener("click", () => {
-        document.querySelector("#logDatePicker").click();
+        // 使用统一的 CalendarModal
+        calendarModal.open({
+            selectedDate: new Date(appState.currentDailyDate),
+            onSelect: (date) => {
+                setDailyDate(formatDate(date));
+            }
+        });
     });
 }
 
@@ -2893,17 +2894,160 @@ function initBannerInteractions() {
     });
 }
 
+// 统一的 CalendarModal 组件
+class CalendarModal {
+    constructor(options = {}) {
+        this.modal = document.getElementById('calendarModal');
+        this.overlay = this.modal.querySelector('.calendar-modal-overlay');
+        this.content = this.modal.querySelector('.calendar-modal-content');
+        this.closeBtn = this.modal.querySelector('.calendar-close-btn');
+        this.navPrev = this.modal.querySelector('.prev-month');
+        this.navNext = this.modal.querySelector('.next-month');
+        this.dateDisplay = this.modal.querySelector('.current-date-display');
+        this.daysContainer = this.modal.querySelector('.calendar-days');
+        this.onSelect = options.onSelect || (() => {});
+        this.selectedDate = options.selectedDate || new Date();
+        this.currentDate = new Date(this.selectedDate);
+        this.isOpen = false;
+
+        this.init();
+    }
+
+    init() {
+        // 绑定事件
+        this.closeBtn.addEventListener('click', () => this.close());
+        this.overlay.addEventListener('click', () => this.close());
+        this.navPrev.addEventListener('click', () => this.goToPrevMonth());
+        this.navNext.addEventListener('click', () => this.goToNextMonth());
+        
+        // 初始化日历
+        this.renderCalendar();
+    }
+
+    open(options = {}) {
+        if (options.onSelect) {
+            this.onSelect = options.onSelect;
+        }
+        if (options.selectedDate) {
+            this.selectedDate = options.selectedDate;
+            this.currentDate = new Date(this.selectedDate);
+            this.renderCalendar();
+        }
+        this.modal.style.display = 'flex';
+        this.isOpen = true;
+        
+        // 防止背景滚动
+        document.body.style.overflow = 'hidden';
+    }
+
+    close() {
+        this.modal.style.display = 'none';
+        this.isOpen = false;
+        
+        // 恢复背景滚动
+        document.body.style.overflow = 'auto';
+    }
+
+    goToPrevMonth() {
+        this.currentDate.setMonth(this.currentDate.getMonth() - 1);
+        this.renderCalendar();
+    }
+
+    goToNextMonth() {
+        this.currentDate.setMonth(this.currentDate.getMonth() + 1);
+        this.renderCalendar();
+    }
+
+    renderCalendar() {
+        // 更新月份显示
+        const year = this.currentDate.getFullYear();
+        const month = this.currentDate.getMonth();
+        this.dateDisplay.textContent = `${year}年${month + 1}月`;
+
+        // 清空日期容器
+        this.daysContainer.innerHTML = '';
+
+        // 获取月份第一天和最后一天
+        const firstDay = new Date(year, month, 1);
+        const lastDay = new Date(year, month + 1, 0);
+
+        // 获取月份第一天是星期几（0 = 星期日）
+        const startDay = firstDay.getDay();
+        
+        // 获取上个月的最后一天
+        const prevMonthLastDay = new Date(year, month, 0);
+
+        // 渲染上个月的日期
+        for (let i = startDay - 1; i >= 0; i--) {
+            const day = prevMonthLastDay.getDate() - i;
+            const dayElement = this.createDayElement(day, false, year, month - 1);
+            dayElement.classList.add('other-month');
+            this.daysContainer.appendChild(dayElement);
+        }
+
+        // 渲染当前月份的日期
+        for (let day = 1; day <= lastDay.getDate(); day++) {
+            const dayElement = this.createDayElement(day, true, year, month);
+            this.daysContainer.appendChild(dayElement);
+        }
+
+        // 渲染下个月的日期
+        const totalDays = startDay + lastDay.getDate();
+        const remainingDays = 42 - totalDays; // 6行 × 7列 = 42个格子
+        for (let day = 1; day <= remainingDays; day++) {
+            const dayElement = this.createDayElement(day, false, year, month + 1);
+            dayElement.classList.add('other-month');
+            this.daysContainer.appendChild(dayElement);
+        }
+    }
+
+    createDayElement(day, isCurrentMonth, year, month) {
+        const dayElement = document.createElement('div');
+        dayElement.className = 'calendar-day';
+        dayElement.textContent = day;
+
+        const date = new Date(year, month, day);
+        const today = new Date();
+        
+        // 检查是否是今天
+        if (date.toDateString() === today.toDateString()) {
+            dayElement.classList.add('today');
+        }
+
+        // 检查是否是选中日期
+        if (this.selectedDate && date.toDateString() === this.selectedDate.toDateString()) {
+            dayElement.classList.add('selected');
+        }
+
+        // 点击事件
+        dayElement.addEventListener('click', () => {
+            this.selectedDate = new Date(year, month, day);
+            this.renderCalendar();
+            this.onSelect(this.selectedDate);
+            this.close();
+        });
+
+        return dayElement;
+    }
+}
+
+// 全局 CalendarModal 实例
+let calendarModal;
+
 // 打印版本号确认更新
 console.log('App Version: v8 (New ID + Accept *)');
 
 // 初始化应用 (确保 DOM 加载后执行)
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
+        // 初始化 CalendarModal
+        calendarModal = new CalendarModal();
         initApp();
         initBannerInteractions();
     });
 } else {
     // DOM 已经加载完成
+    calendarModal = new CalendarModal();
     initApp();
     initBannerInteractions();
 }
@@ -3253,168 +3397,3 @@ const exportRepliesBtn = document.getElementById('exportRepliesBtn');
 if (exportRepliesBtn) {
     exportRepliesBtn.addEventListener('click', exportReplyLibrary);
 }
-
-// 统一的 CalendarModal 组件实现
-class CalendarModal {
-    constructor() {
-        this.modal = document.getElementById('calendarModal');
-        this.content = this.modal.querySelector('.calendar-modal-content');
-        this.overlay = this.modal.querySelector('.calendar-modal-overlay');
-        this.closeBtn = this.modal.querySelector('.calendar-modal-close');
-        this.prevMonthBtn = this.modal.querySelector('.prev-month');
-        this.nextMonthBtn = this.modal.querySelector('.next-month');
-        this.currentMonth = this.modal.querySelector('.calendar-current-month');
-        this.daysContainer = this.modal.querySelector('.calendar-days');
-        this.todayBtn = this.modal.querySelector('.calendar-modal-today');
-        this.confirmBtn = this.modal.querySelector('.calendar-modal-confirm');
-        
-        this.currentDate = new Date();
-        this.selectedDate = new Date();
-        this.onDateSelect = null;
-        
-        this.initEvents();
-        this.renderCalendar();
-    }
-    
-    initEvents() {
-        // 关闭事件
-        this.closeBtn.addEventListener('click', () => this.hide());
-        this.overlay.addEventListener('click', () => this.hide());
-        
-        // 月份切换
-        this.prevMonthBtn.addEventListener('click', () => {
-            this.currentDate.setMonth(this.currentDate.getMonth() - 1);
-            this.renderCalendar();
-        });
-        
-        this.nextMonthBtn.addEventListener('click', () => {
-            this.currentDate.setMonth(this.currentDate.getMonth() + 1);
-            this.renderCalendar();
-        });
-        
-        // 今天按钮
-        this.todayBtn.addEventListener('click', () => {
-            this.currentDate = new Date();
-            this.selectedDate = new Date();
-            this.renderCalendar();
-        });
-        
-        // 确定按钮
-        this.confirmBtn.addEventListener('click', () => {
-            if (this.onDateSelect) {
-                this.onDateSelect(this.selectedDate);
-            }
-            this.hide();
-        });
-    }
-    
-    renderCalendar() {
-        const year = this.currentDate.getFullYear();
-        const month = this.currentDate.getMonth();
-        
-        // 更新月份显示
-        this.currentMonth.textContent = `${year}年${month + 1}月`;
-        
-        // 清空日期容器
-        this.daysContainer.innerHTML = '';
-        
-        // 获取当月第一天和最后一天
-        const firstDay = new Date(year, month, 1);
-        const lastDay = new Date(year, month + 1, 0);
-        
-        // 获取当月第一天是星期几 (0 是周日，1 是周一，...，6 是周六)
-        const startDay = firstDay.getDay();
-        
-        // 获取上个月的最后一天
-        const prevMonthLastDay = new Date(year, month, 0);
-        
-        // 生成日历
-        let dayCount = 1;
-        let prevMonthCount = prevMonthLastDay.getDate();
-        
-        // 生成 6 行 7 列的日历
-        for (let i = 0; i < 6; i++) {
-            for (let j = 0; j < 7; j++) {
-                const dayElement = document.createElement('div');
-                dayElement.className = 'calendar-day';
-                
-                let date;
-                if (i === 0 && j < startDay) {
-                    // 上个月的日期
-                    date = new Date(year, month - 1, prevMonthCount - startDay + j + 1);
-                    dayElement.textContent = prevMonthCount - startDay + j + 1;
-                    dayElement.classList.add('other-month');
-                } else if (dayCount > lastDay.getDate()) {
-                    // 下个月的日期
-                    date = new Date(year, month + 1, dayCount - lastDay.getDate());
-                    dayElement.textContent = dayCount - lastDay.getDate();
-                    dayElement.classList.add('other-month');
-                    dayCount++;
-                } else {
-                    // 当月的日期
-                    date = new Date(year, month, dayCount);
-                    dayElement.textContent = dayCount;
-                    
-                    // 检查是否是今天
-                    const today = new Date();
-                    if (date.toDateString() === today.toDateString()) {
-                        dayElement.classList.add('today');
-                    }
-                    
-                    // 检查是否是选中日期
-                    if (date.toDateString() === this.selectedDate.toDateString()) {
-                        dayElement.classList.add('selected');
-                    }
-                    
-                    dayCount++;
-                }
-                
-                // 添加点击事件
-                dayElement.addEventListener('click', () => {
-                    this.selectedDate = date;
-                    this.renderCalendar();
-                });
-                
-                this.daysContainer.appendChild(dayElement);
-            }
-        }
-    }
-    
-    show(onDateSelect) {
-        this.onDateSelect = onDateSelect;
-        this.modal.classList.add('show');
-    }
-    
-    hide() {
-        this.modal.classList.remove('show');
-        this.onDateSelect = null;
-    }
-}
-
-// 初始化 CalendarModal
-let calendarModal;
-document.addEventListener('DOMContentLoaded', () => {
-    calendarModal = new CalendarModal();
-    
-    // 替换旧的日期选择器
-    const dateTitle = document.querySelector('#dailyDateTitle');
-    if (dateTitle) {
-        dateTitle.addEventListener('click', () => {
-            calendarModal.show((selectedDate) => {
-                // 处理日期选择
-                const formattedDate = formatDate(selectedDate);
-                appState.currentDailyDate = formattedDate;
-                updateDailyDateTitle();
-                loadDailyNotes();
-            });
-        });
-    }
-    
-    // 禁用 flatpickr，使用统一的 CalendarModal
-    if (window.flatpickr) {
-        flatpickr.destroy();
-    }
-});
-
-// 导出 CalendarModal 实例供其他地方使用
-window.calendarModal = calendarModal;
