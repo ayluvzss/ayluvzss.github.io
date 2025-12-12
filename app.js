@@ -1359,11 +1359,15 @@ if (dateTitle) {
 
     // 月份切换按钮事件
     DOM.prevMonthBtn.addEventListener('click', () => {
+        // 避免月份溢出问题，先将日期设置为1号
+        currentDate.setDate(1);
         currentDate.setMonth(currentDate.getMonth() - 1);
         renderCheckinCalendar();
     });
 
     DOM.nextMonthBtn.addEventListener('click', () => {
+        // 避免月份溢出问题，先将日期设置为1号
+        currentDate.setDate(1);
         currentDate.setMonth(currentDate.getMonth() + 1);
         renderCheckinCalendar();
     });
