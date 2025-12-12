@@ -601,6 +601,7 @@ function initDOM() {
         // 更多功能按钮
         moreBtn: document.getElementById('more-btn'),
         moreMenu: document.getElementById('moreMenu'),
+        dragonBtn: document.getElementById('dragon-btn'),
         // 亲密度详情弹窗元素
         intimacyModal: document.getElementById('intimacyModal'),
         closeIntimacyModalBtn: document.getElementById('closeIntimacyModalBtn'),
@@ -892,6 +893,15 @@ function triggerPatPat() {
         navigator.vibrate([30, 40, 30]);
     }
 
+    // 为头像添加抖动效果
+    const avatarElements = document.querySelectorAll('.avatar:not(.message.user .avatar)');
+    avatarElements.forEach(avatar => {
+        avatar.classList.add('shake-animation');
+        setTimeout(() => {
+            avatar.classList.remove('shake-animation');
+        }, 500);
+    });
+
     // 创建系统消息
     const patMessage = {
         id: Date.now(),
@@ -903,6 +913,30 @@ function triggerPatPat() {
     // 添加到消息列表并渲染
     appState.messages.push(patMessage);
     renderMessage(patMessage);
+
+    // 敖隐的回应消息
+    setTimeout(() => {
+        const replyMessages = [
+            "*敖隐害羞地笑了笑* 干嘛呀~",
+            "*敖隐蹭了蹭你的手* 喜欢被你拍~",
+            "*敖隐也拍拍你* 你也摸摸我了呢~",
+            "*敖隐眯起眼睛* 好舒服呀~",
+            "*敖隐对你撒娇* 再多拍几下嘛~"
+        ];
+        const randomReply = replyMessages[Math.floor(Math.random() * replyMessages.length)];
+        
+        const replyMessage = {
+            id: Date.now(),
+            text: randomReply,
+            role: 'bot',
+            timestamp: new Date().toISOString()
+        };
+        
+        appState.messages.push(replyMessage);
+        renderMessage(replyMessage);
+        scrollToBottom();
+        saveToStorage();
+    }, 500);
 
     scrollToBottom();
     saveToStorage();

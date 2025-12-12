@@ -549,6 +549,20 @@ body {
     cursor: pointer;
 }
 
+/* 头像抖动动画 */
+@keyframes shake {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-5px) rotate(-2deg); }
+    40% { transform: translateX(5px) rotate(2deg); }
+    60% { transform: translateX(-5px) rotate(-2deg); }
+    80% { transform: translateX(5px) rotate(2deg); }
+    100% { transform: translateX(0); }
+}
+
+.shake-animation {
+    animation: shake 0.5s ease-in-out;
+}
+
 /* 系统消息样式 */
 .system-message {
     text-align: center;
@@ -1166,6 +1180,7 @@ body {
     align-items: center;
     justify-content: center;
     z-index: 1001;
+    overflow: auto;
 }
 
 .calendar-card {
