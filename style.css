@@ -2378,7 +2378,7 @@ body {
     }
 }
 
-/* 统一的 CalendarModal 样式 */
+/* iOS 系统日历风格 - 基础样式 */
 .calendar-modal {
     position: fixed;
     top: 0;
@@ -2403,7 +2403,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.15);
+    background-color: rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(2px);
 }
 
@@ -2411,14 +2411,15 @@ body {
     position: relative;
     width: 100%;
     max-width: 400px;
-    background-color: #fff0f6;
+    background-color: rgba(255, 255, 255, 0.92);
     border-radius: 20px 20px 0 0;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
     padding: 16px;
     max-height: 90vh;
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    backdrop-filter: blur(10px);
 }
 
 @media (min-width: 768px) {
@@ -2433,12 +2434,14 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(60, 60, 67, 0.18);
 }
 
 .calendar-title {
     font-size: 18px;
     font-weight: bold;
-    color: #333;
+    color: #1c1c1e;
     margin: 0;
 }
 
@@ -2446,7 +2449,7 @@ body {
     background: none;
     border: none;
     font-size: 24px;
-    color: #999;
+    color: #8e8e93;
     cursor: pointer;
     padding: 4px;
     border-radius: 50%;
@@ -2460,7 +2463,7 @@ body {
 
 .calendar-close-btn:hover {
     background-color: rgba(0, 0, 0, 0.05);
-    color: #666;
+    color: #1c1c1e;
 }
 
 .calendar-nav {
@@ -2471,9 +2474,9 @@ body {
 }
 
 .calendar-nav-btn {
-    background: #ffffff;
-    border: 1px solid #f0e0e5;
-    border-radius: 12px;
+    background: none;
+    border: none;
+    border-radius: 50%;
     width: 40px;
     height: 40px;
     font-size: 18px;
@@ -2482,18 +2485,17 @@ body {
     align-items: center;
     justify-content: center;
     transition: all 0.2s ease;
-    color: #333;
+    color: #1c1c1e;
 }
 
 .calendar-nav-btn:hover {
-    background-color: #f9f0f3;
-    border-color: #e8d0d8;
+    background-color: rgba(0, 122, 255, 0.1);
 }
 
 .current-date-display {
     font-size: 16px;
-    font-weight: bold;
-    color: #333;
+    font-weight: 600;
+    color: #1c1c1e;
 }
 
 .calendar-grid-container {
@@ -2510,10 +2512,10 @@ body {
 
 .weekday {
     text-align: center;
-    font-size: 14px;
-    font-weight: bold;
-    color: #999;
-    padding: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #8e8e93;
+    padding: 8px 0;
 }
 
 .calendar-days {
@@ -2525,43 +2527,122 @@ body {
     padding: 8px 0;
 }
 
+/* 核心日期格样式 - 正圆、无边框 */
 .calendar-day {
-    background: #ffffff;
-    border: 1px solid #f0e0e5;
-    border-radius: 12px;
+    background: transparent;
+    border: none;
+    border-radius: 50% !important;
     width: 100%;
     aspect-ratio: 1;
-    font-size: 14px;
+    font-size: 15px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.2s ease;
-    color: #333;
+    color: #1c1c1e;
 }
 
-.calendar-day:hover {
-    background-color: #f9f0f3;
-    border-color: #e8d0d8;
+@media (min-width: 768px) {
+    .calendar-day:hover {
+        background-color: rgba(0, 122, 255, 0.1);
+    }
 }
 
+/* 今天 - 蓝色描边圆 */
 .calendar-day.today {
-    background-color: #f7b3c6;
-    color: white;
-    border-color: #f7b3c6;
-    font-weight: bold;
+    background-color: transparent !important;
+    color: #007AFF !important;
+    font-weight: 600;
+    border: 1px solid #007AFF !important;
 }
 
+/* 非当月日期 - 灰色弱化 */
 .calendar-day.other-month {
-    color: #ddd;
+    color: #c7c7cc !important;
     pointer-events: none;
+    opacity: 0.5;
 }
 
+/* 选中日期 - 实心蓝色圆 */
 .calendar-day.selected {
-    background-color: #ff8fab;
-    color: white;
-    border-color: #ff8fab;
-    font-weight: bold;
+    background-color: #007AFF !important;
+    color: white !important;
+    font-weight: 600;
+    border: none !important;
+    box-shadow: none;
+}
+
+/* 今天+选中 - 仅显示实心蓝，不要双圈 */
+.calendar-day.today.selected {
+    background-color: #007AFF !important;
+    color: white !important;
+    border: none !important;
+}
+
+/* iOS 系统日历风格 - 暗色模式适配 */
+@media (prefers-color-scheme: dark) {
+    .calendar-modal-content {
+        background-color: rgba(28, 28, 30, 0.92);
+    }
+
+    .calendar-title {
+        color: #ffffff;
+    }
+
+    .calendar-close-btn {
+        color: #8e8e93;
+    }
+
+    .calendar-close-btn:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #ffffff;
+    }
+
+    .calendar-nav-btn {
+        color: #ffffff;
+    }
+
+    .calendar-nav-btn:hover {
+        background-color: rgba(10, 132, 255, 0.2);
+    }
+
+    .current-date-display {
+        color: #ffffff;
+    }
+
+    .calendar-day {
+        color: #ffffff;
+    }
+
+    @media (min-width: 768px) {
+        .calendar-day:hover {
+            background-color: rgba(10, 132, 255, 0.2);
+        }
+    }
+
+    /* 今天 - 深色模式蓝色描边 */
+    .calendar-day.today {
+        color: #0A84FF !important;
+        border-color: #0A84FF !important;
+    }
+
+    /* 非当月日期 - 深色模式灰色弱化 */
+    .calendar-day.other-month {
+        color: #58585a !important;
+        opacity: 0.5;
+    }
+
+    /* 选中日期 - 深色模式实心蓝色 */
+    .calendar-day.selected,
+    .calendar-day.today.selected {
+        background-color: #0A84FF !important;
+    }
+}
+
+/* 隐藏左上角旧日历（如果存在） */
+#datePickerModal {
+    display: none !important;
 }
 
 
