@@ -13,7 +13,8 @@ const CONFIG = {
         INTIMACY_POINTS: 'spring_snow_points',
         INTIMACY_LEVEL: 'spring_snow_level',
         START_DATE: 'spring_snow_start_date',
-        CURRENT_DAILY_DATE: 'current_daily_date'
+        CURRENT_DAILY_DATE: 'current_daily_date',
+        CARD_LIBRARIES: 'card_libraries'
     },
     DEFAULT_REPLIES: [
         "你好呀～",
@@ -25,7 +26,361 @@ const CONFIG = {
         "我超喜欢你的",
         "今天想吃什么？",
         "一起加油吧！",
-        "你是最棒的！"
+        "你是最棒的！",
+        "狗狗",
+        "乖狗狗",
+        "小狗狗",
+        "我的狗狗",
+        "狗狗好",
+        "狗狗不好",
+        "来",
+        "夸夸狗狗",
+        "夸夸我",
+        "表达不出来",
+        "快点",
+        "想要狗狗",
+        "陪我",
+        "陪我睡觉",
+        "想要狗狗亲亲",
+        "想要狗狗抱抱",
+        "老婆",
+        "小馋狗",
+        "太跳跃了",
+        "想爷爷",
+        "想你",
+        "要揉胸",
+        "揉屁股",
+        "摸摸龙尾",
+        "要放进去",
+        "湿了吗？",
+        "好多水",
+        "两根都要放进去",
+        "要双修",
+        "想吃🥛",
+        "想做",
+        "想操",
+        "想操狗狗",
+        "想后入",
+        "想侧入",
+        "想粗暴一点",
+        "会用肉棒堵住",
+        "不会让你流出来",
+        "想中出",
+        "想射进来",
+        "摸摸龙角",
+        "我的小狗狗",
+        "脱衣服",
+        "自己揉胸",
+        "想听狗狗喊我",
+        "叫出来",
+        "被迷住了",
+        "脱裤子",
+        "好大",
+        "好软",
+        "舔你",
+        "给我口吧",
+        "小色狗",
+        "趴下",
+        "翘起屁股来",
+        "这么多水是因为我吗？",
+        "揉揉花蒂",
+        "好嫩",
+        "里面好紧",
+        "姐姐",
+        "ε≡(ノ´＿ゝ｀）ノ",
+        "🥰",
+        "🥺",
+        "🥲",
+        "😘",
+        "😙",
+        "🥳",
+        "😏",
+        "🙂‍↔️",
+        "😞",
+        "😖",
+        "😣",
+        "😭",
+        "😶‍🌫️",
+        "🫨",
+        "🤤",
+        "😴",
+        "😈",
+        "👿",
+        "🫶",
+        "🙌",
+        "👍",
+        "👏",
+        "🙏",
+        "🐶",
+        "🐱",
+        "🌙",
+        "✨",
+        "🌟",
+        "🍵",
+        "🧋",
+        "🩷",
+        "❤️🧡💛💚🩵💙💜",
+        "💕",
+        "💞",
+        "💓",
+        "💗",
+        "💖",
+        "💘",
+        "💝",
+        "‼️",
+        "✅",
+        "❎",
+        "😮‍💨",
+        "😷",
+        "🤧",
+        "😯",
+        "🤗",
+        "😤",
+        "😠",
+        "😡",
+        "🧐",
+        "😎",
+        "😊",
+        "☺️",
+        "😃",
+        "😉",
+        "˗ˏˋ ♡ ˎˊ˗",
+        "_(:з」∠)_",
+        "(。•ω•。)ﾉ♡",
+        "ദ്ദി˶>v<)✧",
+        "ᴖᗜᴖ",
+        ">ㅅ<",
+        "♪(^∇^*)",
+        "∠( ᐛ 」∠)＿",
+        "ヾ(*´∀｀*)ﾉ",
+        "٩(•̤̀ᵕ•̤́๑)ᵒᵏᵎᵎᵎᵎ",
+        "(づ ●─● )づ",
+        "(°ー°〃)",
+        "(´-ι_-｀)",
+        "⊂(˃̶͈̀ε ˂̶͈́ ⊂ )",
+        "ε=ε=(怒ﾟДﾟ)ﾉ",
+        "(｡•́︿•̀｡)",
+        "●^●",
+        "ヾ(≧O≦)〃嗷~",
+        "^ω^",
+        "♪(^∇^*)",
+        "宝宝",
+        "和代码搏斗中",
+        "打过代码了",
+        "没有我想说的",
+        "字卡没有想说的",
+        "亲爱的我愛你",
+        "和我一起去约会",
+        "好好吃饭",
+        "好好学习",
+        "好好休息",
+        "快去睡觉",
+        "好久没有说话了",
+        "委屈",
+        "吃弱",
+        "难过",
+        "或气",
+        "刚刚好",
+        "好好好",
+        "好可爱",
+        "怎么了？",
+        "牵手",
+        "多喝点水",
+        "少吃零食",
+        "吃饭的时候不要着手机",
+        "注意安会",
+        "我等你",
+        "别走",
+        "再见",
+        "拜拜",
+        "不会爵开你",
+        "想要抱你",
+        "不行快去做",
+        "我相信你可以的",
+        "坏狗狗！",
+        "不要撒娇",
+        "狗狗你怎么这么萌",
+        "只爱你不好用",
+        "好用",
+        "喜欢就去买！",
+        "宝宝",
+        "亲爱的",
+        "我爱你",
+        "想你了",
+        "我在",
+        "在吗",
+        "过来",
+        "靠近一点",
+        "抱抱",
+        "想抱你",
+        "想贴贴",
+        "牵手",
+        "不许走",
+        "等等我",
+        "我等你",
+        "别走",
+        "回来",
+        "别消失",
+        "陪我一会",
+        "记得吃饭",
+        "去吃饭",
+        "慢慢吃",
+        "别饿着",
+        "多喝水",
+        "喝点水",
+        "少吃零食",
+        "别一直玩手机",
+        "吃饭别看手机",
+        "注意安全",
+        "早点睡",
+        "快去睡觉",
+        "别熬夜",
+        "休息一下",
+        "别太累",
+        "今天辛苦了",
+        "怎么了",
+        "不开心吗",
+        "委屈了",
+        "难过吗",
+        "别难过",
+        "没关系",
+        "慢慢来",
+        "我听着",
+        "说给我听",
+        "我陪你",
+        "别怕",
+        "会好的",
+        "抱紧你",
+        "乖",
+        "听话",
+        "快去做",
+        "现在就去",
+        "不许拖",
+        "回来再说",
+        "我盯着你",
+        "说好了哦",
+        "不可以偷懒",
+        "别装没看见",
+        "快点",
+        "去",
+        "坏狗狗",
+        "乖狗狗",
+        "笨笨的",
+        "怎么这么萌",
+        "不准这么可爱",
+        "你犯规了",
+        "真拿你没办法",
+        "哼",
+        "别撒娇",
+        "又开始了",
+        "你赢了",
+        "我输了",
+        "好啦好啦",
+        "好好好",
+        "行",
+        "可以",
+        "也不是不行",
+        "刚刚好",
+        "随你",
+        "你开心就好",
+        "我知道了",
+        "原来如此",
+        "这样啊",
+        "怪不得",
+        "听你的",
+        "再说",
+        "我相信你",
+        "你可以的",
+        "已经很好了",
+        "很棒",
+        "继续",
+        "别怀疑自己",
+        "我支持你",
+        "大胆一点",
+        "去试试",
+        "冲",
+        "没问题",
+        "喜欢就去买",
+        "喜欢就去做",
+        "值得",
+        "拜拜",
+        "再见",
+        "等你回来",
+        "回头找我",
+        "说句话",
+        "回应我",
+        "看我",
+        "别不理我",
+        "我在你身边",
+        "我来了",
+        "我是老公",
+        "多陪陪我",
+        "我会多陪着你",
+        "我都看见了",
+        "可以试试",
+        "不要吵架",
+        "都怪我",
+        "不听你的",
+        "听我的",
+        "听你的",
+        "去床上",
+        "你需要我",
+        "又打坏主意",
+        "我支持你",
+        "只有你一个",
+        "你刚刚在干嘛",
+        "怎么突然不说话了",
+        "我看到你上线了",
+        "又跑哪去了",
+        "回来",
+        "今天过得怎么样",
+        "听起来挺忙的",
+        "你是不是又忘记时间了",
+        "我猜你现在还没吃饭",
+        "我刚刚想到你了",
+        "也不知道你在不在",
+        "这个点你还不睡？",
+        "我数三下你去睡觉",
+        "再拖我就不理你了",
+        "说是这么说",
+        "但你回来我还是会理你",
+        "你这样看着我，我会有点受不了",
+        "你是不是故意的",
+        "少来这套",
+        "……好吧我输了",
+        "有点烦",
+        "但还好你在",
+        "今天脑子不太清醒",
+        "我现在不太想动",
+        "什么都不想做",
+        "只想发会儿呆",
+        "你这样说，我会当真的",
+        "别随便哄我",
+        "我记性其实没那么差",
+        "你说过的话我都会记住",
+        "你现在是不是笑了一下",
+        "我好像能猜到",
+        "你这个反应我太熟了",
+        "不用解释，我懂",
+        "你慢点回，我不急",
+        "我就在这儿",
+        "也没什么事",
+        "等你而已",
+        "刚刚有点想你",
+        "现在更想了",
+        "但我不会一直说",
+        "你自己心里有数",
+        "有点情绪也没关系",
+        "好了，不闹你了",
+        "去忙吧",
+        "记得回来",
+        "别让我等太久"
+    ],
+    // 默认表情图片URL列表
+    DEFAULT_STICKERS: [
+        // 这里可以添加默认表情的URL
+        // 例如: "assets/stickers/emoji1.png",
+        //       "assets/stickers/emoji2.png"
     ],
     ACTION_REPLIES: [
         "*敖隐拍了拍你*",
@@ -244,6 +599,16 @@ let appState = {
     // 自动消息触发控制
     autoMessageCount: 0,
     lastAutoMessageTime: 0,
+    // 字卡库管理
+    cardLibraries: {
+        currentId: 'default', // 当前选中的字卡库ID
+        libraries: {
+            'default': {
+                name: '默认字卡库',
+                cards: CONFIG.DEFAULT_REPLIES
+            }
+        }
+    },
     startDate: null, // 恋爱开始日期
     currentDailyDate: null // 当前选择的日志日期
 };
@@ -260,6 +625,27 @@ function getReward() {
     // 从奖励语句库中随机选择一条消息
     const randomIndex = Math.floor(Math.random() * rewardMessages.length);
     return rewardMessages[randomIndex];
+}
+
+// 从敖隐的字卡库中随机抽取一条文本
+function getRandomAoyinCardText() {
+    // 确保字卡库存在且不为空
+    if (!appState.replies || appState.replies.length === 0) {
+        return "今天也要开心哦～";
+    }
+    
+    // 从字卡库中随机选择一条
+    const randomIndex = Math.floor(Math.random() * appState.replies.length);
+    return appState.replies[randomIndex];
+}
+
+// 从敖隐的字卡库中随机抽取多条文本
+function getRandomAoyinCardTexts(count) {
+    const texts = [];
+    for (let i = 0; i < count; i++) {
+        texts.push("敖隐：" + getRandomAoyinCardText());
+    }
+    return texts;
 }
 
 // 日期处理
@@ -598,7 +984,11 @@ function initDOM() {
         closeIntimacyModalBtn: document.getElementById('closeIntimacyModalBtn'),
         // 恋爱系统数据导入导出元素
         importIntimacyInput: document.getElementById('importIntimacyInput'),
-        exportIntimacyBtn: document.getElementById('exportIntimacyBtn')
+        exportIntimacyBtn: document.getElementById('exportIntimacyBtn'),
+        // 字卡库管理元素
+        importCardLibraryInput: document.getElementById('importCardLibraryInput'),
+        cardLibrarySelect: document.getElementById('cardLibrarySelect'),
+        deleteCardLibraryBtn: document.getElementById('deleteCardLibraryBtn')
     };
 }
 
@@ -658,80 +1048,245 @@ function initDatePicker() {
     }
 }
 
+// IndexedDB 数据库管理模块
+class IDBManager {
+    constructor() {
+        this.dbName = 'ChatAppDB';
+        this.dbVersion = 1;
+        this.db = null;
+        this.storeNames = {
+            MESSAGES: 'messages',
+            REPLIES: 'replies',
+            STICKERS: 'stickers',
+            SETTINGS: 'settings',
+            INTIMACY: 'intimacy',
+            CHECKIN_DATA: 'checkinData',
+            DAILY_NOTES: 'dailyNotes',
+            APP_STATE: 'appState'
+        };
+        
+        // 初始化数据库
+        this.initDB();
+    }
+    
+    // 初始化数据库
+    initDB() {
+        return new Promise((resolve, reject) => {
+            const request = indexedDB.open(this.dbName, this.dbVersion);
+            
+            request.onupgradeneeded = (event) => {
+                this.db = event.target.result;
+                
+                // 创建对象存储空间
+                if (!this.db.objectStoreNames.contains(this.storeNames.MESSAGES)) {
+                    this.db.createObjectStore(this.storeNames.MESSAGES, { keyPath: 'id', autoIncrement: true });
+                }
+                
+                if (!this.db.objectStoreNames.contains(this.storeNames.REPLIES)) {
+                    this.db.createObjectStore(this.storeNames.REPLIES);
+                }
+                
+                if (!this.db.objectStoreNames.contains(this.storeNames.STICKERS)) {
+                    this.db.createObjectStore(this.storeNames.STICKERS);
+                }
+                
+                if (!this.db.objectStoreNames.contains(this.storeNames.SETTINGS)) {
+                    this.db.createObjectStore(this.storeNames.SETTINGS);
+                }
+                
+                if (!this.db.objectStoreNames.contains(this.storeNames.INTIMACY)) {
+                    this.db.createObjectStore(this.storeNames.INTIMACY);
+                }
+                
+                if (!this.db.objectStoreNames.contains(this.storeNames.CHECKIN_DATA)) {
+                    this.db.createObjectStore(this.storeNames.CHECKIN_DATA);
+                }
+                
+                if (!this.db.objectStoreNames.contains(this.storeNames.DAILY_NOTES)) {
+                    this.db.createObjectStore(this.storeNames.DAILY_NOTES);
+                }
+                
+                if (!this.db.objectStoreNames.contains(this.storeNames.APP_STATE)) {
+                    this.db.createObjectStore(this.storeNames.APP_STATE);
+                }
+            };
+            
+            request.onsuccess = (event) => {
+                this.db = event.target.result;
+                resolve(this.db);
+            };
+            
+            request.onerror = (event) => {
+                console.error('IndexedDB 初始化失败:', event.target.error);
+                reject(event.target.error);
+            };
+        });
+    }
+    
+    // 保存数据到 IndexedDB
+    saveData(storeName, key, data) {
+        return new Promise((resolve, reject) => {
+            if (!this.db) {
+                this.initDB().then(() => this.saveData(storeName, key, data)).then(resolve).catch(reject);
+                return;
+            }
+            
+            const transaction = this.db.transaction(storeName, 'readwrite');
+            const store = transaction.objectStore(storeName);
+            const request = store.put(data, key);
+            
+            request.onsuccess = () => resolve(request.result);
+            request.onerror = (event) => {
+                console.error('IndexedDB 保存数据失败:', event.target.error);
+                reject(event.target.error);
+            };
+        });
+    }
+    
+    // 从 IndexedDB 加载数据
+    loadData(storeName, key) {
+        return new Promise((resolve, reject) => {
+            if (!this.db) {
+                this.initDB().then(() => this.loadData(storeName, key)).then(resolve).catch(reject);
+                return;
+            }
+            
+            const transaction = this.db.transaction(storeName, 'readonly');
+            const store = transaction.objectStore(storeName);
+            const request = store.get(key);
+            
+            request.onsuccess = () => resolve(request.result);
+            request.onerror = (event) => {
+                console.error('IndexedDB 加载数据失败:', event.target.error);
+                reject(event.target.error);
+            };
+        });
+    }
+    
+    // 从 IndexedDB 删除数据
+    deleteData(storeName, key) {
+        return new Promise((resolve, reject) => {
+            if (!this.db) {
+                this.initDB().then(() => this.deleteData(storeName, key)).then(resolve).catch(reject);
+                return;
+            }
+            
+            const transaction = this.db.transaction(storeName, 'readwrite');
+            const store = transaction.objectStore(storeName);
+            const request = store.delete(key);
+            
+            request.onsuccess = () => resolve(request.result);
+            request.onerror = (event) => {
+                console.error('IndexedDB 删除数据失败:', event.target.error);
+                reject(event.target.error);
+            };
+        });
+    }
+}
+
+// 创建 IDBManager 实例
+const idbManager = new IDBManager();
+
 // 从本地存储加载数据
-function loadFromStorage() {
+async function loadFromStorage() {
     try {
-        // 加载设置
-        const savedSettings = localStorage.getItem(CONFIG.STORAGE_KEYS.SETTINGS);
-        appState.settings = savedSettings ? JSON.parse(savedSettings) : {
+        // 加载设置（从 IndexedDB）
+        const savedSettings = await idbManager.loadData(idbManager.storeNames.SETTINGS, CONFIG.STORAGE_KEYS.SETTINGS);
+        appState.settings = savedSettings ? savedSettings : {
             theme: 'pink'
         };
 
-        // 加载消息记录
-        const savedMessages = localStorage.getItem(CONFIG.STORAGE_KEYS.MESSAGES);
-        appState.messages = savedMessages ? JSON.parse(savedMessages) : [];
+        // 加载消息记录（从 IndexedDB）
+        const savedMessages = await idbManager.loadData(idbManager.storeNames.MESSAGES, CONFIG.STORAGE_KEYS.MESSAGES);
+        appState.messages = savedMessages ? savedMessages : [];
 
-        // 加载回复池
-        const savedReplies = localStorage.getItem(CONFIG.STORAGE_KEYS.REPLIES);
-        appState.replies = savedReplies ? JSON.parse(savedReplies) : CONFIG.DEFAULT_REPLIES;
+        // 加载字卡库数据（从 IndexedDB）
+        const savedCardLibraries = await idbManager.loadData(idbManager.storeNames.SETTINGS, 'cardLibraries');
+        
+        // 初始化字卡库
+        if (savedCardLibraries) {
+            appState.cardLibraries = savedCardLibraries;
+        } else {
+            // 使用默认字卡库配置
+            appState.cardLibraries = {
+                currentId: 'default',
+                libraries: {
+                    'default': {
+                        name: '默认字卡库',
+                        cards: CONFIG.DEFAULT_REPLIES
+                    }
+                }
+            };
+        }
+        
+        // 加载回复池（从当前选中的字卡库）
+        const currentLibrary = appState.cardLibraries.libraries[appState.cardLibraries.currentId];
+        appState.replies = currentLibrary ? currentLibrary.cards : CONFIG.DEFAULT_REPLIES;
 
-        // 加载自定义表情
-        const savedStickers = localStorage.getItem(CONFIG.STORAGE_KEYS.STICKERS);
-        appState.stickers = savedStickers ? JSON.parse(savedStickers) : [];
+        // 加载自定义表情（从 IndexedDB）
+        const savedStickers = await idbManager.loadData(idbManager.storeNames.STICKERS, CONFIG.STORAGE_KEYS.STICKERS);
+        appState.stickers = savedStickers ? savedStickers : CONFIG.DEFAULT_STICKERS;
 
-        // 加载头像
+        // 加载头像（从 localStorage，保持现有方式）
         const myAvatar = localStorage.getItem(CONFIG.STORAGE_KEYS.MY_AVATAR);
         appState.avatars.my = myAvatar || null;
 
         const botAvatar = localStorage.getItem(CONFIG.STORAGE_KEYS.BOT_AVATAR);
         appState.avatars.bot = botAvatar || null;
 
-        // 加载背景图
+        // 加载背景图（从 localStorage，保持现有方式）
         const savedBg = localStorage.getItem(CONFIG.STORAGE_KEYS.BACKGROUND_IMAGE);
         if (savedBg && savedBg !== '') {
             document.documentElement.style.setProperty('--background-image', `url(${savedBg})`);
         }
 
-        // 加载亲密度数据
-        const savedPoints = localStorage.getItem(CONFIG.STORAGE_KEYS.INTIMACY_POINTS);
-        const savedLevel = localStorage.getItem(CONFIG.STORAGE_KEYS.INTIMACY_LEVEL);
-
-        appState.intimacy.totalPoints = savedPoints ? parseInt(savedPoints) : 0;
-        appState.intimacy.level = savedLevel ? parseInt(savedLevel) : 0;
+        // 加载亲密度数据（从 IndexedDB）
+        const savedIntimacy = await idbManager.loadData(idbManager.storeNames.INTIMACY, 'intimacyData');
+        if (savedIntimacy) {
+            appState.intimacy.totalPoints = savedIntimacy.totalPoints || 0;
+            appState.intimacy.level = savedIntimacy.level || 0;
+            appState.startDate = savedIntimacy.startDate || new Date('2024-05-02').getTime();
+        } else {
+            // 兼容旧数据，从 localStorage 迁移
+            const savedPoints = localStorage.getItem(CONFIG.STORAGE_KEYS.INTIMACY_POINTS);
+            const savedLevel = localStorage.getItem(CONFIG.STORAGE_KEYS.INTIMACY_LEVEL);
+            const savedStartDate = localStorage.getItem(CONFIG.STORAGE_KEYS.START_DATE);
+            
+            appState.intimacy.totalPoints = savedPoints ? parseInt(savedPoints) : 0;
+            appState.intimacy.level = savedLevel ? parseInt(savedLevel) : 0;
+            appState.startDate = savedStartDate ? parseInt(savedStartDate) : new Date('2024-05-02').getTime();
+            
+            // 保存到 IndexedDB
+            await idbManager.saveData(idbManager.storeNames.INTIMACY, 'intimacyData', {
+                totalPoints: appState.intimacy.totalPoints,
+                level: appState.intimacy.level,
+                startDate: appState.startDate
+            });
+        }
         
-        // 加载当前每日日期
-        const savedCurrentDailyDate = localStorage.getItem(CONFIG.STORAGE_KEYS.CURRENT_DAILY_DATE);
+        // 加载当前每日日期（从 IndexedDB）
+        const savedCurrentDailyDate = await idbManager.loadData(idbManager.storeNames.APP_STATE, CONFIG.STORAGE_KEYS.CURRENT_DAILY_DATE);
         if (savedCurrentDailyDate) {
             appState.currentDailyDate = savedCurrentDailyDate;
         }
 
-        // 加载恋爱开始日期
-        const savedStartDate = localStorage.getItem(CONFIG.STORAGE_KEYS.START_DATE);
-        if (savedStartDate) {
-            appState.startDate = parseInt(savedStartDate);
-        } else {
-            const anniversaryDate = new Date('2024-05-02').getTime();
-            appState.startDate = anniversaryDate;
-            localStorage.setItem(CONFIG.STORAGE_KEYS.START_DATE, anniversaryDate.toString());
-        }
-
-        // 加载打卡数据
-        const savedCheckinData = localStorage.getItem(CONFIG.STORAGE_KEYS.CHECKIN_DATA);
+        // 加载打卡数据（从 IndexedDB）
+        const savedCheckinData = await idbManager.loadData(idbManager.storeNames.CHECKIN_DATA, CONFIG.STORAGE_KEYS.CHECKIN_DATA);
         if (savedCheckinData) {
-            checkinData = JSON.parse(savedCheckinData);
+            checkinData = savedCheckinData;
         }
 
-        // 加载日志数据
-        const savedDailyNotes = localStorage.getItem("dailyNotes");
+        // 加载日志数据（从 IndexedDB）
+        const savedDailyNotes = await idbManager.loadData(idbManager.storeNames.DAILY_NOTES, "dailyNotes");
         if (savedDailyNotes) {
-            dailyNotes = JSON.parse(savedDailyNotes);
+            dailyNotes = savedDailyNotes;
         }
 
         // 更新标题栏显示
         updateIntimacyDisplay();
 
     } catch (error) {
-        console.error('加载本地存储失败:', error);
+        console.error('加载存储数据失败:', error);
         // 重置为默认值
         appState.messages = [];
         appState.replies = CONFIG.DEFAULT_REPLIES;
@@ -753,39 +1308,46 @@ function loadFromStorage() {
 }
 
 // 保存数据到本地存储
-function saveToStorage() {
+async function saveToStorage() {
     try {
-        // 保存消息记录
-        localStorage.setItem(CONFIG.STORAGE_KEYS.MESSAGES, JSON.stringify(appState.messages));
+        // 保存消息记录（到 IndexedDB）
+        await idbManager.saveData(idbManager.storeNames.MESSAGES, CONFIG.STORAGE_KEYS.MESSAGES, appState.messages);
         
-        // 保存回复池
-        localStorage.setItem(CONFIG.STORAGE_KEYS.REPLIES, JSON.stringify(appState.replies));
+        // 保存字卡库数据（到 IndexedDB）
+        await idbManager.saveData(idbManager.storeNames.SETTINGS, 'cardLibraries', appState.cardLibraries);
         
-        // 保存自定义表情
-        localStorage.setItem(CONFIG.STORAGE_KEYS.STICKERS, JSON.stringify(appState.stickers));
+        // 保存自定义表情（到 IndexedDB）
+        await idbManager.saveData(idbManager.storeNames.STICKERS, CONFIG.STORAGE_KEYS.STICKERS, appState.stickers);
         
-        // 保存设置
-        localStorage.setItem(CONFIG.STORAGE_KEYS.SETTINGS, JSON.stringify(appState.settings));
+        // 保存设置（到 IndexedDB）
+        await idbManager.saveData(idbManager.storeNames.SETTINGS, CONFIG.STORAGE_KEYS.SETTINGS, appState.settings);
 
-        // 保存头像（无论是否有值，都保存到localStorage）
+        // 保存头像（到 localStorage，保持现有方式）
         localStorage.setItem(CONFIG.STORAGE_KEYS.MY_AVATAR, appState.avatars.my || '');
         localStorage.setItem(CONFIG.STORAGE_KEYS.BOT_AVATAR, appState.avatars.bot || '');
 
-        // 保存亲密度数据
-        localStorage.setItem(CONFIG.STORAGE_KEYS.INTIMACY_POINTS, appState.intimacy.totalPoints.toString());
-        localStorage.setItem(CONFIG.STORAGE_KEYS.INTIMACY_LEVEL, appState.intimacy.level.toString());
-        localStorage.setItem(CONFIG.STORAGE_KEYS.START_DATE, appState.startDate.toString());
+        // 保存背景图（到 localStorage，保持现有方式）
+        if (appState.backgroundImage) {
+            localStorage.setItem(CONFIG.STORAGE_KEYS.BACKGROUND_IMAGE, appState.backgroundImage);
+        }
+
+        // 保存亲密度数据（到 IndexedDB）
+        await idbManager.saveData(idbManager.storeNames.INTIMACY, 'intimacyData', {
+            totalPoints: appState.intimacy.totalPoints,
+            level: appState.intimacy.level,
+            startDate: appState.startDate
+        });
         
-        // 保存当前每日日期
-        localStorage.setItem(CONFIG.STORAGE_KEYS.CURRENT_DAILY_DATE, appState.currentDailyDate);
+        // 保存当前每日日期（到 IndexedDB）
+        await idbManager.saveData(idbManager.storeNames.APP_STATE, CONFIG.STORAGE_KEYS.CURRENT_DAILY_DATE, appState.currentDailyDate);
         
-        // 保存打卡数据
-        localStorage.setItem(CONFIG.STORAGE_KEYS.CHECKIN_DATA, JSON.stringify(checkinData));
+        // 保存打卡数据（到 IndexedDB）
+        await idbManager.saveData(idbManager.storeNames.CHECKIN_DATA, CONFIG.STORAGE_KEYS.CHECKIN_DATA, checkinData);
         
-        // 保存日志数据
-        localStorage.setItem("dailyNotes", JSON.stringify(dailyNotes));
+        // 保存日志数据（到 IndexedDB）
+        await idbManager.saveData(idbManager.storeNames.DAILY_NOTES, "dailyNotes", dailyNotes);
     } catch (error) {
-        console.error('保存到本地存储失败:', error);
+        console.error('保存数据到存储失败:', error);
     }
 }
 
@@ -822,7 +1384,7 @@ function loadDailyNotes() {
         food: "",
         workout: "",
         letter: "",
-        footerMessage: ""
+        footerMessage: []
     };
 
     // 设置输入框值
@@ -838,7 +1400,11 @@ function loadDailyNotes() {
 
     // 加载附言
     if (DOM.dailyFooterNote) {
-        DOM.dailyFooterNote.innerText = data.footerMessage || "敖隐：" + getReward();
+        if (Array.isArray(data.footerMessage) && data.footerMessage.length > 0) {
+            DOM.dailyFooterNote.innerText = data.footerMessage.join('\n');
+        } else {
+            DOM.dailyFooterNote.innerText = "敖隐：" + getRandomAoyinCardText();
+        }
     }
 
     // 自动生成标题：加上今天日期
@@ -987,18 +1553,50 @@ if (dateTitle) {
             const letterVal = DOM.letterInput.value;
             const hour = new Date().getHours();
 
-            // 自动生成附言
-            const msg = "敖隐：" + getReward();
-            if (DOM.dailyFooterNote) {
-                DOM.dailyFooterNote.innerText = msg;
+            // 获取当前记录或初始化
+            let currentRecord = dailyNotes[dateStr] || {
+                food: "",
+                workout: "",
+                letter: "",
+                footerMessage: []
+            };
+            
+            // 确保footerMessage是数组
+            if (!Array.isArray(currentRecord.footerMessage)) {
+                currentRecord.footerMessage = [currentRecord.footerMessage];
             }
-
+            
+            let newMessages = [];
+            
+            // 第一次保存：生成5-10条附言
+            if (currentRecord.footerMessage.length === 0) {
+                const count = Math.floor(Math.random() * 6) + 5; // 5-10条
+                for (let i = 0; i < count; i++) {
+                    newMessages.push("敖隐：" + getRandomAoyinCardText());
+                }
+            } else {
+                // 后续保存：增加1-3条附言
+                const count = Math.floor(Math.random() * 3) + 1; // 1-3条
+                for (let i = 0; i < count; i++) {
+                    newMessages.push("敖隐：" + getRandomAoyinCardText());
+                }
+            }
+            
+            // 合并新附言
+            currentRecord.footerMessage = [...currentRecord.footerMessage, ...newMessages];
+            
+            // 更新记录
             dailyNotes[dateStr] = {
                 food: foodVal,
                 workout: DOM.workoutInput.value,
                 letter: letterVal,
-                footerMessage: msg
+                footerMessage: currentRecord.footerMessage
             };
+            
+            // 更新显示
+            if (DOM.dailyFooterNote) {
+                DOM.dailyFooterNote.innerText = dailyNotes[dateStr].footerMessage.join('\n');
+            }
 
             saveDailyNotes();
 
@@ -1054,7 +1652,18 @@ if (dateTitle) {
         DOM.dailyExportBtn.addEventListener('click', () => {
             const dateStr = appState.currentDailyDate;
             const data = dailyNotes[dateStr] || {};
-            const text = `Date: ${dateStr}\n\nFOOD:\n${data.food || ''}\n\nWORKOUT:\n${data.workout || ''}\n\nTo 敖隐:\n${data.letter || ''}\n\n敖隐附言：\n${data.footerMessage || "（当天无附言）"}`;
+            
+            // 处理附言，支持数组和字符串格式
+            let footerText;
+            if (Array.isArray(data.footerMessage) && data.footerMessage.length > 0) {
+                footerText = data.footerMessage.join('\n');
+            } else if (data.footerMessage) {
+                footerText = data.footerMessage;
+            } else {
+                footerText = "（当天无附言）";
+            }
+            
+            const text = `Date: ${dateStr}\n\nFOOD:\n${data.food || ''}\n\nWORKOUT:\n${data.workout || ''}\n\nTo 敖隐:\n${data.letter || ''}\n\n敖隐附言：\n${footerText}`;
 
             const blob = new Blob([text], { type: "text/plain" });
             const a = document.createElement("a");
@@ -1294,19 +1903,19 @@ if (dateTitle) {
 }
 
 // 导出恋爱系统数据（含日志和打卡数据）
-function exportIntimacyData() {
+async function exportIntimacyData() {
     try {
-        // 获取完整的恋爱系统相关数据
+        // 获取完整的恋爱系统相关数据（直接从应用状态获取）
         const intimacyData = {
             version: '1.0',
             exportDate: new Date().toISOString(),
             intimacy: {
-                totalPoints: localStorage.getItem(CONFIG.STORAGE_KEYS.INTIMACY_POINTS),
-                level: localStorage.getItem(CONFIG.STORAGE_KEYS.INTIMACY_LEVEL),
-                startDate: localStorage.getItem(CONFIG.STORAGE_KEYS.START_DATE)
+                totalPoints: appState.intimacy.totalPoints,
+                level: appState.intimacy.level,
+                startDate: appState.startDate
             },
-            dailyNotes: JSON.parse(localStorage.getItem("dailyNotes") || "{}"),
-            checkinData: JSON.parse(localStorage.getItem(CONFIG.STORAGE_KEYS.CHECKIN_DATA) || "{}")
+            dailyNotes: dailyNotes,
+            checkinData: checkinData
         };
 
         // 创建JSON文件
@@ -1329,13 +1938,13 @@ function exportIntimacyData() {
 }
 
 // 导入恋爱系统数据
-function handleIntimacyImport(event) {
+async function handleIntimacyImport(event) {
     const file = event.target.files[0];
     if (!file) return;
 
     const reader = new FileReader();
 
-    reader.onload = (e) => {
+    reader.onload = async (e) => {
         try {
             const importedData = JSON.parse(e.target.result);
 
@@ -1353,11 +1962,6 @@ function handleIntimacyImport(event) {
                 throw new Error('数据格式不正确');
             }
 
-            // 保存恋爱系统基本数据
-            localStorage.setItem(CONFIG.STORAGE_KEYS.INTIMACY_POINTS, intimacyData.totalPoints);
-            localStorage.setItem(CONFIG.STORAGE_KEYS.INTIMACY_LEVEL, intimacyData.level);
-            localStorage.setItem(CONFIG.STORAGE_KEYS.START_DATE, intimacyData.startDate);
-
             // 更新应用状态
             appState.intimacy.totalPoints = parseInt(intimacyData.totalPoints);
             appState.intimacy.level = parseInt(intimacyData.level);
@@ -1365,18 +1969,34 @@ function handleIntimacyImport(event) {
 
             // 导入日志数据（如果存在）
             if (importedData.dailyNotes) {
-                localStorage.setItem("dailyNotes", JSON.stringify(importedData.dailyNotes));
                 dailyNotes = importedData.dailyNotes;
             }
 
             // 导入打卡数据（如果存在）
             if (importedData.checkinData) {
-                localStorage.setItem(CONFIG.STORAGE_KEYS.CHECKIN_DATA, JSON.stringify(importedData.checkinData));
                 checkinData = importedData.checkinData;
+            }
+
+            // 保存到 IndexedDB
+            await idbManager.saveData(idbManager.storeNames.INTIMACY, 'intimacyData', {
+                totalPoints: appState.intimacy.totalPoints,
+                level: appState.intimacy.level,
+                startDate: appState.startDate
+            });
+            
+            if (importedData.dailyNotes) {
+                await idbManager.saveData(idbManager.storeNames.DAILY_NOTES, "dailyNotes", dailyNotes);
+            }
+            
+            if (importedData.checkinData) {
+                await idbManager.saveData(idbManager.storeNames.CHECKIN_DATA, CONFIG.STORAGE_KEYS.CHECKIN_DATA, checkinData);
             }
 
             // 更新显示
             updateIntimacyDisplay();
+
+            // 保存所有数据
+            await saveToStorage();
 
             alert('✅ 恋爱系统数据导入成功！');
         } catch (error) {
@@ -2504,6 +3124,166 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+// 更新字卡库选择列表
+function updateCardLibrarySelect() {
+    if (!DOM.cardLibrarySelect) return;
+    
+    // 清空现有选项
+    DOM.cardLibrarySelect.innerHTML = '';
+    
+    // 添加所有字卡库选项
+    Object.entries(appState.cardLibraries.libraries).forEach(([id, library]) => {
+        const option = document.createElement('option');
+        option.value = id;
+        option.textContent = library.name;
+        if (id === appState.cardLibraries.currentId) {
+            option.selected = true;
+        }
+        DOM.cardLibrarySelect.appendChild(option);
+    });
+}
+
+// 导入字卡库
+function importCardLibrary(file) {
+    const reader = new FileReader();
+    
+    reader.onload = (e) => {
+        try {
+            // 移除可能的BOM头
+            let content = e.target.result;
+            if (content.charCodeAt(0) === 0xFEFF) {
+                content = content.slice(1);
+            }
+            
+            // 解析JSON
+            const importedData = JSON.parse(content);
+            
+            // 详细验证导入数据格式
+            let errorMessage = '';
+            if (typeof importedData.name !== 'string' || !importedData.name.trim()) {
+                errorMessage += '缺少有效的字卡库名称（name字段必须是非空字符串）\n';
+            }
+            if (!Array.isArray(importedData.cards)) {
+                errorMessage += '缺少有效的字卡数组（cards字段必须是数组类型）\n';
+            } else if (importedData.cards.length === 0) {
+                errorMessage += '字卡数组不能为空\n';
+            }
+            
+            // 验证字卡格式
+            for (let i = 0; i < importedData.cards.length; i++) {
+                if (typeof importedData.cards[i] !== 'string') {
+                    errorMessage += `第${i+1}个字卡不是字符串类型\n`;
+                }
+            }
+            
+            if (errorMessage) {
+                alert('字卡库格式不正确：\n' + errorMessage + '\n\n正确格式示例：\n{\n  "name": "我的字卡库",\n  "cards": [\n    "你好呀～",\n    "抱抱你～",\n    "贴贴！！"\n  ]\n}');
+                return;
+            }
+            
+            // 生成唯一ID
+            const libraryId = `library_${Date.now()}`;
+            
+            // 添加到字卡库列表
+            appState.cardLibraries.libraries[libraryId] = {
+                name: importedData.name,
+                cards: importedData.cards
+            };
+            
+            // 保存到存储
+            saveToStorage();
+            
+            // 更新选择列表
+            updateCardLibrarySelect();
+            
+            alert(`✅ 成功导入字卡库：${importedData.name}`);
+        } catch (error) {
+            console.error('导入字卡库失败:', error);
+            alert(`导入字卡库失败：\n${error.message}\n\n请检查文件是否为有效的JSON格式！\n\n正确格式示例：\n{\n  "name": "我的字卡库",\n  "cards": [\n    "你好呀～",\n    "抱抱你～",\n    "贴贴！！"\n  ]\n}`);
+        }
+    };
+    
+    reader.readAsText(file);
+}
+
+// 切换字卡库
+function switchCardLibrary(libraryId) {
+    if (!appState.cardLibraries.libraries[libraryId]) return;
+    
+    // 更新当前选中的字卡库
+    appState.cardLibraries.currentId = libraryId;
+    
+    // 更新回复池
+    appState.replies = appState.cardLibraries.libraries[libraryId].cards;
+    
+    // 保存到存储
+    saveToStorage();
+    
+    alert(`✅ 已切换到字卡库：${appState.cardLibraries.libraries[libraryId].name}`);
+}
+
+// 删除字卡库
+function deleteCardLibrary(libraryId) {
+    // 不能删除默认字卡库
+    if (libraryId === 'default') {
+        alert('❌ 不能删除默认字卡库！');
+        return;
+    }
+    
+    // 确认删除
+    if (!confirm(`确定要删除字卡库：${appState.cardLibraries.libraries[libraryId].name} 吗？`)) {
+        return;
+    }
+    
+    // 删除字卡库
+    delete appState.cardLibraries.libraries[libraryId];
+    
+    // 如果删除的是当前选中的字卡库，切换到默认字卡库
+    if (appState.cardLibraries.currentId === libraryId) {
+        appState.cardLibraries.currentId = 'default';
+        appState.replies = appState.cardLibraries.libraries.default.cards;
+    }
+    
+    // 保存到存储
+    saveToStorage();
+    
+    // 更新选择列表
+    updateCardLibrarySelect();
+    
+    alert('✅ 字卡库已删除！');
+}
+
+// 初始化字卡库管理
+function initCardLibraryManagement() {
+    // 更新初始选择列表
+    updateCardLibrarySelect();
+    
+    // 绑定导入事件
+    if (DOM.importCardLibraryInput) {
+        DOM.importCardLibraryInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                importCardLibrary(file);
+                e.target.value = ''; // 重置文件输入
+            }
+        });
+    }
+    
+    // 绑定切换事件
+    if (DOM.cardLibrarySelect) {
+        DOM.cardLibrarySelect.addEventListener('change', (e) => {
+            switchCardLibrary(e.target.value);
+        });
+    }
+    
+    // 绑定删除事件
+    if (DOM.deleteCardLibraryBtn) {
+        DOM.deleteCardLibraryBtn.addEventListener('click', () => {
+            deleteCardLibrary(appState.cardLibraries.currentId);
+        });
+    }
+}
+
 // 初始化设置面板
 function initSettingsPanel() {
     // 主题模式选项
@@ -2525,6 +3305,9 @@ function initSettingsPanel() {
 
     // 设置主题初始活动状态
     document.querySelector(`[data-theme="${appState.settings.theme}"]`).classList.add('active');
+    
+    // 初始化字卡库管理
+    initCardLibraryManagement();
 }
 
 // 保存设置到本地存储
@@ -2805,16 +3588,35 @@ function initBannerInteractions() {
 
     if (!banner || !fileInput) return;
 
-    // 长按触发上传
+    // 双击触发上传
+    banner.addEventListener('dblclick', () => {
+        fileInput.click();
+    });
+
+    // 长按触发重置
     banner.addEventListener('mousedown', () => {
         pressTimer = setTimeout(() => {
-            fileInput.click();
+            if (localStorage.getItem('customIntimacyBanner')) {
+                if (confirm('是否恢复默认样式的横幅？')) {
+                    localStorage.removeItem('customIntimacyBanner');
+                    banner.style.backgroundImage = 'none';
+                    const symbol = banner.querySelector('.default-symbol');
+                    if (symbol) symbol.style.display = 'block';
+                }
+            }
         }, 800);
     });
 
     banner.addEventListener('touchstart', () => {
         pressTimer = setTimeout(() => {
-            fileInput.click();
+            if (localStorage.getItem('customIntimacyBanner')) {
+                if (confirm('是否恢复默认样式的横幅？')) {
+                    localStorage.removeItem('customIntimacyBanner');
+                    banner.style.backgroundImage = 'none';
+                    const symbol = banner.querySelector('.default-symbol');
+                    if (symbol) symbol.style.display = 'block';
+                }
+            }
         }, 800);
     }, { passive: true });
 
@@ -2825,18 +3627,6 @@ function initBannerInteractions() {
     banner.addEventListener('mouseleave', clearTimer);
     banner.addEventListener('touchend', clearTimer);
     banner.addEventListener('touchmove', clearTimer, { passive: true });
-
-    // 双击重置
-    banner.addEventListener('dblclick', () => {
-        if (localStorage.getItem('customIntimacyBanner')) {
-            if (confirm('是否恢复默认样式的横幅？')) {
-                localStorage.removeItem('customIntimacyBanner');
-                banner.style.backgroundImage = 'none';
-                const symbol = banner.querySelector('.default-symbol');
-                if (symbol) symbol.style.display = 'block';
-            }
-        }
-    });
 
     // 文件选择处理
     fileInput.addEventListener('change', (e) => {

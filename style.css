@@ -1056,6 +1056,48 @@ body {
     cursor: pointer;
 }
 
+/* 字卡库选择框样式 */
+.card-library-select {
+    background: rgba(0, 0, 0, 0.05);
+    border: 2px solid transparent;
+    color: var(--text-color);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: inherit;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    appearance: none;
+    outline: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='currentColor' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 12px;
+    padding-right: 36px;
+}
+
+.card-library-select:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.card-library-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(255, 105, 180, 0.2);
+}
+
+.card-library-select option {
+    background: var(--settings-panel);
+    color: var(--text-color);
+    padding: 8px;
+    border-radius: 4px;
+}
+
+/* 调整选择框容器样式 */
+.setting-option > .card-library-select {
+    width: 100%;
+    box-sizing: border-box;
+}
+
 /* 长按菜单 */
 .context-menu {
     position: absolute;
@@ -1481,7 +1523,7 @@ body {
     height: 120px;
     overflow-y: auto;
     scrollbar-width: thin;
-    pointer-events: none;
+    pointer-events: auto;
     /* 不可编辑 */
     user-select: text;
     white-space: pre-wrap;
