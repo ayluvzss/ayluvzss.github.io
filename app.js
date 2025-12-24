@@ -1365,6 +1365,16 @@ async function saveDataWithLog() {
     }
 }
 
+// 直接保存数据（不节流，用于页面刷新前）
+async function saveImmediately() {
+    try {
+        await saveDataWithLog();
+        console.log('[Persist] saved immediately');
+    } catch (error) {
+        console.error('立即保存数据失败:', error);
+    }
+}
+
 // 创建节流版的保存函数（500ms 节流）
 const throttledSave = throttle(saveDataWithLog, 500);
 
@@ -1381,11 +1391,16 @@ async function saveToStorage() {
         }
         
         // 使用节流函数保存核心数据到 IndexedDB
-        await throttledSave();
+        await saveDataWithLog();
     } catch (error) {
         console.error('保存数据到存储失败:', error);
     }
 }
+
+// 页面刷新或关闭前，确保数据已保存
+window.addEventListener('beforeunload', async () => {
+    await saveImmediately();
+});
 
 // 应用设置
 function applySettings() {
@@ -3182,13 +3197,27 @@ function updateCardLibrarySelect() {
 // 节流函数 - 用于限制IndexedDB写入频率
 function throttle(func, limit) {
     let inThrottle;
-    return function() {
-        const args = arguments;
+    let lastArgs;
+    let lastContext;
+    
+    return function(...args) {
         const context = this;
+        lastArgs = args;
+        lastContext = context;
+        
         if (!inThrottle) {
+            // 立即执行一次
             func.apply(context, args);
             inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
+            
+            // 设置定时器，限制执行频率
+            setTimeout(() => {
+                inThrottle = false;
+                // 如果在定时器期间有新的调用，立即执行一次
+                if (lastArgs !== args || lastContext !== context) {
+                    func.apply(lastContext, lastArgs);
+                }
+            }, limit);
         }
     }
 }
