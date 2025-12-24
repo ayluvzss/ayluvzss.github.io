@@ -1190,6 +1190,9 @@ const idbManager = new IDBManager();
 // 从本地存储加载数据
 async function loadFromStorage() {
     try {
+        // 标记是否从 IndexedDB 加载了数据
+        let loadedFromIDB = false;
+        
         // 加载设置（从 IndexedDB）
         const savedSettings = await idbManager.loadData(idbManager.storeNames.SETTINGS, CONFIG.STORAGE_KEYS.SETTINGS);
         appState.settings = savedSettings ? savedSettings : {
@@ -1198,7 +1201,12 @@ async function loadFromStorage() {
 
         // 加载消息记录（从 IndexedDB）
         const savedMessages = await idbManager.loadData(idbManager.storeNames.MESSAGES, CONFIG.STORAGE_KEYS.MESSAGES);
-        appState.messages = savedMessages ? savedMessages : [];
+        if (savedMessages) {
+            appState.messages = savedMessages;
+            loadedFromIDB = true;
+        } else {
+            appState.messages = [];
+        }
 
         // 加载字卡库数据（从 IndexedDB）
         const savedCardLibraries = await idbManager.loadData(idbManager.storeNames.SETTINGS, 'cardLibraries');
@@ -1206,6 +1214,7 @@ async function loadFromStorage() {
         // 初始化字卡库
         if (savedCardLibraries) {
             appState.cardLibraries = savedCardLibraries;
+            loadedFromIDB = true;
         } else {
             // 使用默认字卡库配置
             appState.cardLibraries = {
@@ -1226,6 +1235,9 @@ async function loadFromStorage() {
         // 加载自定义表情（从 IndexedDB）
         const savedStickers = await idbManager.loadData(idbManager.storeNames.STICKERS, CONFIG.STORAGE_KEYS.STICKERS);
         appState.stickers = savedStickers ? savedStickers : CONFIG.DEFAULT_STICKERS;
+        if (savedStickers) {
+            loadedFromIDB = true;
+        }
 
         // 加载头像（从 localStorage，保持现有方式）
         const myAvatar = localStorage.getItem(CONFIG.STORAGE_KEYS.MY_AVATAR);
@@ -1246,6 +1258,7 @@ async function loadFromStorage() {
             appState.intimacy.totalPoints = savedIntimacy.totalPoints || 0;
             appState.intimacy.level = savedIntimacy.level || 0;
             appState.startDate = savedIntimacy.startDate || new Date('2024-05-02').getTime();
+            loadedFromIDB = true;
         } else {
             // 兼容旧数据，从 localStorage 迁移
             const savedPoints = localStorage.getItem(CONFIG.STORAGE_KEYS.INTIMACY_POINTS);
@@ -1268,22 +1281,30 @@ async function loadFromStorage() {
         const savedCurrentDailyDate = await idbManager.loadData(idbManager.storeNames.APP_STATE, CONFIG.STORAGE_KEYS.CURRENT_DAILY_DATE);
         if (savedCurrentDailyDate) {
             appState.currentDailyDate = savedCurrentDailyDate;
+            loadedFromIDB = true;
         }
 
         // 加载打卡数据（从 IndexedDB）
         const savedCheckinData = await idbManager.loadData(idbManager.storeNames.CHECKIN_DATA, CONFIG.STORAGE_KEYS.CHECKIN_DATA);
         if (savedCheckinData) {
             checkinData = savedCheckinData;
+            loadedFromIDB = true;
         }
 
         // 加载日志数据（从 IndexedDB）
         const savedDailyNotes = await idbManager.loadData(idbManager.storeNames.DAILY_NOTES, "dailyNotes");
         if (savedDailyNotes) {
             dailyNotes = savedDailyNotes;
+            loadedFromIDB = true;
         }
 
         // 更新标题栏显示
         updateIntimacyDisplay();
+        
+        // 输出加载日志
+        if (loadedFromIDB) {
+            console.log('[Persist] loaded from indexeddb');
+        }
 
     } catch (error) {
         console.error('加载存储数据失败:', error);
@@ -1307,8 +1328,8 @@ async function loadFromStorage() {
     }
 }
 
-// 保存数据到本地存储
-async function saveToStorage() {
+// 保存数据到 IndexedDB（带日志）
+async function saveDataWithLog() {
     try {
         // 保存消息记录（到 IndexedDB）
         await idbManager.saveData(idbManager.storeNames.MESSAGES, CONFIG.STORAGE_KEYS.MESSAGES, appState.messages);
@@ -1321,15 +1342,6 @@ async function saveToStorage() {
         
         // 保存设置（到 IndexedDB）
         await idbManager.saveData(idbManager.storeNames.SETTINGS, CONFIG.STORAGE_KEYS.SETTINGS, appState.settings);
-
-        // 保存头像（到 localStorage，保持现有方式）
-        localStorage.setItem(CONFIG.STORAGE_KEYS.MY_AVATAR, appState.avatars.my || '');
-        localStorage.setItem(CONFIG.STORAGE_KEYS.BOT_AVATAR, appState.avatars.bot || '');
-
-        // 保存背景图（到 localStorage，保持现有方式）
-        if (appState.backgroundImage) {
-            localStorage.setItem(CONFIG.STORAGE_KEYS.BACKGROUND_IMAGE, appState.backgroundImage);
-        }
 
         // 保存亲密度数据（到 IndexedDB）
         await idbManager.saveData(idbManager.storeNames.INTIMACY, 'intimacyData', {
@@ -1346,6 +1358,30 @@ async function saveToStorage() {
         
         // 保存日志数据（到 IndexedDB）
         await idbManager.saveData(idbManager.storeNames.DAILY_NOTES, "dailyNotes", dailyNotes);
+        
+        console.log('[Persist] saved to indexeddb');
+    } catch (error) {
+        console.error('保存数据到 IndexedDB 失败:', error);
+    }
+}
+
+// 创建节流版的保存函数（500ms 节流）
+const throttledSave = throttle(saveDataWithLog, 500);
+
+// 保存数据到本地存储
+async function saveToStorage() {
+    try {
+        // 保存头像（到 localStorage，保持现有方式）
+        localStorage.setItem(CONFIG.STORAGE_KEYS.MY_AVATAR, appState.avatars.my || '');
+        localStorage.setItem(CONFIG.STORAGE_KEYS.BOT_AVATAR, appState.avatars.bot || '');
+
+        // 保存背景图（到 localStorage，保持现有方式）
+        if (appState.backgroundImage) {
+            localStorage.setItem(CONFIG.STORAGE_KEYS.BACKGROUND_IMAGE, appState.backgroundImage);
+        }
+        
+        // 使用节流函数保存核心数据到 IndexedDB
+        await throttledSave();
     } catch (error) {
         console.error('保存数据到存储失败:', error);
     }
@@ -3141,6 +3177,20 @@ function updateCardLibrarySelect() {
         }
         DOM.cardLibrarySelect.appendChild(option);
     });
+}
+
+// 节流函数 - 用于限制IndexedDB写入频率
+function throttle(func, limit) {
+    let inThrottle;
+    return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    }
 }
 
 // 导入字卡库
